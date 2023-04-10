@@ -14,7 +14,7 @@ public class ClientDescription : MonoBehaviour
     {
         Name.text=GameManager.currentClient.clientName;
         Description.text = GameManager.currentClient.description;
-        fundsAvailable.text= "Funds Available : "+ GameManager.currentClient.AmmountOfInvestment.ToString();
+        fundsAvailable.text= "Funds Available : "+ GameManager.currentClient.AvInvestment.ToString();
     }
 
 }
