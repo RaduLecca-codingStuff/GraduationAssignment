@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static bool isMobile=false;
     public static GameObject mobileJoystick;
-    public static int nrOfLives = 3;
-    static bool _Win=false;
+    static int nrOfLives = 3;
+    public static bool _Win=false;
     public static int purpose=0;
     public static int sustainability=0;
     public static int experience=0;
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Blank client was succesfully added");
     }
-    public static void CheckHealth()
+    public static void CheckIfWon()
     {
         if(currentClient != null)
         {
@@ -124,6 +124,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+    public static int GetNrOfLives()
+    {
+        return nrOfLives;
     }
     public static void TryAgain()
     {
