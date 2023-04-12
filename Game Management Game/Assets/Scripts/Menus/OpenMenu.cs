@@ -37,7 +37,7 @@ public class OpenMenu : MonoBehaviour
                 _closedPos = transform.position + new Vector3(0, -distance);
                 break;
             case MenuType.left:
-                _closedPos = transform.position + new Vector3( distance,0);
+                _closedPos = transform.position + new Vector3( -distance,0);
                 break;
             case MenuType.right:
                 _closedPos = transform.position + new Vector3(distance, 0);

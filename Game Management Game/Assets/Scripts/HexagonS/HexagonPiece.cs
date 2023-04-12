@@ -6,11 +6,15 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
+using TMPro;
 
 public class HexagonPiece : MonoBehaviour
 {
     bool _drag=false;
     bool _inMenu = true;
+
+    [SerializeField]
+    TMP_Text _Name;
 
     Vector3 _offset;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
@@ -41,33 +45,24 @@ public class HexagonPiece : MonoBehaviour
     public Sprite spr4;
     [Header("Miscellaneous")]
     public type Type;
-    public string Name;
     
+
     private void Awake()
     {
         _tiles=GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
-        
-        _renderer=GetComponent<SpriteRenderer>();
-        switch (Type)
-        {
-            case type.discover:
-                _renderer.sprite = spr1;
-                break;
-            case type.develop:
-                _renderer.sprite = spr2;
-                break;
-            case type.deliver:
-                _renderer.sprite = spr3;
-                break;
-            case type.upkeep:
-                _renderer.sprite = spr4;
-                break;
-        }
+        this.SetHexColor();
+        _renderer.sortingOrder = 5;
+    }
+
+    private void Start()
+    {
+        gameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
     }
     void Update()
     {
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 6);
+        RaycastHit2D avoid = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
         if (Input.GetMouseButtonDown(0))
         {
             if (!_drag && hit.collider != null)
@@ -75,7 +70,7 @@ public class HexagonPiece : MonoBehaviour
                 TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
                 return;
             }
-            else if (_drag)
+            else if (_drag && avoid.collider==null)
             {
                 PlaceHexagon();
                 return;
@@ -104,13 +99,34 @@ public class HexagonPiece : MonoBehaviour
 
 
     }
-    public void SetUpImpact(int p,int s, int e)
+    public void SetUpHexagon(type T,int p, int s, int e, string name)
     {
-        Purpose= p;
-        Sustainability= s;
-        Experience= e;
+        Type = T;
+        Purpose = p;
+        Sustainability = s;
+        Experience = e;
+        _Name.text = name;
+        SetHexColor();
     }
-    
+    void SetHexColor()
+    {
+        _renderer = GetComponent<SpriteRenderer>();
+        switch (Type)
+        {
+            case type.discover:
+                _renderer.sprite = spr1;
+                break;
+            case type.develop:
+                _renderer.sprite = spr2;
+                break;
+            case type.deliver:
+                _renderer.sprite = spr3;
+                break;
+            case type.upkeep:
+                _renderer.sprite = spr4;
+                break;
+        }
+    }
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
@@ -122,6 +138,9 @@ public class HexagonPiece : MonoBehaviour
         Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
         Vector3 mouseP= _tiles.CellToWorld(cellPoint);
         GameManager.selectedPiece.transform.position = new Vector3(mouseP.x,mouseP.y, GameManager.selectedPiece.transform.position.z);
+        GameManager.selectedPiece.transform.parent = null;
+        GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        GameManager.selectedPiece.transform.GetComponentInChildren<Canvas>().overrideSorting = false;
         _drag = false;
     }
 
@@ -173,7 +192,6 @@ public class HexagonPiece : MonoBehaviour
     {
         return transform.parent.GetComponent<ClusterManager>();
     }
-
     public ClusterManager GetOutlierCluster()
     {
         HexagonPiece highest=new HexagonPiece();

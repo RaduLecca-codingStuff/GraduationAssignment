@@ -27,7 +27,7 @@ public class Person : MonoBehaviour
     public HexagonPiece pieceToWorkOn;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         pieceToWorkOn = new HexagonPiece();
         //modifies the ammount of investment
@@ -94,11 +94,4 @@ public class Person : MonoBehaviour
                 break;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    
 }
