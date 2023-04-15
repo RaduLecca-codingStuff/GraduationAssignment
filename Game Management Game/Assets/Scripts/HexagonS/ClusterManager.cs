@@ -11,7 +11,6 @@ public class ClusterManager : MonoBehaviour
     private void Start()
     {
         _HexagonPieces = new List<HexagonPiece>();
-        
     }
 
     void Update()
@@ -49,7 +48,6 @@ public class ClusterManager : MonoBehaviour
                     _HexagonPieces.Add(piece);
             }
         }
-       
     }
     public void RefreshValues()
     {
@@ -110,6 +108,7 @@ public class ClusterManager : MonoBehaviour
             else
                 AddHexagon(p);
         }
+        
     }
     private void OnTriggerExit(Collider other)
     {

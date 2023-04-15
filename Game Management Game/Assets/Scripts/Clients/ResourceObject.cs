@@ -4,25 +4,85 @@ using UnityEngine;
 
 public class ResourceObject : MonoBehaviour
 {
-    public enum Type
+    Resource _resource;
+    Sprite _sprite;
+    public Sprite v1;
+    public Sprite v2;
+    public Sprite v3;
+
+    public ResourceObject(Resource r)
     {
-        time,
-        resource
+        _resource = r;
+        
     }
-    public Type type;
-    int size;
-    // Start is called before the first frame update
-    public ResourceObject(int s, Type t)
+
+    private void Awake()
     {
-        this.type = t;
-        size = s;
-        if (size > 3)
+        _sprite = GetComponent<Sprite>();
+        if (_resource == null)
+            _resource = new Resource(3);
+        switch (_resource.getValue())
         {
-            size = 3;
+            case 1:
+                _sprite=v1;
+                break;
+            case 2:
+                _sprite=v2;
+                break;
+            case 3:
+                _sprite=v3;
+                break;
+            default:
+                break;
         }
-        else if (size < 1)
+    }
+
+    private void Update()
+    {
+        var mousepos = GetMousePos();
+        
+        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f);
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            size = 1;
+            if (hit.collider.tag == "Resource")
+            {
+                TakeResource(hit.collider.transform.GetComponent<ResourceObject>());
+            }
+            else if(hit.collider.tag=="Slot")
+            {
+                PlaceResource(hit.collider.transform);
+            }
+        } 
+    }
+    Vector3 GetMousePos()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+    private void TakeResource(ResourceObject r)
+    {
+        GameManager.currentRes=r;
+        Debug.Log("got the piece");
+    }
+    private void PlaceResource(Transform tr)
+    {
+        if(tr.TryGetComponent<RSlot>( out RSlot Sl))
+        {
+            Vector3 mouseP = GetMousePos();
+            GameManager.currentRes.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentRes.transform.position.z);
+            GameManager.currentRes.transform.parent = tr;
+            Debug.Log("set the piece");
         }
+        
+        
+    }
+
+    public Resource GetResource()
+    {
+        return _resource;
+    }
+    public void SetResource(Resource resource)
+    {
+        _resource = resource;
     }
 }

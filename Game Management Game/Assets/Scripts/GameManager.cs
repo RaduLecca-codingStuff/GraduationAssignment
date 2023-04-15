@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     public static int sustainability=0;
     public static int experience=0;
     public static ClusterManager mainClusterM = new ClusterManager();
+
     public static HexagonPiece selectedPiece = new HexagonPiece();
+    public static ResourceObject currentRes;
 
     public static Client currentClient;
 
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
     public void GetNewClient()
     {
-        int rnd = Random.Range(0, 10);
+        int rnd = Random.Range(0, 9);
 
         //Removoe this and then make sure that the game generates different people for each case
         List<Person> persons = new List<Person>();
@@ -57,52 +59,46 @@ public class GameManager : MonoBehaviour
         switch (rnd)
         {
             case 0:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Helix Technologies", "A technology company focused on developing cutting-edge virtual reality and augmented reality gaming experiences.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 1:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Trove Games", "A video game company specializing in multiplayer online role-playing games.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 2:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("MoonScape", "A leading mobile gaming company offering a variety of exciting and innovative titles.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 3:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("HyperTek", "A technology company that specializes in developing cyber security solutions for businesses.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 4:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("DigiPlay", "An independent video game developer and publisher that develops original titles for multiple platforms.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 5:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Stratos Systems", "A technology company specializing in the development of innovative cloud-based software solutions.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 6:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Automata Systems", "A robotics and artificial intelligence company that produces autonomous machines to help with everyday tasks.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 7:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Forge Entertainment", "An entertainment company that produces and distributes top-tier video games and virtual reality experiences.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 8:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("NoduX", "A tech company focused on creating innovative, user-friendly web and mobile applications.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             case 9:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
-                break;
-            case 10:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 0, 1, 2, 1, 1);
+                currentClient = new Client("Outliers Technologies", "A technology company that specializes in creating innovative, user-friendly hardware and software solutions.", 50, 50, 50, persons);
+                currentClient.SetInvestment(1, 0, 1);
                 break;
             default:
-                currentClient = new Client("Blank client", "Blank description here because this is a placeholder client until a set of base clients is added to the game", 50, 50, 50, persons);
-                currentClient.SetInvestmentTypes(1, 1, 1, 1, 1, 1);
                 break;
         }
 

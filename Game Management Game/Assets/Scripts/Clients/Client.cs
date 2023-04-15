@@ -8,7 +8,7 @@ public class Client : MonoBehaviour
     public string clientName;
     public string description;
     List<Person> persons;
-    List<ResourceObject> resources;
+    List<Resource> resources;
     public int AvInvestment;
     //public int AvTime;
     //needed to determine what is needed to reach endgame
@@ -25,28 +25,29 @@ public class Client : MonoBehaviour
         reqSustainability = sust;
         reqExperience = exp;
         
-        resources = new List<ResourceObject>();
+        resources = new List<Resource>();
 
     }
     // Start is called before the first frame update
 
-    public void SetInvestmentTypes(int t1,int t2, int t3, int i1, int i2, int i3)
+    public void SetInvestment( int i1, int i2, int i3)
     {
-        TryAddInBulk(t1, 1, ResourceObject.Type.time);
-        TryAddInBulk(t2, 2, ResourceObject.Type.time);
-        TryAddInBulk(t3, 3, ResourceObject.Type.time);
-        TryAddInBulk(i1, 1, ResourceObject.Type.time);
-        TryAddInBulk(i2, 2, ResourceObject.Type.time);
-        TryAddInBulk(i3, 3, ResourceObject.Type.time);
+        TryAddInBulk(i1, 1);
+        TryAddInBulk(i2, 2);
+        TryAddInBulk(i3, 3);
     }
-    void TryAddInBulk(int e,int nr, ResourceObject.Type t)
+    void TryAddInBulk(int e,int nr)
     {
         if (e > 0)
         {
             for (int i = 0; i < e; i++)
             {
-                resources.Add(new ResourceObject(nr, t));
+                resources.Add(new Resource(nr));
             }
         }
+    }
+    public List<Resource> ReturnResource()
+    {
+        return resources;
     }
 }

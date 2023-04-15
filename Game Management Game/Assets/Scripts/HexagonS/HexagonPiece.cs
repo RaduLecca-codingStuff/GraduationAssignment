@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
 using TMPro;
+using UnityEditorInternal;
 
 public class HexagonPiece : MonoBehaviour
 {
@@ -15,17 +16,19 @@ public class HexagonPiece : MonoBehaviour
 
     [SerializeField]
     TMP_Text _Name;
-
-    Vector3 _offset;
+    [SerializeField]
+    GameObject RMenu;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
+    ClusterManager cluster;
 
-    //previous position and the next position would snap
-    Vector3 _currentPos;
-    Vector3 _newPos;
+    //Person and resource
+    Person _person;
+    Resource _resource;
 
     Tilemap _tiles;
     SpriteRenderer _renderer;
     Vector3Int _prevTile;
+
     
     public enum type
     {
@@ -45,7 +48,6 @@ public class HexagonPiece : MonoBehaviour
     public Sprite spr4;
     [Header("Miscellaneous")]
     public type Type;
-    
 
     private void Awake()
     {
@@ -53,30 +55,34 @@ public class HexagonPiece : MonoBehaviour
         this.SetHexColor();
         _renderer.sortingOrder = 5;
     }
-
     private void Start()
     {
         gameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
+        this.SetHexColor();
+        CreateNewCluster();
+        
     }
     void Update()
     {
         var mousepos = GetMousePos();
-        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 6);
-        RaycastHit2D avoid = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
-        if (Input.GetMouseButtonDown(0))
+        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
+        
+        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf)
         {
-            if (!_drag && hit.collider != null)
+            if(hit.collider != null )
             {
-                TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
-                return;
+                if (!_drag )
+                {
+                    TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
+                }
             }
-            else if (_drag && avoid.collider==null)
+            else if (_drag)
             {
                 PlaceHexagon();
                 return;
             }
         }
-        //cast ray that only reaches the layer the hexagons are on and then get the piece from there
+        //changes the color of the hexagon that will be where the hexagon is placed
         if (_drag)
         {
             UnityEngine.Color color = new UnityEngine.Color(255, 255, 255);
@@ -85,7 +91,7 @@ public class HexagonPiece : MonoBehaviour
             Vector3Int cellPoint = _tiles.WorldToCell(worldPoint);
             
             //color change
-            if (cellPoint != _prevTile)
+            if (cellPoint != _prevTile )
             {
                 _tiles.SetTileFlags(_prevTile, TileFlags.None);
                 color = new UnityEngine.Color(1, 1, 1);
@@ -99,6 +105,8 @@ public class HexagonPiece : MonoBehaviour
 
 
     }
+
+    //Setting hexagons when initiated by other scripts
     public void SetUpHexagon(type T,int p, int s, int e, string name)
     {
         Type = T;
@@ -127,70 +135,111 @@ public class HexagonPiece : MonoBehaviour
                 break;
         }
     }
+
+    //Moving hexagons around
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
         _drag = true;
+        
+        _neighbours.Clear();
+
     }
-    
     private void PlaceHexagon()
     {
         Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
         Vector3 mouseP= _tiles.CellToWorld(cellPoint);
         GameManager.selectedPiece.transform.position = new Vector3(mouseP.x,mouseP.y, GameManager.selectedPiece.transform.position.z);
-        GameManager.selectedPiece.transform.parent = null;
         GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
         GameManager.selectedPiece.transform.GetComponentInChildren<Canvas>().overrideSorting = false;
+        GameManager.selectedPiece.CreateNewCluster();
         _drag = false;
     }
+
+
+    //Menu opening
+    private void OnMouseDrag()
+    {
+        StartCoroutine(OpenMenuCouroutine());
+    }
+    private void OnMouseUp() 
+    { 
+        StopAllCoroutines();
+    }
+    IEnumerator OpenMenuCouroutine() 
+    {
+        if (RMenu.activeSelf)
+        {
+            RMenu.SetActive(false);  
+        }
+        else
+        {
+            yield return new WaitForSeconds(1);
+            RMenu.SetActive(true);
+            _drag = false;
+        }
+    }
+
 
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
+    //possibly redundant
     public bool IsInMenu()
     {
         return _inMenu;
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 5)
+        if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
         {
-            _inMenu = true;
-        }
-        else if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
-        {
-            //might need to remove at least some parts of this because they're redundant
-            if (!_drag && !_inMenu)
+            if (!_neighbours.Contains(piece))
             {
-                if (!_neighbours.Contains(piece) )
+                _neighbours.Add(piece);
+                transform.parent = piece.transform.parent;
+            }
+            if (piece.transform.parent &&  piece.transform.parent != this.transform.parent)
+            {
+                if(piece.transform.parent.TryGetComponent<ClusterManager>(out ClusterManager clst))
                 {
-                    _neighbours.Add(piece);
-                }
-                if (transform.parent && collision.transform.parent)
-                {
-                    transform.SetParent(piece.transform.parent);
-                    piece.GetClusterManager().AddHexagon(this);
-                }
+                    clst.MergeClusters(this.GetClusterManager());
+                }    
             }
         }
-        else
-            return;
+
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
         {
             _neighbours.Clear();
-        }
-        if (collision.gameObject.layer == 5)
-        {
-            _inMenu = false;
+            this.GetClusterManager().RemoveHexagon(this);
+            CreateNewCluster();
         }
     }
+
+    //Cluster identification functions
     public ClusterManager GetClusterManager()
     {
         return transform.parent.GetComponent<ClusterManager>();
+    }
+    void CreateNewCluster()
+    {
+        if (!transform.parent)
+        {
+            GameObject cluster = new GameObject();
+            cluster.AddComponent<ClusterManager>().AddHexagon(this);
+            cluster.name = "Cluster";
+            cluster.AddComponent<Rigidbody2D>().gravityScale = 0;
+        }
+        else
+        {
+            GameManager.selectedPiece.transform.parent = null;
+            CreateNewCluster();
+        }
     }
     public ClusterManager GetOutlierCluster()
     {

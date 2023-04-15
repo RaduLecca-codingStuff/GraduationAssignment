@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Slot
   - Grid
+  - Resource
+  - Menu
   layers:
   - Default
   - TransparentFX
