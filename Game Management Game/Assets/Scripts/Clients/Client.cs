@@ -50,4 +50,8 @@ public class Client : MonoBehaviour
     {
         return resources;
     }
+    public List<Person> ReturnPersons()
+    { 
+        return persons;
+    }
 }
