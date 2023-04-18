@@ -25,12 +25,14 @@ public class Person : MonoBehaviour
     int _minInvestment;
     int _minTime;
     public HexagonPiece pieceToWorkOn;
-
-    // Start is called before the first frame update
+    public Person(Occupation oc)
+    {
+        occupation = oc;
+    }
     void Start()
     {
         pieceToWorkOn = new HexagonPiece();
-        //modifies the ammount of investment
+        //modifies the ammount of investment required at least 
         switch (occupation)
         {
             case Occupation.Stakeholder:

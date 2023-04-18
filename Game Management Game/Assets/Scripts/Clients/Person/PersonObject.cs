@@ -20,6 +20,59 @@ public class PersonObject : MonoBehaviour
     public Sprite VisualDesigner;
     public Sprite Tester;
 
+    RSlot _prevSlot;
+    RSlot _newSlot;
+    private void Awake()
+    {
+        _prevSlot = GetComponent<RSlot>();
+        _newSlot = GetComponent<RSlot>();
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            var mousepos = GetMousePos();
+            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f);
+            if (hit.collider.tag == "Person")
+            {
+                TakePerson(hit.transform.GetComponent<PersonObject>());
+            }
+            else if (hit.collider.tag == "Slot")
+            {
+                PlacePerson(hit.collider.transform);
+            }
+        }
+    }
+
+    Vector3 GetMousePos()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+    void TakePerson(PersonObject p)
+    {
+        _prevSlot = _newSlot;
+       GameManager.currentPer = p;
+    }
+
+    void PlacePerson(Transform tr)
+    {
+        if (tr.TryGetComponent<RSlot>(out RSlot Sl))
+        {
+            _newSlot = Sl;
+            if (_newSlot != _prevSlot)
+            {
+                Vector3 mouseP = GetMousePos();
+                GameManager.currentPer.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentPer.transform.position.z);
+                GameManager.currentPer.transform.parent = tr;
+                Sl.AddPerson(GameManager.currentPer);
+            }
+            else
+            {
+                GameManager.currentPer.transform.position = new Vector3(_prevSlot.transform.position.x, _prevSlot.transform.position.y, GameManager.currentRes.transform.position.z);
+                GameManager.currentPer.transform.parent = _prevSlot.transform;
+            }
+        }
+    }
     public void SetPerson(Person p)
     {
         _img = GetComponent<Image>();
@@ -42,8 +95,10 @@ public class PersonObject : MonoBehaviour
                 break;
         }
     }
-    // Start is called before the first frame update
-    void Awake()
+
+    public Person GetPerson() 
     {
+        return _person;
     }
+
 }

@@ -12,8 +12,6 @@ using UnityEditorInternal;
 public class HexagonPiece : MonoBehaviour
 {
     bool _drag=false;
-    bool _inMenu = true;
-
     [SerializeField]
     TMP_Text _Name;
     [SerializeField]
@@ -29,7 +27,6 @@ public class HexagonPiece : MonoBehaviour
     SpriteRenderer _renderer;
     Vector3Int _prevTile;
 
-    
     public enum type
     {
         discover,
@@ -66,7 +63,6 @@ public class HexagonPiece : MonoBehaviour
     {
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
-        
         if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf)
         {
             if(hit.collider != null )
@@ -107,7 +103,7 @@ public class HexagonPiece : MonoBehaviour
     }
 
     //Setting hexagons when initiated by other scripts
-    public void SetUpHexagon(type T,int p, int s, int e, string name)
+    public void SetUpHexagon(type T,int e, int s, int p, string name)
     {
         Type = T;
         Purpose = p;
@@ -170,11 +166,13 @@ public class HexagonPiece : MonoBehaviour
     {
         if (RMenu.activeSelf)
         {
-            RMenu.SetActive(false);  
+            yield return new WaitForSeconds(3);
+            RMenu.SetActive(false);
+            _drag = false;
         }
         else
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
             RMenu.SetActive(true);
             _drag = false;
         }
@@ -184,11 +182,6 @@ public class HexagonPiece : MonoBehaviour
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    }
-    //possibly redundant
-    public bool IsInMenu()
-    {
-        return _inMenu;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -208,9 +201,7 @@ public class HexagonPiece : MonoBehaviour
                 }    
             }
         }
-
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
@@ -250,5 +241,27 @@ public class HexagonPiece : MonoBehaviour
                 highest = piece;
         }
         return highest.GetClusterManager();
+    }
+    //Get pieces which will be used to get higher values to the hexagon
+    public void SetPerson(Person p)
+    {
+        _person = p;
+    }
+    public void SetResource(Resource r) 
+    { 
+        _resource = r;
+    }
+
+    public Person GetPerson()
+    {
+        return _person;
+    }
+    public Resource getResource()
+    {
+        return _resource;
+    }
+    public String Name()
+    {
+        return _Name.text;
     }
 }

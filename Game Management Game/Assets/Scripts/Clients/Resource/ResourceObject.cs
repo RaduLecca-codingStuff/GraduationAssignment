@@ -10,12 +10,13 @@ public class ResourceObject : MonoBehaviour
     public Sprite v1;
     public Sprite v2;
     public Sprite v3;
+    RSlot _prevSlot;
+    RSlot _newSlot;
 
     public ResourceObject(Resource r)
     {
         _resource = r;
     }
-
     private void Awake()
     {
         _img = GetComponent<Image>();
@@ -35,21 +36,21 @@ public class ResourceObject : MonoBehaviour
             default:
                 break;
         }
+        _prevSlot = GetComponent<RSlot>();
+        _newSlot = GetComponent<RSlot>();    
     }
 
     private void Update()
     {
-        var mousepos = GetMousePos();
-        
-        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f);
-        
         if (Input.GetMouseButtonDown(0))
         {
+            var mousepos = GetMousePos();
+            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f);
             if (hit.collider.tag == "Resource")
             {
-                TakeResource(hit.collider.transform.GetComponent<ResourceObject>());
+                TakeResource(hit.transform.GetComponent<ResourceObject>());
             }
-            else if(hit.collider.tag=="Slot")
+            else if (hit.collider.tag == "Slot")
             {
                 PlaceResource(hit.collider.transform);
             }
@@ -61,20 +62,27 @@ public class ResourceObject : MonoBehaviour
     }
     private void TakeResource(ResourceObject r)
     {
+         _prevSlot= _newSlot;
         GameManager.currentRes=r;
-        Debug.Log("got the piece");
     }
     private void PlaceResource(Transform tr)
     {
-        if(tr.TryGetComponent<RSlot>( out RSlot Sl))
+        if (tr.TryGetComponent<RSlot>( out RSlot Sl))
         {
-            Vector3 mouseP = GetMousePos();
-            GameManager.currentRes.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentRes.transform.position.z);
-            GameManager.currentRes.transform.parent = tr;
-            Debug.Log("set the piece");
+            _newSlot = Sl;
+            if (_newSlot != _prevSlot)
+            {
+                Vector3 mouseP = GetMousePos();
+                GameManager.currentRes.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentRes.transform.position.z);
+                GameManager.currentRes.transform.parent = tr;
+                Sl.AddResource(GameManager.currentRes);
+            }
+            else
+            {
+                GameManager.currentRes.transform.position = new Vector3(_prevSlot.transform.position.x, _prevSlot.transform.position.y, GameManager.currentRes.transform.position.z);
+                GameManager.currentRes.transform.parent = _prevSlot.transform;
+            }
         }
-        
-        
     }
 
     public Resource GetResource()
@@ -84,5 +92,20 @@ public class ResourceObject : MonoBehaviour
     public void SetResource(Resource resource)
     {
         _resource = resource;
+        switch (_resource.getValue())
+        {
+            case 1:
+                _img.sprite = v1;
+                break;
+            case 2:
+                _img.sprite = v2;
+                break;
+            case 3:
+                _img.sprite = v3;
+                break;
+            default:
+                break;
+        }
     }
+
 }

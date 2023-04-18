@@ -8,6 +8,9 @@ TagManager:
   - Grid
   - Resource
   - Menu
+  - Person
+  - UIHexagon
+  - Cluster
   layers:
   - Default
   - TransparentFX

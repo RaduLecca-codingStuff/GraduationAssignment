@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 440854504317559300}
   m_Layer: 5
   m_Name: UI Hexagon Piece
-  m_TagString: Untagged
+  m_TagString: UIHexagon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

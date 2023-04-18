@@ -24,9 +24,7 @@ public class Client : MonoBehaviour
         reqPurpose = pur;
         reqSustainability = sust;
         reqExperience = exp;
-        
         resources = new List<Resource>();
-
     }
     // Start is called before the first frame update
 
@@ -35,6 +33,10 @@ public class Client : MonoBehaviour
         TryAddInBulk(i1, 1);
         TryAddInBulk(i2, 2);
         TryAddInBulk(i3, 3);
+    }
+    public void SetPeople(List<Person> list)
+    {
+        persons = list;
     }
     void TryAddInBulk(int e,int nr)
     {
