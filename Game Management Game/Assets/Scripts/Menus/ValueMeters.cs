@@ -28,13 +28,13 @@ public class ValueMeters : MonoBehaviour
         switch (type)
         {
             case Type.purpose:
-                _bar.transform.localScale = new Vector3(GameManager.purpose * .01f, _bar.transform.localScale.y,1);
+                _bar.transform.localScale = new Vector3(GameManager.purpose *0.01f, _bar.transform.localScale.y,1);
                 break;
             case Type.sustainability:
-                _bar.transform.localScale = new Vector3(GameManager.sustainability * .01f, _bar.transform.localScale.y,1);
+                _bar.transform.localScale = new Vector3(GameManager.sustainability * 0.01f, _bar.transform.localScale.y,1);
                 break;
             case Type.experience:
-                _bar.transform.localScale = new Vector3(GameManager.experience * .01f, _bar.transform.localScale.y, 1);
+                _bar.transform.localScale = new Vector3(GameManager.experience * 0.01f, _bar.transform.localScale.y, 1);
                 break;
         }
     }

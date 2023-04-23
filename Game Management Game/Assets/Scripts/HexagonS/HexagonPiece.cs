@@ -17,11 +17,11 @@ public class HexagonPiece : MonoBehaviour
     [SerializeField]
     GameObject RMenu;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
-    ClusterManager cluster;
 
     //Person and resource
     Person _person;
     Resource _resource;
+
 
     Tilemap _tiles;
     SpriteRenderer _renderer;
@@ -151,8 +151,6 @@ public class HexagonPiece : MonoBehaviour
         GameManager.selectedPiece.CreateNewCluster();
         _drag = false;
     }
-
-
     //Menu opening
     private void OnMouseDrag()
     {
@@ -186,6 +184,7 @@ public class HexagonPiece : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
         {
             if (!_neighbours.Contains(piece))
@@ -201,6 +200,7 @@ public class HexagonPiece : MonoBehaviour
                 }    
             }
         }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -222,12 +222,14 @@ public class HexagonPiece : MonoBehaviour
         if (!transform.parent)
         {
             GameObject cluster = new GameObject();
-            cluster.AddComponent<ClusterManager>().AddHexagon(this);
+            cluster.AddComponent<ClusterManager>();
+            this.transform.SetParent(cluster.transform);
             cluster.name = "Cluster";
             cluster.AddComponent<Rigidbody2D>().gravityScale = 0;
         }
         else
         {
+            if(GameManager.selectedPiece.transform.parent)
             GameManager.selectedPiece.transform.parent = null;
             CreateNewCluster();
         }
@@ -252,13 +254,19 @@ public class HexagonPiece : MonoBehaviour
         _resource = r;
     }
 
-    public Person GetPerson()
+    public string GetPersonOccupation()
     {
-        return _person;
+        if (_person == null)
+            return "";
+        else
+            return _person.occupation.ToString();
     }
-    public Resource getResource()
+    public int GetResourceValue()
     {
-        return _resource;
+        if (_resource == null)
+            return 0;
+        else
+            return _resource.getValue();
     }
     public String Name()
     {

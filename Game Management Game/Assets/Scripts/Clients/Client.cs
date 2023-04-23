@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class Client : MonoBehaviour
+public class Client 
 {
     public string clientName;
     public string description;
@@ -15,8 +15,10 @@ public class Client : MonoBehaviour
     public int reqPurpose;
     public int reqSustainability;
     public int reqExperience;
+    int _chancesToExtra;
+    int[] _whatToOffer=new int[3];
 
-    public Client(string name,string description,int pur,int sust,int exp,List<Person> list)
+    public Client(string name,string description,int pur,int sust,int exp,List<Person> list, int chances)
     {
         this.clientName = name;
         this.description = description;
@@ -25,9 +27,12 @@ public class Client : MonoBehaviour
         reqSustainability = sust;
         reqExperience = exp;
         resources = new List<Resource>();
+        //might require the change this later
+        _whatToOffer[0] = exp * 2 / 3;
+        _whatToOffer[1] = sust * 2 / 3;
+        _whatToOffer[2] = pur * 2 / 3;
+        _chancesToExtra = chances;
     }
-    // Start is called before the first frame update
-
     public void SetInvestment( int i1, int i2, int i3)
     {
         TryAddInBulk(i1, 1);
@@ -55,5 +60,23 @@ public class Client : MonoBehaviour
     public List<Person> ReturnPersons()
     { 
         return persons;
+    }
+    public int[] ReturnPossibleValue()
+    {
+       return _whatToOffer;
+    }
+    public int GetChances()
+    {
+        return _chancesToExtra;
+    }
+    public void ChanceUsed()
+    {
+        _chancesToExtra--;
+    }
+    public void IncreaseRequirements()
+    {
+        reqPurpose +=GameManager.difficulty*3;
+        reqSustainability += GameManager.difficulty * 3;
+        reqExperience += GameManager.difficulty * 3;
     }
 }

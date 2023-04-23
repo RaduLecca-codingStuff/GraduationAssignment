@@ -108,8 +108,29 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         case "Awareness":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 3, 1, 1, _text.text);
                             break;
-                        case "Design Space":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 1, 1, 1, _text.text);
+                        case "Design Space Analysis":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 1, 4, 3, _text.text);
+                            break;
+                        case "Player Investigation":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 4, 3, 2, _text.text);
+                            break;
+                        case "Journey Investigation":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 1, 1, 4, _text.text);
+                            break;
+                        case "Game Storm":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 3, 3, 4, _text.text);
+                            break;
+                        case "Subject Matter Expert Investigation":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 1, 4, 3, _text.text);
+                            break;
+                        case "Game Concept":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 4, 4, 4, _text.text);
+                            break;
+                        case "Identify Game Loop":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 4, 2, 4, _text.text);
+                            break;
+                        case "Feature Roadmap":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 2, 4, 2, _text.text);
                             break;
                         default: break;
                     }
@@ -121,10 +142,10 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 1, 1, _text.text);
                             break;
                         case "Minimum Viable Product":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 2, 1, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 3, 1, _text.text);
                             break;
                         case "Minimum Usable Product":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 2, 2, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 3, 2, _text.text);
                             break;
                         case "Solution":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3, 3, 3, _text.text);
@@ -144,8 +165,8 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         case "Concept":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 1, 1, 2, _text.text);
                             break;
-                        case "Test":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 2, 1, _text.text);
+                        case "Playtest":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 4, 3, 1, _text.text);
                             break;
                         case "Iterate":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 2, 1, _text.text);
@@ -162,26 +183,43 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         case "Define":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 1, 3, 1, _text.text);
                             break;
-
+                        case "Design Documentation":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 4, 3, _text.text);
+                            break;
+                        case "Wireframes":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3, 3, 4, _text.text);
+                            break;
+                        case "Paper Prototype":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 4, 4, _text.text);
+                            break;
+                        case "Click-thru":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 4, 4, _text.text);
+                            break;
+                        case "Feature Roadmap":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 4, 2, _text.text);
+                            break;
+                        case "Design Elaborations":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 1, 4, 1, _text.text);
+                            break;
                     }
                     break;
                 case type.deliver:
                     switch (_text.text)
                     {
-                        case "Test":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2,3, 2, _text.text);
+                        case "Playtest":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2,4, 3, _text.text);
                             break;
                         case "Validate":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 1, 3, 1, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 1, 4, 1, _text.text);
                             break;
                         case "Launch":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 1, 1, 3, _text.text);
                             break;
-                        case "Fine-Tuning":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 3, 2, 2, _text.text);
+                        case "Design Tuning":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 4, 2, 2, _text.text);
                             break;
                         case "Implementation":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2, 1, 3, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2, 1, 4, _text.text);
                             break;
                         case "Closing":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 1, 2, 1, _text.text);
@@ -192,25 +230,41 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         case "Production":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 1, 2, 1, _text.text);
                             break;
+                        case "User Stories":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 4, 3, 2, _text.text);
+                            break;
+                        case "Minimum Usable Product":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2, 3, 2, _text.text);
+                            break;
+                        case "Minimum Viable Product":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2, 3, 1, _text.text);
+                            break;
+                        case "Feature Roadmap":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 2, 4, 2, _text.text);
+                            break;
+
                     }
                     break;
                 case type.upkeep:
                     switch (_text.text)
                     {
                         case "Monetize":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 1, 3, 1, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 1, 4, 1, _text.text);
                             break;
                         case "Upscale":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 3, 1, 2, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 4, 1, 2, _text.text);
                             break;
                         case "Support":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 2, 2, 2, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 3, 3, 3, _text.text);
                             break;
                         case "Updates":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 2, 2, 2, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 4, 4, 4, _text.text);
                             break;
                         case "Maintenance":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 3, 3, 1, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 4, 3, 1, _text.text);
+                            break;
+                        case "Feature Roadmap":
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 2, 4, 2, _text.text);
                             break;
                     }
                     break;

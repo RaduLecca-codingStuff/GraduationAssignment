@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ClusterManager : MonoBehaviour
 {
-    public float avgPurpose = 0;
-    public float avgSustainability = 0;
-    public float avgExperience = 0;
+    //avg cluster valures
+    public float _avgPurpose = 0;
+    public float _avgSustainability = 0;
+    public float _avgExperience = 0;
     List<HexagonPiece> _HexagonPieces = new List<HexagonPiece>();
+    int prevChildCount = 0;
     private void Start()
     {
         _HexagonPieces = new List<HexagonPiece>();
@@ -16,207 +19,165 @@ public class ClusterManager : MonoBehaviour
 
     void Update()
     {
-        if ((_HexagonPieces.Count > GameManager.mainClusterM._HexagonPieces.Count)&&_HexagonPieces!=null)
+        if (this._avgExperience>=GameManager.experience && this._avgPurpose>= GameManager.purpose && this._avgSustainability>=GameManager.sustainability)
         {
             GameManager.mainClusterM = this;
-            GameManager.purpose = avgPurpose;
-            GameManager.sustainability = avgSustainability; 
-            GameManager.experience = avgExperience;
+            GameManager.purpose = _avgPurpose;
+            GameManager.sustainability = _avgSustainability; 
+            GameManager.experience = _avgExperience;
+            
         }
-        if(transform.childCount==0)
-            Destroy(this.gameObject);
-    }
-    public void AddHexagon(HexagonPiece piece)
-    {
-        if (!_HexagonPieces.Contains(piece))
+        if (this.transform.childCount == 0)
         {
-            _HexagonPieces.Add(piece);
-            avgExperience += piece.Experience;
-            avgPurpose += piece.Purpose;
-            avgSustainability += piece.Sustainability;
-            piece.transform.SetParent(this.transform);
-        }
-        
-    }
-    public void RefreshHexagonList()
-    {
-        _HexagonPieces= new List<HexagonPiece>();
-        foreach (Transform obj in transform)
-        {
-            if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
+            if (this==GameManager.mainClusterM)
             {
-                if(!_HexagonPieces.Contains(piece))
-                    _HexagonPieces.Add(piece);
+                GameManager.mainClusterM = new ClusterManager();
+                GameManager.purpose = 0;
+                GameManager.sustainability =0;
+                GameManager.experience = 0;
             }
+                Destroy(this.gameObject);
+        }
+            
+        if (prevChildCount != transform.childCount)
+        {
+            RefreshValues();
+            prevChildCount = transform.childCount;
         }
     }
+
     public void RefreshValues()
     {
-        avgExperience =0;
-        avgPurpose = 0;
-        avgSustainability = 0;
-
         float exp = 0;
         float pur = 0;
         float sust = 0;
+        
 
         foreach (Transform obj in transform)
-        {
-            //heres where the calculations for how much each hexagon adds. This cahnges with person and resource
+        { 
+            //heres where the calculations for how much each hexagon adds. This changes with person and resource
             if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
             {
                 exp += piece.Experience;
                 pur += piece.Purpose;
                 sust += piece.Sustainability;
-                if (piece.GetPerson() == null)
+                switch (piece.GetPersonOccupation())
                 {
-                    //calculate here what happens here based solely on the resource buff
-                    //Switch
-                    if(piece.getResource() == null)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        switch (piece.getResource().getValue())
+                    case "Stakeholder":
+                        if (piece.Type == HexagonPiece.type.discover || piece.Name() == "Design Elaborations")
                         {
-                            case 1:
-                                exp *= 1.2f;
-                                pur *= 1.2f;
-                                sust *= 1.2f;
-                                break;
-                            case 2:
-                                pur *= 1.4f;
-                                pur *= 1.4f;
-                                sust *= 1.4f;
-                                break;
-                            case 3:
-                                sust *= 1.6f;
-                                pur *= 1.6f;
-                                sust *= 1.6f;
-                                break;
+                            sust += 2;
+                            pur += 3;
                         }
-                    }
-                    return;
-                }
-                else
-                {
-                    //finish the calculations here later. just make sure that these make sense (ex: if the person is a visual designer, visual aspects of game development are what he's gonna buff up)
-                    //make the check based on either the name of the hexagon or the type of hexagon
-                    switch (piece.GetPerson().occupation)
-                    {
-                        default:
-                        case Person.Occupation.Stakeholder:
-                            if (piece.Type == HexagonPiece.type.discover)
-                            {
-                                sust += 2;
-                                pur += 3;
-                            }
-                            break;
-                        case Person.Occupation.Sponsor:
-                            if (piece.Type == HexagonPiece.type.upkeep)
-                            {
-                                sust += 3;
-                            }
-                            break;
-                        case Person.Occupation.EndUser:
-                            if (piece.Name()=="Test" )
-                            {
-                                exp += 3;
-                            }
-                            break;
-                        case Person.Occupation.UXdesigner:
-                            if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates")
-                            {
-                                exp += 3;
-                            }
-                            break;
-                        case Person.Occupation.ProjectManager:
+                        break;
+                    case "Sponsor":
+                        if (piece.Type == HexagonPiece.type.upkeep || piece.Name() == "Game Concept")
+                        {
                             sust += 3;
-                            exp += 1;
-                            
-                            break;
-                        case Person.Occupation.PSO:
-                            if (piece.Type == HexagonPiece.type.upkeep)
-                            {
-                                sust += 3;
-                                exp += 3;
-                            }
-                            break;
-                        case Person.Occupation.SME:
-                            if (piece.Type == HexagonPiece.type.discover || piece.Name() == "Solution" || piece.Name() == "Concept" || piece.Name() == "Execution" || piece.Name() == "Proof of Concept")
-                            {
-                                sust += 3;
-                                exp += 3;
-                            }
-                            break;
-                        case Person.Occupation.ProductOwner:
-                            if (piece.Type == HexagonPiece.type.discover)
-                            {
-                                pur += 3;
-                            }
-                            break;
-                        case Person.Occupation.Programmer:
-                            if (piece.Type == HexagonPiece.type.develop)
-                            {
-                                sust += 2;
-                                pur += 3;
-                            }
-                            break;
-                            //might need to remove due to redundancy
-                        case Person.Occupation.ExperienceExpert:
-                            if (piece.Name() == "Fine-Tuning" || piece.Name() == "Executiion" || piece.Name() == "Updates")
-                            {
-                                exp += 3;
-                            }
-                            break;
-                        case Person.Occupation.VisualDesigner:
-                            if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept")
-                            {
-                                pur += 3;
-                                exp += 2;
-                            }
-                            break;
-                        case Person.Occupation.Tester:
-                            sust += 1;
-                            pur += 1;
-                            exp += 1;
-                            break;
-
-                    }
-                    if (piece.getResource() == null)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        switch (piece.getResource().getValue())
-                        {
-                            case 1:
-                                exp *= 1.2f;
-                                pur *= 1.2f;
-                                sust *= 1.2f;
-                                break;
-                            case 2:
-                                pur *= 1.4f;
-                                pur *= 1.4f;
-                                sust *= 1.4f;
-                                break;
-                            case 3:
-                                sust *= 1.6f;
-                                pur *= 1.6f;
-                                sust *= 1.6f;
-                                break;
                         }
-                    }
+                        break;
+                    case "EndUser":
+                        if (piece.Name() == "Playtest" || piece.Name() == "Paper Prototype" || piece.Name() == "User Stories")
+                        {
+                            exp += 3;
+                        }
+                        break;
+                    case "UXdesigner":
+                        if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype")
+                        {
+                            exp += 3;
+                        }
+                        break;
+                    case "ProjectManager":
+                        sust += 3;
+                        exp += 1;
 
+                        break;
+                    case "PSO":
+                        if (piece.Type == HexagonPiece.type.upkeep)
+                        {
+                            sust += 3;
+                            exp += 3;
+                        }
+                        break;
+                    case "SME":
+                        if (piece.Name() == "Solution" || piece.Name() == "Concept" || piece.Name() == "Execution" || piece.Name() == "Proof of Concept")
+                        {
+                            sust += 2;
+                            exp += 2;
+                        }
+                        else if (piece.Name() == "Subject Matter Expert Investigation")
+                        {
+                            sust += 4;
+                            pur += 4;
+                            exp += 4;
+                        }
+                        break;
+                    case "ProductOwner":
+                        if (piece.Type == HexagonPiece.type.discover)
+                        {
+                            pur += 3;
+                        }
+                        break;
+                    case "Programmer":
+                        if (piece.Type == HexagonPiece.type.develop)
+                        {
+                            sust += 2;
+                            pur += 3;
+                        }
+                        break;
+
+                    case "ExperienceExpert":
+                        if (piece.Name() == "Fine-Tuning" || piece.Name() == "Executiion" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype" || piece.Name() == "Wireframes")
+                        {
+                            exp += 3;
+                        }
+                        break;
+                    case "VisualDesigner":
+                        if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept" || piece.Name() == "Paper Prototype")
+                        {
+                            pur += 3;
+                            exp += 2;
+                        }
+                        break;
+                    case "Tester":
+                        sust += 1;
+                        pur += 1;
+                        exp += 1;
+                        break;
+                    default:
+                        Debug.Log("Ok, so it doesn't give errors");
+                        break;
                 }
-                avgExperience += exp;
-                avgPurpose += pur;
-                avgSustainability += sust;
-
+                switch (piece.GetResourceValue())
+                {
+                    case 1:
+                        exp *= 1.2f;
+                        pur *= 1.2f;
+                        sust *= 1.2f;
+                        break;
+                    case 2:
+                        pur *= 1.4f;
+                        pur *= 1.4f;
+                        sust *= 1.4f;
+                        break;
+                    case 3:
+                        sust *= 1.6f;
+                        pur *= 1.6f;
+                        sust *= 1.6f;
+                        break;
+                    default:
+                        Debug.Log("Which is good, so I can add the modifiers in these two switch statements");
+                        break;
+                }
             }
         }
+        
+        _avgExperience = exp;
+        _avgPurpose = pur;
+        _avgSustainability = sust;
+        
+        
     }
     public bool isInHere(HexagonPiece piece)
     {
@@ -224,9 +185,9 @@ public class ClusterManager : MonoBehaviour
     }
     public void RemoveHexagon(HexagonPiece piece)
     {
-        avgExperience -= piece.Experience;
-        avgPurpose -= piece.Purpose;
-        avgSustainability -= piece.Sustainability;
+        _avgExperience -= piece.Experience;
+        _avgPurpose -= piece.Purpose;
+        _avgSustainability -= piece.Sustainability;
     }
     public int NrOfHexagons()
     {
@@ -243,15 +204,14 @@ public class ClusterManager : MonoBehaviour
                 newparent = transform;
             foreach (Transform obj in transform)
             {
-                obj.SetParent(newparent.transform);
+                obj.SetParent(newparent);
+                newparent.GetComponent<ClusterManager>().RefreshValues();
             }
-            RefreshHexagonList();
-            RefreshValues();
         }
-        
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         if(collision.TryGetComponent<HexagonPiece>(out HexagonPiece p))
         {
             if (p.transform.parent)
@@ -259,8 +219,8 @@ public class ClusterManager : MonoBehaviour
                 if (p.transform.parent.childCount >= 1)
                     this.MergeClusters(p.GetClusterManager());
             }
-            else
-                AddHexagon(p);
+            
+
         }
         
     }
