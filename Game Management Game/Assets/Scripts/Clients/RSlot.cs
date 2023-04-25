@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RSlot : MonoBehaviour
 {
+    HexagonPiece _parentHexagon;
     public enum Type
     {
         person,
@@ -12,32 +13,33 @@ public class RSlot : MonoBehaviour
     public Type type;
     PersonObject _person;
     ResourceObject _resource;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        _parentHexagon=transform.parent.parent.parent.GetComponent<HexagonPiece>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void AddResource(ResourceObject r)
     {
         _resource = r;
+        _parentHexagon.GetClusterManager().RefreshValues();
     }
+
     public void RemoveResource()
     {
         _resource=null;
+        _parentHexagon.GetClusterManager().RefreshValues();
     }
     public void AddPerson(PersonObject p)
     {
         _person = p;
+        _parentHexagon.GetClusterManager().RefreshValues();
     }
     public void RemovePerson()
     {
         _person=null;
+        _parentHexagon.GetClusterManager().RefreshValues();
     }
     public void TrySendResources()
     {

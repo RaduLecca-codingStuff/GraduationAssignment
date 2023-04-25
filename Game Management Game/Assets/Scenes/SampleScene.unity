@@ -600,7 +600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 569.42993, y: -148.93}
+  m_AnchoredPosition: {x: 569, y: -148.93}
   m_SizeDelta: {x: 137.57007, y: 65.859985}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &148742669
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 1826246044}
   _menu: {fileID: 201716139}
-  distance: 4
+  distance: 545
   type: 2
 --- !u!1 &149146992
 GameObject:
@@ -6804,7 +6804,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &721074237
 MonoBehaviour:
@@ -14087,7 +14087,7 @@ RectTransform:
   - {fileID: 1420504561}
   - {fileID: 805947516}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -16990,7 +16990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 1969456526}
   _menu: {fileID: 315690013}
-  distance: 2
+  distance: 245
   type: 1
 --- !u!1 &1826246042
 GameObject:
@@ -32225,7 +32225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134752160
 PrefabInstance:

@@ -62,7 +62,8 @@ public class ResourceObject : MonoBehaviour
     }
     private void TakeResource(ResourceObject r)
     {
-         _prevSlot= _newSlot;
+        _prevSlot.RemoveResource();
+        _prevSlot = _newSlot;
         GameManager.currentRes=r;
     }
     private void PlaceResource(Transform tr)

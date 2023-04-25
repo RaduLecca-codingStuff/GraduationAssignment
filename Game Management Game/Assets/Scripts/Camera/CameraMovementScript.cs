@@ -11,10 +11,15 @@ public class CameraMovementScript : MonoBehaviour
     bool _isMoving=false;
     Vector2 _direction;
     Vector2 _initPos;
+    float _cameraWidth;
+    float _cameraHeight;
     // Start is called before the first frame update
     void Start()
     {
         _initPos = transform.position;
+        Camera cam = Camera.main;
+        _cameraHeight = 2 * cam.orthographicSize;
+        _cameraWidth = _cameraHeight * cam.aspect;
     }
     private void Update()
     {
@@ -27,14 +32,12 @@ public class CameraMovementScript : MonoBehaviour
         if (_isMoving)
         {
             Vector3 tempVect = (Vector3)_direction.normalized * speed * Time.deltaTime;
-            if (isInRange(transform.position.x + tempVect.x, -maxWidth / 2, maxWidth / 2)
-                && isInRange(transform.position.y + tempVect.y, -maxHeight / 2, maxHeight / 2))
+            if (isInRange(transform.position.x + tempVect.x, -(maxWidth-(int)_cameraWidth) / 2, (maxWidth-(int)_cameraWidth) / 2)
+                && isInRange(transform.position.y + tempVect.y, -(maxHeight- (int)_cameraHeight) / 2, (maxHeight- (int)_cameraHeight) / 2))
             {
                 transform.position += tempVect;
             }
-
         }
-
     }
     public void MoveCamera(float h, float v)
     {
@@ -50,6 +53,7 @@ public class CameraMovementScript : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(_initPos, new Vector3(maxWidth, maxHeight, 1));
+        Gizmos.DrawWireCube(_initPos, new Vector3(_cameraWidth, _cameraHeight, 1));
     }
     bool isInRange(float numberToCheck, int bottom, int top)
     {

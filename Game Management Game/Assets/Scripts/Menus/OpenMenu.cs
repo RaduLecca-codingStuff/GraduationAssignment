@@ -27,24 +27,24 @@ public class OpenMenu : MonoBehaviour
     void Awake()
     {
         _button.onClick.AddListener(()=>ButtonClick());
-        _openedPos=transform.position;
+        _openedPos=transform.localPosition;
         switch (type)
         {
             case MenuType.up:
-                _closedPos=transform.position+new Vector3(0,distance);
+                _closedPos=transform.localPosition + new Vector3(0,distance);
                 break;
             case MenuType.down:
-                _closedPos = transform.position + new Vector3(0, -distance);
+                _closedPos = transform.localPosition + new Vector3(0, -distance);
                 break;
             case MenuType.left:
-                _closedPos = transform.position + new Vector3( -distance,0);
+                _closedPos = transform.localPosition + new Vector3( -distance,0);
                 break;
             case MenuType.right:
-                _closedPos = transform.position + new Vector3(distance, 0);
+                _closedPos = transform.localPosition + new Vector3(distance, 0);
                 break;
         }
         _menu.color = _menu.color - new Color(0, 0, 0, 1);
-        transform.position = _closedPos;
+        transform.localPosition = _closedPos;
         //need to fix the attempt at getting the renderers
         foreach (Image image in _menu.transform.GetComponentsInChildren<Image>())
         {
@@ -84,10 +84,10 @@ public class OpenMenu : MonoBehaviour
     }
     IEnumerator OpenMenuCoroutine()
     {
-        while (transform.position !=_openedPos)
+        while (transform.localPosition != _openedPos)
         {
             _menu.color+=new Color(0,0,0,.02f);
-            transform.position=Vector3.MoveTowards(transform.position,_openedPos,distance*.01f);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _openedPos,distance*.01f);
             
             foreach (Image image in _menu.transform.GetComponentsInChildren<Image>())
             {
@@ -111,10 +111,10 @@ public class OpenMenu : MonoBehaviour
     }
     IEnumerator CloseMenuCoroutine()
     {
-        while (transform.position != _closedPos)
+        while (transform.localPosition != _closedPos)
         {
             _menu.color -= new Color(0, 0, 0, .02f);
-            transform.position = Vector3.MoveTowards(transform.position, _closedPos, distance * .01f);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, _closedPos, distance * .01f);
             
             foreach(Image image in _menu.transform.GetComponentsInChildren<Image>())
             {

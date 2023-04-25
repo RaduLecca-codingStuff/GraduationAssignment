@@ -50,6 +50,7 @@ public class PersonObject : MonoBehaviour
     }
     void TakePerson(PersonObject p)
     {
+        _prevSlot.RemovePerson();
         _prevSlot = _newSlot;
        GameManager.currentPer = p;
     }

@@ -17,11 +17,11 @@ public class HexagonPiece : MonoBehaviour
     [SerializeField]
     GameObject RMenu;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
-
+    CameraMovementScript _movementScript;
     //Person and resource
     Person _person;
     Resource _resource;
-
+    
 
     Tilemap _tiles;
     SpriteRenderer _renderer;
@@ -49,6 +49,7 @@ public class HexagonPiece : MonoBehaviour
     private void Awake()
     {
         _tiles=GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
+        _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
         _renderer.sortingOrder = 5;
     }
@@ -57,7 +58,6 @@ public class HexagonPiece : MonoBehaviour
         gameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
         this.SetHexColor();
         CreateNewCluster();
-        
     }
     void Update()
     {
@@ -137,7 +137,6 @@ public class HexagonPiece : MonoBehaviour
     {
         GameManager.selectedPiece = p;
         _drag = true;
-        
         _neighbours.Clear();
 
     }
@@ -149,6 +148,7 @@ public class HexagonPiece : MonoBehaviour
         GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
         GameManager.selectedPiece.transform.GetComponentInChildren<Canvas>().overrideSorting = false;
         GameManager.selectedPiece.CreateNewCluster();
+        
         _drag = false;
     }
     //Menu opening
@@ -164,14 +164,15 @@ public class HexagonPiece : MonoBehaviour
     {
         if (RMenu.activeSelf)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1.4f);
             RMenu.SetActive(false);
             _drag = false;
         }
         else
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1.4f);
             RMenu.SetActive(true);
+            PositionMenu();
             _drag = false;
         }
     }
@@ -253,7 +254,25 @@ public class HexagonPiece : MonoBehaviour
     { 
         _resource = r;
     }
-
+    void PositionMenu()
+    {
+        if (transform.position.x >= _movementScript.maxWidth / 2 - 1)
+        {
+            RMenu.transform.localPosition = new Vector3(-1510, transform.localPosition.y, 0);
+        }
+        if (transform.position.x <= -1 * (_movementScript.maxWidth / 2 - 1))
+        {
+            RMenu.transform.localPosition += new Vector3(1510, 0, 0);
+        }
+        if (transform.position.y <= -1 * (_movementScript.maxHeight / 2 - 1))
+        {
+            RMenu.transform.localPosition += new Vector3(0, 1510, 0);
+        }
+        if(isInRange(transform.position.x, -1 * (_movementScript.maxWidth / 2 - 1), _movementScript.maxWidth / 2 - 1) && isInRange(transform.position.y, -1 * (_movementScript.maxHeight / 2 - 1), _movementScript.maxHeight / 2 - 1))
+        {
+            RMenu.transform.localPosition = new Vector3(0, 0, 0);
+        }
+    }
     public string GetPersonOccupation()
     {
         if (_person == null)
@@ -271,5 +290,10 @@ public class HexagonPiece : MonoBehaviour
     public String Name()
     {
         return _Name.text;
+    }
+
+    bool isInRange(float value, float left, float right)
+    {
+        return value > left && value < right;
     }
 }
