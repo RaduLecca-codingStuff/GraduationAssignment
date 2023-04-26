@@ -7,7 +7,6 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
 using TMPro;
-using UnityEditorInternal;
 
 public class HexagonPiece : MonoBehaviour
 {

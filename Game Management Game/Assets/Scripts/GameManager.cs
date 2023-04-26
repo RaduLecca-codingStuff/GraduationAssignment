@@ -59,75 +59,130 @@ public class GameManager : MonoBehaviour
         int rnd = Random.Range(0, 9);
 
         //Removoe this and then make sure that the game generates different people for each case
-        List<Person> persons = new List<Person>();
-        if(rnd!=prevrnd) 
+        List<Person> persons = new List<Person>
+        {
+            new Person(Person.Occupation.ProductOwner),
+            new Person(Person.Occupation.ProjectManager),
+            new Person(Person.Occupation.EndUser),
+            new Person(Person.Occupation.Stakeholder)
+        };
+        if (rnd!=prevrnd) 
         {
             switch (rnd)
             {
                 case 0:
-                    currentClient = new Client("Helix Technologies", "A technology company focused on developing cutting-edge virtual reality and augmented reality gaming experiences.", 50, 50, 50, persons,3);
-                    currentClient.SetInvestment(1, 5, 5);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Stakeholder));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.PSO));
+                    persons.Add(new Person(Person.Occupation.SME));
+                    currentClient = new Client("Helix Technologies", "A technology company focused on developing cutting-edge virtual reality and augmented reality gaming experiences.", 50, 50, 50, persons,5);
+                    currentClient.SetInvestment(2, 6, 6);
                     break;
                 case 1:
-                    currentClient = new Client("Trove Games", "A video game company specializing in multiplayer online role-playing games.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(7, 5, 4);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    currentClient = new Client("Trove Games", "A video game company specializing in multiplayer online role-playing games.", 50, 50, 50, persons, 4);
+                    currentClient.SetInvestment(8, 6, 5);
                     break;
                 case 2:
-                    currentClient = new Client("MoonScape", "A leading mobile gaming company offering a variety of exciting and innovative titles.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(0, 3, 6);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    currentClient = new Client("MoonScape", "A leading mobile gaming company offering a variety of exciting and innovative titles.", 50, 30, 60, persons, 4);
+                    currentClient.SetInvestment(1, 4, 7);
                     break;
                 case 3:
-                    currentClient = new Client("HyperTek", "A technology company that specializes in developing cyber security solutions for businesses.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(5,5, 5);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.PSO));
+                    persons.Add(new Person(Person.Occupation.SME));
+                    currentClient = new Client("HyperTek", "A technology company that specializes in developing cyber security solutions for businesses.", 60, 40, 40, persons, 3);
+                    currentClient.SetInvestment(6,6, 6);
                     break;
                 case 4:
-                    currentClient = new Client("DigiPlay", "An independent video game developer and publisher that develops original titles for multiple platforms.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(7, 3, 4);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    currentClient = new Client("DigiPlay", "An independent video game developer and publisher that develops original titles for multiple platforms.", 30, 50, 60, persons, 2);
+                    currentClient.SetInvestment(8, 4, 5);
                     break;
                 case 5:
+                    persons.Add(new Person(Person.Occupation.Stakeholder));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.PSO));
+                    persons.Add(new Person(Person.Occupation.SME));
                     currentClient = new Client("Stratos Systems", "A technology company specializing in the development of innovative cloud-based software solutions.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(3,5, 2);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    currentClient.SetInvestment(4,6, 3);
                     break;
                 case 6:
-                    currentClient = new Client("Automata Systems", "A robotics and artificial intelligence company that produces autonomous machines to help with everyday tasks.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(4, 5, 7);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Stakeholder));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.PSO));
+                    persons.Add(new Person(Person.Occupation.SME));
+                    currentClient = new Client("Automata Systems", "A robotics and artificial intelligence company that produces autonomous machines to help with everyday tasks.", 50, 70, 50, persons, 2);
+                    currentClient.SetInvestment(5, 6, 8);
                     break;
                 case 7:
-                    currentClient = new Client("Forge Entertainment", "An entertainment company that produces and distributes top-tier video games and virtual reality experiences.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(1, 6, 4);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    currentClient = new Client("Forge Entertainment", "An entertainment company that produces and distributes top-tier video games and virtual reality experiences.", 20, 30, 65, persons, 3);
+                    currentClient.SetInvestment(2, 7, 5);
                     break;
                 case 8:
-                    currentClient = new Client("NoduX", "A tech company focused on creating innovative, user-friendly web and mobile applications.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(2, 2, 7);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.VisualDesigner));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.UXdesigner));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    currentClient = new Client("NoduX", "A tech company focused on creating innovative, user-friendly web and mobile applications.", 30, 40, 40, persons, 3);
+                    currentClient.SetInvestment(3, 3, 8);
                     break;
                 case 9:
-                    currentClient = new Client("Outliers Technologies", "A technology company that specializes in creating innovative, user-friendly hardware and software solutions.", 50, 50, 50, persons, 3);
-                    currentClient.SetInvestment(1, 0, 1);
-                    persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient.SetPeople(persons);
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.Programmer));
+                    persons.Add(new Person(Person.Occupation.ExperienceExpert));
+                    persons.Add(new Person(Person.Occupation.Tester));
+                    persons.Add(new Person(Person.Occupation.PSO));
+                    persons.Add(new Person(Person.Occupation.SME));
+                    currentClient = new Client("Outliers Technologies", "A technology company that specializes in creating innovative, user-friendly hardware and software solutions.", 70, 50, 30, persons, 4);
+                    currentClient.SetInvestment(2, 1, 2);  
                     break;
                 default:
                     break;
             }
             prevrnd = rnd;
+            currentClient.SetPeople(persons);
         }
 
         Debug.Log("Blank client was succesfully added");
