@@ -17,10 +17,12 @@ public class HexagonPiece : MonoBehaviour
     GameObject RMenu;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
     CameraMovementScript _movementScript;
+
     //Person and resource
     Person _person;
     Resource _resource;
     
+    AudioSource _audioSource;
 
     Tilemap _tiles;
     SpriteRenderer _renderer;
@@ -42,6 +44,9 @@ public class HexagonPiece : MonoBehaviour
     public Sprite spr2;
     public Sprite spr3;
     public Sprite spr4;
+    [Header("Audio clips")]
+    public AudioClip takeAudio;
+    public AudioClip placeAudio;
     [Header("Miscellaneous")]
     public type Type;
 
@@ -51,12 +56,15 @@ public class HexagonPiece : MonoBehaviour
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
         _renderer.sortingOrder = 5;
+        _audioSource=gameObject.AddComponent<AudioSource>();
+
     }
     private void Start()
     {
         gameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
         this.SetHexColor();
         CreateNewCluster();
+        _audioSource.PlayOneShot(placeAudio);
     }
     void Update()
     {
@@ -131,13 +139,16 @@ public class HexagonPiece : MonoBehaviour
         }
     }
 
-    //Moving hexagons around
+    ////////////////////////////////////
+    //  * Moving hexagons around *    //
+    ////////////////////////////////////
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
         _drag = true;
         _neighbours.Clear();
-
+        _audioSource.PlayOneShot(takeAudio);
+        GameManager.selectedPiece._renderer.color=new UnityEngine.Color(1,1,1,.5f) ;
     }
     private void PlaceHexagon()
     {
@@ -147,10 +158,15 @@ public class HexagonPiece : MonoBehaviour
         GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
         GameManager.selectedPiece.transform.GetComponentInChildren<Canvas>().overrideSorting = false;
         GameManager.selectedPiece.CreateNewCluster();
-        
+        GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+        _audioSource.PlayOneShot(placeAudio);
         _drag = false;
     }
-    //Menu opening
+
+
+    //////////////////////////////
+    //  * Opening the menu *    //
+    //////////////////////////////
     private void OnMouseDrag()
     {
         StartCoroutine(OpenMenuCouroutine());
@@ -175,13 +191,12 @@ public class HexagonPiece : MonoBehaviour
             _drag = false;
         }
     }
-
-
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    //Triggers for neighbour and cluster management
     private void OnTriggerStay2D(Collider2D collision)
     {
         
@@ -212,7 +227,11 @@ public class HexagonPiece : MonoBehaviour
         }
     }
 
-    //Cluster identification functions
+
+
+    //////////////////////////////////////////////
+    //  * Cluster identification functions *    //
+    //////////////////////////////////////////////
     public ClusterManager GetClusterManager()
     {
         return transform.parent.GetComponent<ClusterManager>();
@@ -244,6 +263,9 @@ public class HexagonPiece : MonoBehaviour
         }
         return highest.GetClusterManager();
     }
+
+
+
     //Get pieces which will be used to get higher values to the hexagon
     public void SetPerson(Person p)
     {
@@ -272,6 +294,17 @@ public class HexagonPiece : MonoBehaviour
             RMenu.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
+
+    IEnumerator WarningCoroutine()
+    {
+        _renderer.color = UnityEngine.Color.red;
+        while (_renderer.color != UnityEngine.Color.white)
+        {
+            _renderer.color += new UnityEngine.Color(0, 0.1f, 0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+    }
     public string GetPersonOccupation()
     {
         if (_person == null)
@@ -286,11 +319,14 @@ public class HexagonPiece : MonoBehaviour
         else
             return _resource.getValue();
     }
+    public List<HexagonPiece> GetHexagonNeighbours()
+    {
+        return _neighbours;
+    }
     public String Name()
     {
         return _Name.text;
     }
-
     bool isInRange(float value, float left, float right)
     {
         return value > left && value < right;

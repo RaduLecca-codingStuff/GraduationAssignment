@@ -93,6 +93,8 @@ MonoBehaviour:
   v1: {fileID: -6556214759353929652, guid: 27fc87e22afe76a4c8648e54ae0325f4, type: 3}
   v2: {fileID: 2214732543679950192, guid: 27fc87e22afe76a4c8648e54ae0325f4, type: 3}
   v3: {fileID: 2073909050096001838, guid: 27fc87e22afe76a4c8648e54ae0325f4, type: 3}
+  takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
+  placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
 --- !u!61 &5710494984135777018
 BoxCollider2D:
   m_ObjectHideFlags: 0

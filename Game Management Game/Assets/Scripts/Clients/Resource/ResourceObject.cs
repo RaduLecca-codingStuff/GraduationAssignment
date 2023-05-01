@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class ResourceObject : MonoBehaviour
 {
-    Resource _resource;
-    Image _img;
+    [Header("Possible Sprites")]
     public Sprite v1;
     public Sprite v2;
     public Sprite v3;
+    [Header("Audio clips")]
+    public AudioClip takeAudio;
+    public AudioClip placeAudio;
+
     RSlot _prevSlot;
     RSlot _newSlot;
-
+    Resource _resource;
+    Image _img;
+    AudioSource _audioSource;
     public ResourceObject(Resource r)
     {
         _resource = r;
@@ -65,9 +70,11 @@ public class ResourceObject : MonoBehaviour
         _prevSlot.RemoveResource();
         _prevSlot = _newSlot;
         GameManager.currentRes=r;
+        GameManager.currentRes._img.color = new Color(1, 1, 1, .5f);
     }
     private void PlaceResource(Transform tr)
     {
+        GameManager.currentRes._img.color = new Color(1, 1, 1, .5f);
         if (tr.TryGetComponent<RSlot>( out RSlot Sl))
         {
             _newSlot = Sl;

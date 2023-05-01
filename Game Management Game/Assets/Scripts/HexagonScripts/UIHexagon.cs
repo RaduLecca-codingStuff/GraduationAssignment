@@ -35,13 +35,14 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
     private Image _renderer;
     bool _selected=false;
     Vector3Int _prevTile;
-
+    AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         _tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
         _renderer = GetComponent<Image>();
+        _audioSource = GetComponent<AudioSource>();
         switch (Type)
         {
             case type.discover:
@@ -59,32 +60,62 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
         }
         _text = GetComponentInChildren<TMP_Text>();
     }
-    
+    // Update is called once per frame
+    void Update()
+    {
+        if (_selected)
+        {
+
+            UnityEngine.Color color = new UnityEngine.Color(255, 255, 255);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
+            Vector3Int cellPoint = _tiles.WorldToCell(worldPoint);
+
+            //color change
+            if (cellPoint != _prevTile)
+            {
+                _tiles.SetTileFlags(_prevTile, TileFlags.None);
+                color = new UnityEngine.Color(1, 1, 1);
+                _tiles.SetColor(_prevTile, color);
+            }
+            _tiles.SetTileFlags(cellPoint, TileFlags.None);
+            color = new UnityEngine.Color(255, 255, 255);
+            _tiles.SetColor(cellPoint, color);
+            _prevTile = cellPoint;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                PlaceHexagon();
+            }
+        }
+
+    }
+
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     void PlaceHexagon()
     {
-        
+
         Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
         Vector3 mouseP = _tiles.CellToWorld(cellPoint);
-        if(HexagonPrefab.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
+        if (HexagonPrefab.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
         {
             GameObject g = Instantiate(HexagonPrefab);
-            g.transform.position = new Vector3(mouseP.x, mouseP.y,0);
+            g.transform.position = new Vector3(mouseP.x, mouseP.y, 0);
 
             //where the 3 values are added + where stuff is set up
             switch (Type)
             {
                 case type.discover:
-                    
+
                     switch (_text.text)
                     {
                         case "KPI":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover,3,3,3,_text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 3, 3, 3, _text.text);
                             break;
-                        case "Emphatize":
+                        case "Emphatise":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 1, 3, 4, _text.text);
                             break;
                         case "Risk Assesment":
@@ -99,7 +130,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         case "Research":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 3, 3, 3, _text.text);
                             break;
-                        case "Analyze":
+                        case "Analyse":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.discover, 3, 3, 3, _text.text);
                             break;
                         case "Initiation":
@@ -145,7 +176,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3, 4, 1, _text.text);
                             break;
                         case "Minimum Usable Product":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3,4, 2, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3, 4, 2, _text.text);
                             break;
                         case "Solution":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.develop, 3, 3, 3, _text.text);
@@ -207,7 +238,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                     switch (_text.text)
                     {
                         case "Playtest":
-                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 3,5, 4, _text.text);
+                            g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 3, 5, 4, _text.text);
                             break;
                         case "Validate":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.deliver, 2, 5, 2, _text.text);
@@ -248,7 +279,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                 case type.upkeep:
                     switch (_text.text)
                     {
-                        case "Monetize":
+                        case "Monetise":
                             g.GetComponent<HexagonPiece>().SetUpHexagon(HexagonPiece.type.upkeep, 2, 5, 2, _text.text);
                             break;
                         case "Upscale":
@@ -269,7 +300,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                     }
                     break;
             }
-
+            _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
             this.gameObject.SetActive(false);
         }
         else
@@ -277,39 +308,11 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
             Debug.LogError("Prefab does not contain a HexagonPiece component");
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if (_selected)
-        {
-
-            UnityEngine.Color color = new UnityEngine.Color(255, 255, 255);
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
-            Vector3Int cellPoint = _tiles.WorldToCell(worldPoint);
-
-            //color change
-            if (cellPoint != _prevTile)
-            {
-                _tiles.SetTileFlags(_prevTile, TileFlags.None);
-                color = new UnityEngine.Color(1, 1, 1);
-                _tiles.SetColor(_prevTile, color);
-            }
-            _tiles.SetTileFlags(cellPoint, TileFlags.None);
-            color = new UnityEngine.Color(255, 255, 255);
-            _tiles.SetColor(cellPoint, color);
-            _prevTile = cellPoint;
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                PlaceHexagon();
-            }
-        }
-
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         _selected = true;
+        _audioSource.Play();
+
+
     }
 }
