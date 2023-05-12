@@ -59,7 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: -1
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &6846164800093517146
 MonoBehaviour:
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b25c0a3fd2e662c4b88d162433ac438d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50fbd7677c36454e8295b1ec41dfb6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -201,16 +201,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: {fileID: 6064473804684806850}
   RMenu: {fileID: 1903447561211895630}
-  Purpose: 0
-  Sustainability: 0
-  Experience: 0
+  Purpose: 1
+  Sustainability: 2
+  Experience: 1
   spr1: {fileID: 21300000, guid: 5dafffa6dc0663143b78079a743e90ce, type: 3}
   spr2: {fileID: 21300000, guid: b25c0a3fd2e662c4b88d162433ac438d, type: 3}
   spr3: {fileID: 21300000, guid: de4caf280f3fc6a4fa4394fc52a56753, type: 3}
   spr4: {fileID: 21300000, guid: f50fbd7677c36454e8295b1ec41dfb6b, type: 3}
   takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
   placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
-  Type: 0
+  Type: 3
 --- !u!58 &901478777837554705
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 6350869900720575129}
   - component: {fileID: 2738880785645836278}
   - component: {fileID: 8676260825913405326}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 1169231040983505631}
   - component: {fileID: 4875815983198377052}
   - component: {fileID: 5264102929831491468}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ResourceSlot
   m_TagString: Slot
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 7149871049338848876}
   - component: {fileID: 929983356134497114}
   - component: {fileID: 5580911978748877892}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Feature Roadmap
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 8879093647859628663}
   - component: {fileID: 2334854660967557287}
   - component: {fileID: 7628008104743403740}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PersonSlot
   m_TagString: Slot
   m_Icon: {fileID: 0}

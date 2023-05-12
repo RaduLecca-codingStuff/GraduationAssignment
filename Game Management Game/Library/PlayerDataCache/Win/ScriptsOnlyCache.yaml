@@ -20,6 +20,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -79,6 +80,10 @@ ScriptsOnlyBuild:
     - Class: 61
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -215,7 +220,7 @@ ScriptsOnlyBuild:
     className: SpriteSkin
   - hash:
       serializedVersion: 2
-      Hash: 58aff64dc6bd56d9a17c90df65f47916
+      Hash: 1d972d0ff877e9d6bfa7ba27ed3689b7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ResourceObject
@@ -581,7 +586,7 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
-      Hash: f283e4e072d68ce815b29ce6e3600728
+      Hash: 951189bebcb286c51efd7e26d7519109
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PersonObject
@@ -725,7 +730,7 @@ ScriptsOnlyBuild:
     className: TMP_Settings
   - hash:
       serializedVersion: 2
-      Hash: 4265da70ab8c54d831ba651a878fa79d
+      Hash: 0d222620af72f524baab8da192c776cf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HexagonPiece
@@ -834,4 +839,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/ldryo/Desktop/Build Process game/Game Management Game.exe
+  playerPath: C:/Users/ldryo/Desktop/Devsign Beta 0.2/Game Management Game.exe

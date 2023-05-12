@@ -6,16 +6,12 @@ using UnityEngine.UI;
 
 public class OpenMenu : MonoBehaviour
 {
+    [Header("Sprites")]
     public Button _button;
     public RawImage _menu;
-    bool _open = false;
-    bool _isCoroutineRunning = false;
     public int distance;
-    Vector3 _closedPos;
-    Vector3 _openedPos;
-
-    public enum MenuType 
-    { 
+    public enum MenuType
+    {
         up,
         down,
         left,
@@ -23,9 +19,20 @@ public class OpenMenu : MonoBehaviour
     }
     ;
     public MenuType type;
+    [Header("Will it open when the game starts?")]
+    public bool OpenOnBegin=false;
+
+    bool _open = false;
+    bool _isCoroutineRunning = false;
+    
+    Vector3 _closedPos;
+    Vector3 _openedPos;
+
+    
     // Start is called before the first frame update
     void Awake()
     {
+        _open = OpenOnBegin;
         _button.onClick.AddListener(()=>ButtonClick());
         _openedPos=transform.localPosition;
         switch (type)
@@ -61,6 +68,11 @@ public class OpenMenu : MonoBehaviour
         foreach (Text text in _menu.transform.GetComponentsInChildren<Text>())
         {
             text.color -= new Color(0, 0, 0, 1f);
+        }
+        if (_open)
+        {
+            _isCoroutineRunning = true;
+            StartCoroutine(OpenMenuCoroutine());
         }
     }
     void ButtonClick()

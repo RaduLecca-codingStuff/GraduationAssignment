@@ -9,8 +9,9 @@ TagManager:
   - Resource
   - Menu
   - Person
-  - UIHexagon
   - Cluster
+  - RPiece
+  - UIHexagonParent
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,8 @@ public class Client
     int _chancesToExtra;
     int[] _whatToOffer=new int[3];
 
+    float Time;
+
     public Client(string name,string description,int pur,int sust,int exp,List<Person> list, int chances)
     {
         this.clientName = name;
@@ -78,5 +80,13 @@ public class Client
         reqPurpose +=GameManager.difficulty*3;
         reqSustainability += GameManager.difficulty * 3;
         reqExperience += GameManager.difficulty * 3;
+    }
+    public void LetBorrow()
+    {
+        ChanceUsed();
+        IncreaseRequirements();
+        TryAddInBulk(_whatToOffer[0], 1);
+        TryAddInBulk(_whatToOffer[1], 2);
+        TryAddInBulk(_whatToOffer[2], 3);
     }
 }

@@ -7,9 +7,13 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class HexagonPiece : MonoBehaviour
 {
+    //this is to avoid errors resulting from the hexagon deletion triggering OnTriggerExit 
+    bool _IsToBeDestroyed;
+
     bool _drag=false;
     [SerializeField]
     TMP_Text _Name;
@@ -55,13 +59,12 @@ public class HexagonPiece : MonoBehaviour
         _tiles=GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
-        _renderer.sortingOrder = 5;
         _audioSource=gameObject.AddComponent<AudioSource>();
+        
 
     }
     private void Start()
     {
-        gameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
         this.SetHexColor();
         CreateNewCluster();
         _audioSource.PlayOneShot(placeAudio);
@@ -70,7 +73,7 @@ public class HexagonPiece : MonoBehaviour
     {
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
-        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement())
         {
             if(hit.collider != null )
             {
@@ -84,6 +87,11 @@ public class HexagonPiece : MonoBehaviour
                 PlaceHexagon();
                 return;
             }
+        }
+        else if (Input.GetMouseButtonDown(0) && GameManager.IsPointerOverUIElement())
+        {
+            _drag = false;
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         }
         //changes the color of the hexagon that will be where the hexagon is placed
         if (_drag)
@@ -105,6 +113,12 @@ public class HexagonPiece : MonoBehaviour
             _tiles.SetColor(cellPoint, color);
             _prevTile = cellPoint;
         }
+        else
+        {
+            UnityEngine.Color color = new UnityEngine.Color(1, 1, 1);
+            _tiles.SetTileFlags(_prevTile, TileFlags.None);
+            _tiles.SetColor(_prevTile, color);
+        }
 
 
     }
@@ -117,6 +131,7 @@ public class HexagonPiece : MonoBehaviour
         Sustainability = s;
         Experience = e;
         _Name.text = name;
+
         SetHexColor();
     }
     void SetHexColor()
@@ -145,6 +160,7 @@ public class HexagonPiece : MonoBehaviour
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
+        GameManager.InfoPiece = p;
         _drag = true;
         _neighbours.Clear();
         _audioSource.PlayOneShot(takeAudio);
@@ -156,7 +172,6 @@ public class HexagonPiece : MonoBehaviour
         Vector3 mouseP= _tiles.CellToWorld(cellPoint);
         GameManager.selectedPiece.transform.position = new Vector3(mouseP.x,mouseP.y, GameManager.selectedPiece.transform.position.z);
         GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        GameManager.selectedPiece.transform.GetComponentInChildren<Canvas>().overrideSorting = false;
         GameManager.selectedPiece.CreateNewCluster();
         GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         _audioSource.PlayOneShot(placeAudio);
@@ -177,18 +192,21 @@ public class HexagonPiece : MonoBehaviour
     }
     IEnumerator OpenMenuCouroutine() 
     {
+        
         if (RMenu.activeSelf)
         {
             yield return new WaitForSeconds(1.4f);
-            RMenu.SetActive(false);
             _drag = false;
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+            RMenu.SetActive(false);
         }
         else
         {
             yield return new WaitForSeconds(1.4f);
+            _drag = false;
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
             RMenu.SetActive(true);
             PositionMenu();
-            _drag = false;
         }
     }
     Vector3 GetMousePos()
@@ -223,11 +241,11 @@ public class HexagonPiece : MonoBehaviour
         {
             _neighbours.Clear();
             this.GetClusterManager().RemoveHexagon(this);
-            CreateNewCluster();
+            if (!piece._IsToBeDestroyed)
+
+                CreateNewCluster();
         }
     }
-
-
 
     //////////////////////////////////////////////
     //  * Cluster identification functions *    //
@@ -238,20 +256,23 @@ public class HexagonPiece : MonoBehaviour
     }
     void CreateNewCluster()
     {
-        if (!transform.parent)
+        if (!_IsToBeDestroyed)
         {
-            GameObject cluster = new GameObject();
-            cluster.AddComponent<ClusterManager>();
-            this.transform.SetParent(cluster.transform);
-            cluster.name = "Cluster";
-            cluster.AddComponent<Rigidbody2D>().gravityScale = 0;
-        }
-        else
-        {
-            if(GameManager.selectedPiece.transform.parent)
-            GameManager.selectedPiece.transform.parent = null;
-            CreateNewCluster();
-        }
+            if (!transform.parent)
+            {
+                GameObject cluster = new GameObject();
+                cluster.AddComponent<ClusterManager>();
+                this.transform.SetParent(cluster.transform);
+                cluster.name = "Cluster";
+                cluster.AddComponent<Rigidbody2D>().gravityScale = 0;
+            }
+            else
+            {
+                if (GameManager.selectedPiece.transform.parent)
+                    GameManager.selectedPiece.transform.parent = null;
+                CreateNewCluster();
+            }
+        } 
     }
     public ClusterManager GetOutlierCluster()
     {
@@ -263,8 +284,6 @@ public class HexagonPiece : MonoBehaviour
         }
         return highest.GetClusterManager();
     }
-
-
 
     //Get pieces which will be used to get higher values to the hexagon
     public void SetPerson(Person p)
@@ -294,7 +313,6 @@ public class HexagonPiece : MonoBehaviour
             RMenu.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
-
     IEnumerator WarningCoroutine()
     {
         _renderer.color = UnityEngine.Color.red;
@@ -330,5 +348,23 @@ public class HexagonPiece : MonoBehaviour
     bool isInRange(float value, float left, float right)
     {
         return value > left && value < right;
+    }
+    public void DestroyHexagon()
+    {
+        Vector3Int cellPoint = _tiles.WorldToCell(this.transform.position);
+        _tiles.SetTileFlags(cellPoint, TileFlags.None);
+        _tiles.SetColor(cellPoint, new UnityEngine.Color(1, 1, 1));
+
+        Debug.Log(cellPoint);
+
+        _IsToBeDestroyed = true;
+        Destroy(gameObject);
+    }
+
+    public void DeselectHexagon()
+    {
+        
+        _drag = false;
+        GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
     }
 }

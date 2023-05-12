@@ -2,29 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool isMobile=false;
+    public static bool isMobile = false;
     public static GameObject mobileJoystick;
     static int nrOfLives = 3;
-    public static bool _Win=false;
-    public static float purpose=0;
-    public static float sustainability=0;
-    public static float experience=0;
+    public static bool _Win = false;
+    public static float purpose = 0;
+    public static float sustainability = 0;
+    public static float experience = 0;
     public static int difficulty = 1;
 
     public static ClusterManager mainClusterM = new ClusterManager();
 
     public static HexagonPiece selectedPiece = new HexagonPiece();
+
+    public static HexagonPiece InfoPiece = new HexagonPiece();
+
     public static ResourceObject currentRes;
     public static PersonObject currentPer;
+
 
     public static Client currentClient;
 
     public static int availableChances;
 
-    int prevrnd = 10;
+    static int _prevrnd = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -39,22 +46,27 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RangeCheck(experience);
-        RangeCheck(purpose);
-        RangeCheck(sustainability);
+        if (experience >= 100)
+        { experience = 100; }
+        else if (experience <= 0)
+        { experience = 0; }
+
+        if (purpose >= 100)
+        { purpose = 100; }
+        else if (purpose <= 0)
+        { purpose = 0; }
+
+        if (sustainability >= 100)
+        { sustainability = 100; }
+        else if (sustainability <= 0)
+        { sustainability = 0; }
     }
     public Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
-    void RangeCheck(float val)
-    {
-        if (val >= 100)
-        { val = 100; }
-        else if (val <= 0)
-        { val = 0; }
-    }
-    public void GetNewClient()
+
+    public static void GetNewClient()
     {
         int rnd = Random.Range(0, 9);
 
@@ -66,7 +78,7 @@ public class GameManager : MonoBehaviour
             new Person(Person.Occupation.EndUser),
             new Person(Person.Occupation.Stakeholder)
         };
-        if (rnd!=prevrnd) 
+        if (rnd!=_prevrnd) 
         {
             switch (rnd)
             {
@@ -193,13 +205,11 @@ public class GameManager : MonoBehaviour
                 default:
                     break;
             }
-            prevrnd = rnd;
+            _prevrnd = rnd;
             currentClient.SetPeople(persons);
         }
-
-        Debug.Log("Blank client was succesfully added");
     }
-    public static void CheckIfWon()
+    public static void CheckIfWon(GameObject g)
     {
         if(currentClient != null)
         {
@@ -208,13 +218,19 @@ public class GameManager : MonoBehaviour
                 if (experience >= currentClient.reqExperience && sustainability >= currentClient.reqSustainability && purpose >= currentClient.reqPurpose)
                 {
                     _Win = true;
+                    g.SetActive(true);
                 }
                 else
                 {
                     nrOfLives--;
                 }
             }
+            else
+            {
+                g.SetActive(true);
+            }
         }
+       
     }
     public static int GetNrOfLives()
     {
@@ -224,17 +240,65 @@ public class GameManager : MonoBehaviour
     {
         nrOfLives = 3;
         _Win = false;
-        GameObject[] clustersToDelete = GameObject.FindGameObjectsWithTag("Cluster");
-        GameObject[] hexagonsToReplace = GameObject.FindGameObjectsWithTag("UIHexagon");
 
-        foreach(GameObject cluster in clustersToDelete)
+        //find all UI hexagons and then re-activate the inactive ones.
+        UIHexagon[] HexagonsToActivate= GameObject.FindObjectsOfType<UIHexagon>(true).Where(sr => !sr.gameObject.activeInHierarchy).ToArray(); 
+
+        foreach(UIHexagon Hexagon in HexagonsToActivate)
         {
-            Destroy(cluster);
-        }
-        foreach(GameObject hexagon in hexagonsToReplace)
-        {
-            hexagon.SetActive(true);
+            Hexagon.gameObject.SetActive(true);
         }
 
+        // Find alll clusters and delete them
+        ClusterManager[] Clusters = GameObject.FindObjectsOfType<ClusterManager>();
+
+        foreach (ClusterManager cl in Clusters)
+        {
+            foreach(Transform child in cl.transform)
+            {
+                child.GetComponent<HexagonPiece>().DestroyHexagon();
+            }
+        }
+        //get new client 
+        GetNewClient();
+        //reset values to zero
+        mainClusterM = new ClusterManager();
+        selectedPiece = new HexagonPiece();
+        currentPer = null;
+        currentRes = null;
+    }
+    public void Borrow()
+    {
+        currentClient.LetBorrow();
+    }
+
+
+    public static bool IsPointerOverUIElement()
+    {
+        return IsPointerOverUIElement(GetEventSystemRaycastResults());
+    }
+
+
+    //Returns 'true' if we touched or hovering on Unity UI element.
+    private static bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    {
+        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        {
+            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+            if (curRaysastResult.gameObject.layer == LayerMask.NameToLayer("UI"))
+                return true;
+        }
+        return false;
+    }
+
+
+    //Gets all event system raycast results of current mouse or touch position.
+    static List<RaycastResult> GetEventSystemRaycastResults()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults;
     }
 }

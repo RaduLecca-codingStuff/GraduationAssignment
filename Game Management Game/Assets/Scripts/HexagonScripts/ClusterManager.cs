@@ -391,7 +391,7 @@ public class ClusterManager : MonoBehaviour
                         exp += 1;
                         break;
                     default:
-                        Debug.Log("Ok, so it doesn't give errors");
+                        
                         break;
                 }
                 //what resource adds to project
@@ -413,7 +413,7 @@ public class ClusterManager : MonoBehaviour
                         sust *= 1.6f;
                         break;
                     default:
-                        Debug.Log("Which is good, so I can add the modifiers in these two switch statements");
+                      
                         break;
                 }
             }
@@ -465,8 +465,6 @@ public class ClusterManager : MonoBehaviour
                 if (p.transform.parent.childCount >= 1)
                     this.MergeClusters(p.GetClusterManager());
             }
-            
-
         }
         
     }
@@ -478,4 +476,11 @@ public class ClusterManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach(Transform obj in transform)
+        {
+            Destroy(obj);
+        }
+    }
 }

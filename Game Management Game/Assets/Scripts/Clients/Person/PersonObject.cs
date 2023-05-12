@@ -38,14 +38,15 @@ public class PersonObject : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var mousepos = GetMousePos();
-            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f);
+            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
             if (hit.collider.tag == "Person")
-            {
-                TakePerson(hit.transform.GetComponent<PersonObject>());
+            {   Debug.Log("Got it");
+                TakePerson(hit.collider.transform.GetComponent<PersonObject>());
             }
             else if (hit.collider.tag == "Slot")
             {
                 PlacePerson(hit.collider.transform);
+                Debug.Log("set it");
             }
         }
     }
@@ -56,7 +57,6 @@ public class PersonObject : MonoBehaviour
     }
     void TakePerson(PersonObject p)
     {
-        _prevSlot.RemovePerson();
         _prevSlot = _newSlot;
        GameManager.currentPer = p;
        GameManager.currentPer._img.color = new Color(1, 1, 1, .5f);
@@ -67,17 +67,30 @@ public class PersonObject : MonoBehaviour
         if (tr.TryGetComponent<RSlot>(out RSlot Sl))
         {
             _newSlot = Sl;
-            if (_newSlot != _prevSlot)
+            if (_newSlot != _prevSlot && _newSlot.type==RSlot.Type.person)
             {
                 Vector3 mouseP = GetMousePos();
                 GameManager.currentPer.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentPer.transform.position.z);
                 GameManager.currentPer.transform.parent = tr;
                 Sl.AddPerson(GameManager.currentPer);
+                if (_prevSlot == null)
+                {
+                    Debug.Log("OOF");
+                }
+                else
+                    _prevSlot.RemovePerson();
             }
             else
             {
-                GameManager.currentPer.transform.position = new Vector3(_prevSlot.transform.position.x, _prevSlot.transform.position.y, GameManager.currentRes.transform.position.z);
-                GameManager.currentPer.transform.parent = _prevSlot.transform;
+                if (_prevSlot == null)
+                {
+                    Debug.Log("OOF");
+                }
+                else
+                {
+                    GameManager.currentPer.transform.position = new Vector3(_prevSlot.transform.position.x, _prevSlot.transform.position.y, GameManager.currentRes.transform.position.z);
+                    GameManager.currentPer.transform.parent = _prevSlot.transform;
+                }
             }
         }
     }
