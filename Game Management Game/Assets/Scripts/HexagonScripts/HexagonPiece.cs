@@ -31,7 +31,6 @@ public class HexagonPiece : MonoBehaviour
     Tilemap _tiles;
     SpriteRenderer _renderer;
     Vector3Int _prevTile;
-
     public enum type
     {
         discover,
@@ -53,6 +52,7 @@ public class HexagonPiece : MonoBehaviour
     public AudioClip placeAudio;
     [Header("Miscellaneous")]
     public type Type;
+    public float timeNeeded;
 
     private void Awake()
     {
@@ -60,8 +60,6 @@ public class HexagonPiece : MonoBehaviour
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
         _audioSource=gameObject.AddComponent<AudioSource>();
-        
-
     }
     private void Start()
     {
@@ -91,6 +89,7 @@ public class HexagonPiece : MonoBehaviour
         else if (Input.GetMouseButtonDown(0) && GameManager.IsPointerOverUIElement())
         {
             _drag = false;
+            if(GameManager.selectedPiece)
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         }
         //changes the color of the hexagon that will be where the hexagon is placed
@@ -124,14 +123,14 @@ public class HexagonPiece : MonoBehaviour
     }
 
     //Setting hexagons when initiated by other scripts
-    public void SetUpHexagon(type T,int e, int s, int p, string name)
+    public void SetUpHexagon(type T,int e, int s, int p, float time, string name)
     {
         Type = T;
         Purpose = p;
         Sustainability = s;
         Experience = e;
         _Name.text = name;
-
+        timeNeeded = time;
         SetHexColor();
     }
     void SetHexColor()
@@ -313,7 +312,7 @@ public class HexagonPiece : MonoBehaviour
             RMenu.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
-    IEnumerator WarningCoroutine()
+    public IEnumerator WarningCoroutine()
     {
         _renderer.color = UnityEngine.Color.red;
         while (_renderer.color != UnityEngine.Color.white)
@@ -363,7 +362,6 @@ public class HexagonPiece : MonoBehaviour
 
     public void DeselectHexagon()
     {
-        
         _drag = false;
         GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
     }

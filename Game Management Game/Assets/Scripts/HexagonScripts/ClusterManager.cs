@@ -6,17 +6,19 @@ using UnityEngine;
 public class ClusterManager : MonoBehaviour
 {
     //avg cluster valures
-    public float _avgPurpose = 0;
-    public float _avgSustainability = 0;
-    public float _avgExperience = 0;
+    float _avgPurpose = 0;
+    float _avgSustainability = 0;
+    float _avgExperience = 0;
     List<HexagonPiece> _HexagonPieces = new List<HexagonPiece>();
     int prevChildCount = 0;
+
+    float collectiveTime;
     private void Start()
     {
         _HexagonPieces = new List<HexagonPiece>();
         this.gameObject.tag = "Cluster";
     }
-
+    public float timeRequired;
     void Update()
     {
         if (this._avgExperience>=GameManager.experience && this._avgPurpose>= GameManager.purpose && this._avgSustainability>=GameManager.sustainability)
@@ -25,7 +27,7 @@ public class ClusterManager : MonoBehaviour
             GameManager.purpose = _avgPurpose;
             GameManager.sustainability = _avgSustainability; 
             GameManager.experience = _avgExperience;
-            
+            GameManager.currentTimeLeft= GameManager.currentClient.GetRemainingTime()-timeRequired;
         }
         if (this.transform.childCount == 0)
         {
@@ -53,6 +55,7 @@ public class ClusterManager : MonoBehaviour
         float pur = 0;
         float sust = 0;
         
+        
 
         foreach (Transform obj in transform)
         { 
@@ -62,9 +65,9 @@ public class ClusterManager : MonoBehaviour
                 exp += piece.Experience;
                 pur += piece.Purpose;
                 sust += piece.Sustainability;
-
+                collectiveTime += piece.timeNeeded;
                 //What bonuses are gained from each individual neighbour
-                if(piece.GetHexagonNeighbours().Count>0)
+                if (piece.GetHexagonNeighbours().Count>0)
                 {
                     float e = 0;
                     float s = 0;
@@ -86,6 +89,7 @@ public class ClusterManager : MonoBehaviour
                                     e -= 5;
                                     s -= 5;
                                     p -= 5;
+                                    neighbour.StartCoroutine(neighbour.WarningCoroutine());
                                 }
                                 else if (neighbour.Type == HexagonPiece.type.develop)
                                 {
@@ -422,8 +426,20 @@ public class ClusterManager : MonoBehaviour
         _avgExperience = exp;
         _avgPurpose = pur;
         _avgSustainability = sust;
-        
-        
+        GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime() - collectiveTime;
+        if (GameManager.currentTimeLeft <= 0)
+        {
+            GameManager.currentTimeLeft = 0;
+            foreach (Transform obj in transform)
+            {
+                //heres where the calculations for how much each hexagon adds. This changes with person and resource
+                if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
+                {
+                    if (piece.timeNeeded>1)
+                        piece.StartCoroutine(piece.WarningCoroutine());
+                }
+            }
+        }
     }
     public bool isInHere(HexagonPiece piece)
     {
@@ -483,4 +499,5 @@ public class ClusterManager : MonoBehaviour
             Destroy(obj);
         }
     }
+
 }

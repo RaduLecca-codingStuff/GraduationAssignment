@@ -40,25 +40,25 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 switch (GameManager.InfoPiece.Name())
                 {
                     case "KPI":
-                        Description.text = "Insert description here";
+                        Description.text = "Key Performance Indicators. They allow you to get clear metrics that indicate where you want the project to be and how to get there.";
                         break;
                     case "Emphatise":
-                        Description.text = "Insert description here";
+                        Description.text = "Take into account the perspective of the target audience when designing the product.";
                         break;
                     case "Risk Assesment":
-                        Description.text = "Insert description here";
+                        Description.text = "Asess the risk factors that may arise during development.";
                         break;
                     case "Insight":
-                        Description.text = "Insert description here";
+                        Description.text = "Get insight into the target audience's needs and desires.";
                         break;
                     case "Requirements":
-                        Description.text = "Insert description here";
+                        Description.text = "Form design requirements to get a clear idea of what the product needs to contain.";
                         break;
                     case "Research":
-                        Description.text = "Insert description here";
+                        Description.text = "Further research into the topics related to the product.";
                         break;
                     case "Analyse":
-                        Description.text = "Insert description here";
+                        Description.text = "Analyse data obtained through research.";
                         break;
                     case "Initiation":
                         Description.text = "Insert description here";
@@ -70,25 +70,25 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Insert description here";
                         break;
                     case "Player Investigation":
-                        Description.text = "Insert description here";
+                        Description.text = "Investigate what players would want.";
                         break;
                     case "Journey Investigation":
-                        Description.text = "Insert description here";
+                        Description.text = "Find out what would be the ideal journey the customer would go through to get to know the company.";
                         break;
                     case "Game Storm":
-                        Description.text = "Insert description here";
+                        Description.text = "Brainstorm gameplay ideas.";
                         break;
                     case "Subject Matter Expert Investigation":
-                        Description.text = "Insert description here";
+                        Description.text = "Investigate if the subject matter of the project is appropriate for the target audience.";
                         break;
                     case "Game Concept":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a clearly defined concept for the product.";
                         break;
                     case "Identify Game Loop":
-                        Description.text = "Insert description here";
+                        Description.text = "Clearly define the gameplay loop which the user will follow.";
                         break;
                     case "Feature Roadmap":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a roadmap of what features would be made when.";
                         break;
                     default: break;
                 }
@@ -98,22 +98,22 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 switch (GameManager.InfoPiece.Name())
                 {
                     case "Action":
-                        Description.text = "Insert description here";
+                        Description.text = "Take action to continue development";
                         break;
                     case "Minimum Viable Product":
-                        Description.text = "Insert description here";
+                        Description.text = "Make a product that would technically be usable by the target audience despite the lack of polish for testing.";
                         break;
                     case "Minimum Usable Product":
-                        Description.text = "Insert description here";
+                        Description.text = "Make a product that has several functional features for testing.";
                         break;
                     case "Solution":
-                        Description.text = "Insert description here";
+                        Description.text = "Find how to fix the customer's problems that the product is meant to fix.";
                         break;
                     case "Prototyping":
-                        Description.text = "Insert description here";
+                        Description.text = "Develop a prototype for testing.";
                         break;
                     case "Proof of Concept":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a prototype which has the purpose of proving that the concept is viable.";
                         break;
                     case "Execution":
                         Description.text = "Insert description here";
@@ -125,16 +125,16 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Insert description here";
                         break;
                     case "Playtest":
-                        Description.text = "Insert description here";
+                        Description.text = "Test out the prototype for the game";
                         break;
                     case "Iterate":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a better iteration for the game.";
                         break;
                     case "Elaboration":
-                        Description.text = "Insert description here";
+                        Description.text = "Ekaborate on the process development ";
                         break;
                     case "Ideation":
-                        Description.text = "Insert description here";
+                        Description.text = "Create several ideas for the project and write them down somewhere";
                         break;
                     case "Design":
                         Description.text = "Insert description here";
@@ -143,22 +143,22 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Insert description here";
                         break;
                     case "Design Documentation":
-                        Description.text = "Insert description here";
+                        Description.text = "Document design ideas and requirements.";
                         break;
                     case "Wireframes":
-                        Description.text = "Insert description here";
+                        Description.text = "Prototypes which have very basic functionality. Used to design the user interface.";
                         break;
                     case "Paper Prototype":
-                        Description.text = "Insert description here";
+                        Description.text = "Prototype made out of components that don't reflect the quality of the finished product, but the idea and functionality of it.";
                         break;
                     case "Click-thru":
-                        Description.text = "Insert description here";
+                        Description.text = "Prototype where the user can only click through screens. Used to test out UI navigation .";
                         break;
                     case "Feature Roadmap":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a roadmap of what features would be made when.";
                         break;
                     case "Design Elaborations":
-                        Description.text = "Insert description here";
+                        Description.text = "Elaborate on the design ideas.";
                         break;
                     default: break;
                 }
@@ -168,40 +168,40 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 switch (GameManager.InfoPiece.Name())
                 {
                     case "Playtest":
-                        Description.text = "Insert description here";
+                        Description.text = "Test out the prototype for the game";
                         break;
                     case "Validate":
-                        Description.text = "Insert description here";
+                        Description.text = "Find results which further validate design decisions.";
                         break;
                     case "Launch":
-                        Description.text = "Insert description here";
+                        Description.text = "Launch the product";
                         break;
                     case "Design Tuning":
-                        Description.text = "Insert description here";
+                        Description.text = "Adjust the design based of feedback.";
                         break;
                     case "Implementation":
-                        Description.text = "Insert description here";
+                        Description.text = "Add feedback to the project.";
                         break;
                     case "Closing":
                         Description.text = "Insert description here";
                         break;
                     case "Business Model":
-                        Description.text = "Insert description here";
+                        Description.text = "Prepare a business model canvas to visualize and assess your business idea or concept.";
                         break;
                     case "Production":
-                        Description.text = "Insert description here";
+                        Description.text = "Begin production of the product in full";
                         break;
                     case "User Stories":
-                        Description.text = "Insert description here";
-                        break;
-                    case "Minimum Usable Product":
-                        Description.text = "Insert description here";
+                        Description.text = "Use stories the game does to inform the design decision.";
                         break;
                     case "Minimum Viable Product":
-                        Description.text = "Insert description here";
+                        Description.text = "Make a product that would technically be usable by the target audience despite the lack of polish for testing.";
+                        break;
+                    case "Minimum Usable Product":
+                        Description.text = "Make a product that has several functional features for testing.";
                         break;
                     case "Feature Roadmap":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a roadmap of what features would be made when.";
                         break;
                     default: break;
                 }
@@ -211,22 +211,22 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 switch (GameManager.InfoPiece.Name())
                 {
                     case "Monetise":
-                        Description.text = "Insert description here";
+                        Description.text = "Add methods to get more funds from the product in the long run.";
                         break;
                     case "Upscale":
-                        Description.text = "Insert description here";
+                        Description.text = "Increase the scope of the product.";
                         break;
                     case "Support":
-                        Description.text = "Insert description here";
+                        Description.text = "Increase support and focus on the project.";
                         break;
                     case "Updates":
-                        Description.text = "Insert description here";
+                        Description.text = "Update the product based on feedback.";
                         break;
                     case "Maintenance":
                         Description.text = "Insert description here";
                         break;
                     case "Feature Roadmap":
-                        Description.text = "Insert description here";
+                        Description.text = "Create a roadmap of what features would be made when.";
                         break;
                     default: break;
                 }

@@ -18,9 +18,9 @@ public class Client
     int _chancesToExtra;
     int[] _whatToOffer=new int[3];
 
-    float Time;
+   float Time;
 
-    public Client(string name,string description,int pur,int sust,int exp,List<Person> list, int chances)
+    public Client(string name,string description,int pur,int sust,int exp,List<Person> list, int chances, float time)
     {
         this.clientName = name;
         this.description = description;
@@ -29,6 +29,11 @@ public class Client
         reqSustainability = sust;
         reqExperience = exp;
         resources = new List<Resource>();
+        Time = time;
+        if (Time < 0)
+            Time = 0;
+        if (Time > 100)
+            Time = 100;
         //might require the change this later
         _whatToOffer[0] = exp * 2 / 3;
         _whatToOffer[1] = sust * 2 / 3;
@@ -88,5 +93,22 @@ public class Client
         TryAddInBulk(_whatToOffer[0], 1);
         TryAddInBulk(_whatToOffer[1], 2);
         TryAddInBulk(_whatToOffer[2], 3);
+    }
+
+    public float GetRemainingTime()
+    {
+        return Time;
+    }
+    public void MinusTime(float min)
+    {
+        Time -= min;
+        if (Time < 0)
+            Time = 0;
+    }
+    public void PlusTime(float plus)
+    {
+        Time += plus;
+        if(Time >100)
+            Time = 100;
     }
 }
