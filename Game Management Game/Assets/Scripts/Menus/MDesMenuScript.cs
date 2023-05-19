@@ -21,23 +21,27 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
 
     public GameObject AtributePrefab;
 
+    void Start()
+    {
+        GameManager.descriptionMenu = this;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
-        SetInformation();
+        //SetInformation();
     }
-    void SetInformation()
+    public void SetInformation(HexagonPiece pToAnalyse)
     {
         foreach (Transform child in StrengthPointsParent.transform)
         {
             Destroy(child.gameObject);
         }
         //GameManager.InfoPiece.DeselectHexagon();
-        Name.text = GameManager.InfoPiece.Name();
-        switch (GameManager.InfoPiece.Type)
+        Name.text = pToAnalyse.Name();
+        switch (pToAnalyse.Type)
         {
             case HexagonPiece.type.discover:
                 HexagonType.sprite = Discover;
-                switch (GameManager.InfoPiece.Name())
+                switch (pToAnalyse.Name())
                 {
                     case "KPI":
                         Description.text = "Key Performance Indicators. They allow you to get clear metrics that indicate where you want the project to be and how to get there.";
@@ -95,7 +99,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 break;
             case HexagonPiece.type.develop:
                 HexagonType.sprite = Develop;
-                switch (GameManager.InfoPiece.Name())
+                switch (pToAnalyse.Name())
                 {
                     case "Action":
                         Description.text = "Take action to continue development";
@@ -165,7 +169,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 break;
             case HexagonPiece.type.deliver:
                 HexagonType.sprite = Deliver;
-                switch (GameManager.InfoPiece.Name())
+                switch (pToAnalyse.Name())
                 {
                     case "Playtest":
                         Description.text = "Test out the prototype for the game";
@@ -208,7 +212,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                 break;
             case HexagonPiece.type.upkeep:
                 HexagonType.sprite = Upkeep;
-                switch (GameManager.InfoPiece.Name())
+                switch (pToAnalyse.Name())
                 {
                     case "Monetise":
                         Description.text = "Add methods to get more funds from the product in the long run.";
@@ -234,13 +238,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             default:
                 break;
         }
-        if (GameManager.InfoPiece.Experience > 0)
+        if (pToAnalyse.Experience > 0)
         {
             GameObject e = Instantiate(AtributePrefab);
             Image ie = e.GetComponent<Image>();
             Text te = e.GetComponentInChildren<Text>();
             te.text = "Experience";
-            if (GameManager.InfoPiece.Experience > 1)
+            if (pToAnalyse.Experience > 1)
             {
                 ie.color = Color.green;
             }
@@ -251,13 +255,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             e.transform.localScale = new Vector3(1, 1, 1);
             e.transform.SetParent(StrengthPointsParent.transform, false);
         }
-        if (GameManager.InfoPiece.Sustainability > 0)
+        if (pToAnalyse.Sustainability > 0)
         {
             GameObject s = Instantiate(AtributePrefab);
             Image ies = s.GetComponent<Image>();
             Text ts = s.GetComponentInChildren<Text>();
             ts.text = "Sustainability";
-            if (GameManager.InfoPiece.Sustainability > 1)
+            if (pToAnalyse.Sustainability > 1)
             {
                 ies.color = Color.green;
             }
@@ -268,13 +272,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             s.transform.localScale = new Vector3(1, 1, 1);
             s.transform.SetParent(StrengthPointsParent.transform, false);
         }
-        if (GameManager.InfoPiece.Purpose > 0)
+        if (pToAnalyse.Purpose > 0)
         {
             GameObject p = Instantiate(AtributePrefab);
             Image ip = p.GetComponent<Image>();
             Text tp = p.GetComponentInChildren<Text>();
             tp.text = "Purpose";
-            if (GameManager.InfoPiece.Purpose > 1)
+            if (pToAnalyse.Purpose > 1)
             {
                 ip.color = Color.green;
             }

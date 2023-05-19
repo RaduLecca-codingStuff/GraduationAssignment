@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
@@ -21,11 +20,14 @@ public class GameManager : MonoBehaviour
 
     public static HexagonPiece selectedPiece = new HexagonPiece();
 
-    public static HexagonPiece InfoPiece = new HexagonPiece();
+    //public static HexagonPiece InfoPiece = new HexagonPiece();
 
     public static ResourceObject currentRes;
     public static PersonObject currentPer;
 
+    public static RPiece currentPiece;
+
+    public static MDesMenuScript descriptionMenu;
 
     public static Client currentClient;
 
@@ -275,6 +277,7 @@ public class GameManager : MonoBehaviour
         //reset values to zero
         mainClusterM = new ClusterManager();
         selectedPiece = new HexagonPiece();
+
         currentPer = null;
         currentRes = null;
     }
@@ -287,6 +290,29 @@ public class GameManager : MonoBehaviour
     public static bool IsPointerOverUIElement()
     {
         return IsPointerOverUIElement(GetEventSystemRaycastResults());
+    }
+
+    public static void CheckIfClusterExists()
+    {
+        ClusterManager[] Clusters = GameObject.FindObjectsOfType<ClusterManager>();
+        bool itExists = false;
+
+        foreach (ClusterManager cl in Clusters)
+        {
+            if (cl.Equals(GameManager.mainClusterM))
+            {
+                cl.SetAsMainCluster();
+                itExists = true;
+            }
+        }
+        if (!itExists)
+        {
+            GameManager.mainClusterM = new ClusterManager();
+            GameManager.purpose = 0;
+            GameManager.sustainability = 0;
+            GameManager.experience = 0;
+            GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime();
+        }
     }
 
     //Returns 'true' if we touched or hovering on Unity UI element.

@@ -20,5 +20,6 @@ public class TimeMeter : MonoBehaviour
     {
         _bar.transform.localScale = new Vector3((GameManager.currentTimeLeft * _baseLength) / 100, _bar.transform.localScale.y, 1);
         _bar.color = new Color(.61f, _baseLength, .074f);
+        //Debug.Log(GameManager.currentTimeLeft);
     }
 }

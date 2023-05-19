@@ -159,7 +159,8 @@ public class HexagonPiece : MonoBehaviour
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
-        GameManager.InfoPiece = p;
+        GameManager.descriptionMenu.SetInformation(p);
+        
         _drag = true;
         _neighbours.Clear();
         _audioSource.PlayOneShot(takeAudio);

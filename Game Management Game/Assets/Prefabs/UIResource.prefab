@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1499009293339923808}
   - component: {fileID: 4499404996976338832}
   - component: {fileID: 5710494984135777018}
+  - component: {fileID: 5146223787129910543}
   m_Layer: 5
   m_Name: UIResource
   m_TagString: Resource
@@ -121,3 +122,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5146223787129910543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186887750981315540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93e641f92c59ca45a513c99aa40c038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
+  placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}

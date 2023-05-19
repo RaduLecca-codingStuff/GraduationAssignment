@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ClusterManager : MonoBehaviour
 {
@@ -11,24 +13,27 @@ public class ClusterManager : MonoBehaviour
     float _avgExperience = 0;
     List<HexagonPiece> _HexagonPieces = new List<HexagonPiece>();
     int prevChildCount = 0;
-
-    float collectiveTime;
+    float _avgTimeNeeded;
+    
     private void Start()
     {
         _HexagonPieces = new List<HexagonPiece>();
         this.gameObject.tag = "Cluster";
     }
-    public float timeRequired;
+    public float _timeRequired;
     void Update()
     {
+        
         if (this._avgExperience>=GameManager.experience && this._avgPurpose>= GameManager.purpose && this._avgSustainability>=GameManager.sustainability)
         {
             GameManager.mainClusterM = this;
             GameManager.purpose = _avgPurpose;
             GameManager.sustainability = _avgSustainability; 
             GameManager.experience = _avgExperience;
-            GameManager.currentTimeLeft= GameManager.currentClient.GetRemainingTime()-timeRequired;
+            GameManager.currentTimeLeft= GameManager.currentClient.GetRemainingTime()-_timeRequired;
+            Debug.Log(GameManager.currentClient.GetRemainingTime());
         }
+        
         if (this.transform.childCount == 0)
         {
             if (this==GameManager.mainClusterM)
@@ -47,16 +52,15 @@ public class ClusterManager : MonoBehaviour
             prevChildCount = transform.childCount;
         }
     }
-
+    
     //This is where calculations for each method's bonus is given in a 
     public void RefreshValues()
     {
+        Debug.Log("Function is reached");
         float exp = 0;
         float pur = 0;
         float sust = 0;
-        
-        
-
+        GameManager.CheckIfClusterExists();
         foreach (Transform obj in transform)
         { 
             //heres where the calculations for how much each hexagon adds. This changes with person and resource
@@ -65,7 +69,7 @@ public class ClusterManager : MonoBehaviour
                 exp += piece.Experience;
                 pur += piece.Purpose;
                 sust += piece.Sustainability;
-                collectiveTime += piece.timeNeeded;
+                
                 //What bonuses are gained from each individual neighbour
                 if (piece.GetHexagonNeighbours().Count>0)
                 {
@@ -426,19 +430,38 @@ public class ClusterManager : MonoBehaviour
         _avgExperience = exp;
         _avgPurpose = pur;
         _avgSustainability = sust;
-        GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime() - collectiveTime;
-        if (GameManager.currentTimeLeft <= 0)
+        RefreshRemainingTime();
+        
+    }
+    public void RefreshRemainingTime()
+    {
+        float time=0;
+        if (this == GameManager.mainClusterM)
         {
-            GameManager.currentTimeLeft = 0;
             foreach (Transform obj in transform)
             {
-                //heres where the calculations for how much each hexagon adds. This changes with person and resource
                 if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
                 {
-                    if (piece.timeNeeded>1)
-                        piece.StartCoroutine(piece.WarningCoroutine());
+                    time += piece.timeNeeded;
                 }
             }
+            _timeRequired = time;
+            
+            
+            if (GameManager.currentTimeLeft <= 0)
+            {
+                GameManager.currentTimeLeft = 0;
+                foreach (Transform obj in transform)
+                {
+                    //heres where the calculations for how much each hexagon adds. This changes with person and resource
+                    if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
+                    {
+                        if (piece.timeNeeded > 1)
+                            piece.StartCoroutine(piece.WarningCoroutine());
+                    }
+                }
+            }
+            
         }
     }
     public bool isInHere(HexagonPiece piece)
@@ -492,6 +515,14 @@ public class ClusterManager : MonoBehaviour
         }
     }
 
+    public void SetAsMainCluster()
+    {
+        GameManager.mainClusterM = this;
+        GameManager.purpose = _avgPurpose;
+        GameManager.sustainability = _avgSustainability;
+        GameManager.experience = _avgExperience;
+        GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime() - _timeRequired;
+    }
     private void OnDestroy()
     {
         foreach(Transform obj in transform)

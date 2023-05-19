@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - EndMenu
     - GameManager
     - HexagonPiece
+    - MDesMenuScript
     - OpenMenu
     - PersonObject
     - PhoneJoystick
@@ -14,13 +15,13 @@ ScriptsOnlyBuild:
     - ResGenerator
     - ResourceObject
     - SubmittingWinMenu
+    - TimeMeter
     - UIHexagon
     - ValueMeters
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -57,6 +58,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
+    - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -96,65 +98,71 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1522}
     - Class: 114
-      Script: {instanceID: 1630}
+      Script: {instanceID: 1632}
     - Class: 114
-      Script: {instanceID: 1754}
+      Script: {instanceID: 1756}
     - Class: 114
-      Script: {instanceID: 1854}
+      Script: {instanceID: 1800}
     - Class: 114
-      Script: {instanceID: 2242}
+      Script: {instanceID: 1858}
     - Class: 114
-      Script: {instanceID: 2250}
+      Script: {instanceID: 2246}
     - Class: 114
-      Script: {instanceID: 2504}
+      Script: {instanceID: 2254}
     - Class: 114
-      Script: {instanceID: 2664}
+      Script: {instanceID: 2508}
     - Class: 114
-      Script: {instanceID: 2826}
+      Script: {instanceID: 2668}
     - Class: 114
-      Script: {instanceID: 2828}
+      Script: {instanceID: 2830}
     - Class: 114
-      Script: {instanceID: 2870}
+      Script: {instanceID: 2832}
     - Class: 114
-      Script: {instanceID: 2880}
+      Script: {instanceID: 2874}
     - Class: 114
-      Script: {instanceID: 3054}
+      Script: {instanceID: 2884}
     - Class: 114
-      Script: {instanceID: 3302}
+      Script: {instanceID: 3058}
     - Class: 114
-      Script: {instanceID: 3312}
+      Script: {instanceID: 3306}
     - Class: 114
-      Script: {instanceID: 3414}
+      Script: {instanceID: 3316}
     - Class: 114
-      Script: {instanceID: 3518}
+      Script: {instanceID: 3418}
     - Class: 114
-      Script: {instanceID: 3644}
+      Script: {instanceID: 3478}
     - Class: 114
-      Script: {instanceID: 4038}
+      Script: {instanceID: 3524}
     - Class: 114
-      Script: {instanceID: 4422}
+      Script: {instanceID: 3650}
     - Class: 114
-      Script: {instanceID: 4440}
+      Script: {instanceID: 3812}
     - Class: 114
-      Script: {instanceID: 4544}
+      Script: {instanceID: 4044}
     - Class: 114
-      Script: {instanceID: 4640}
+      Script: {instanceID: 4428}
     - Class: 114
-      Script: {instanceID: 4740}
+      Script: {instanceID: 4446}
     - Class: 114
-      Script: {instanceID: 4776}
+      Script: {instanceID: 4550}
     - Class: 114
-      Script: {instanceID: 4812}
+      Script: {instanceID: 4646}
     - Class: 114
-      Script: {instanceID: 5076}
+      Script: {instanceID: 4746}
     - Class: 114
-      Script: {instanceID: 5156}
+      Script: {instanceID: 4782}
     - Class: 114
-      Script: {instanceID: 5382}
+      Script: {instanceID: 4818}
     - Class: 114
-      Script: {instanceID: 5478}
+      Script: {instanceID: 5082}
     - Class: 114
-      Script: {instanceID: 5652}
+      Script: {instanceID: 5162}
+    - Class: 114
+      Script: {instanceID: 5388}
+    - Class: 114
+      Script: {instanceID: 5484}
+    - Class: 114
+      Script: {instanceID: 5658}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -206,6 +214,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RPiece
   - hash:
       serializedVersion: 2
       Hash: 77aaaaa51f7a8d8ff333a879741e47d2
@@ -286,13 +300,19 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeMeter
+  - hash:
+      serializedVersion: 2
       Hash: 300fd99066f8c288e85f5e81ce65fe34
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: 820642ed72172b6119da1c761c82f147
+      Hash: c79795c9cbcceef40c347f39e12f1d36
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ClusterManager
@@ -494,6 +514,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.SpriteShape.Runtime.dll
     namespaceName: UnityEngine.U2D
     className: SpriteShapeController
+  - hash:
+      serializedVersion: 2
+      Hash: 64ff945db945f91995977ff1bbd5a217
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MDesMenuScript
   - hash:
       serializedVersion: 2
       Hash: a77e872bf8a530f24cbccd7c525abd22
@@ -712,7 +738,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: f7e39ab3eb38912f356e502f16d051e0
+      Hash: 5007694f7f7f287e0e0afc37149f830c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OpenMenu
@@ -730,7 +756,7 @@ ScriptsOnlyBuild:
     className: TMP_Settings
   - hash:
       serializedVersion: 2
-      Hash: 0d222620af72f524baab8da192c776cf
+      Hash: 080ed25b9371edfd5279bc1db5eef9a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HexagonPiece
@@ -839,4 +865,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/ldryo/Desktop/Devsign Beta 0.2/Game Management Game.exe
+  playerPath: C:/Users/ldryo/Desktop/Devsign Beta 0.3/Game Management Game.exe

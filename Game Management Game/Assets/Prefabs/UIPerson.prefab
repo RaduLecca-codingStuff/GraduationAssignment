@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7892837164118239816}
   - component: {fileID: 7892837164118239823}
+  - component: {fileID: 2616080081369482423}
   - component: {fileID: 7892837164118239822}
   - component: {fileID: 7892837164118239817}
   - component: {fileID: 5094314260442014315}
@@ -47,6 +48,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7892837164118239819}
   m_CullTransparentMesh: 1
+--- !u!114 &2616080081369482423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7892837164118239819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93e641f92c59ca45a513c99aa40c038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
+  placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
 --- !u!114 &7892837164118239822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +126,6 @@ MonoBehaviour:
   VisualDesigner: {fileID: -5478776372929070746, guid: fd8a8b9b7c3a235448584a1ae5e323f0,
     type: 3}
   Tester: {fileID: 8535876455967368549, guid: fd8a8b9b7c3a235448584a1ae5e323f0, type: 3}
-  takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
-  placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
 --- !u!61 &5094314260442014315
 BoxCollider2D:
   m_ObjectHideFlags: 0

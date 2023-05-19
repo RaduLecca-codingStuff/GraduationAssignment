@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ResourceObject : MonoBehaviour
@@ -9,15 +10,22 @@ public class ResourceObject : MonoBehaviour
     public Sprite v1;
     public Sprite v2;
     public Sprite v3;
+
+    /*
     [Header("Audio clips")]
     public AudioClip takeAudio;
     public AudioClip placeAudio;
-
+    bool _isSelected = false;
     RSlot _prevSlot;
     RSlot _newSlot;
+    AudioSource _audioSource;
+    */
+
     Resource _resource;
     Image _img;
-    AudioSource _audioSource;
+    
+
+    
     public ResourceObject(Resource r)
     {
         _resource = r;
@@ -41,26 +49,27 @@ public class ResourceObject : MonoBehaviour
             default:
                 break;
         }
+        /*
         _prevSlot = GetComponent<RSlot>();
-        _newSlot = GetComponent<RSlot>();    
+        _newSlot = GetComponent<RSlot>();  
+        */
     }
 
     private void Update()
     {
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             var mousepos = GetMousePos();
             RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
-            if (hit.collider.tag == "Resource")
-            {
-                TakeResource(hit.collider.transform.GetComponent<ResourceObject>());
-            }
-            else if (hit.collider.tag == "Slot")
+            if (hit.collider && hit.collider.tag == "Slot")
             {
                 PlaceResource(hit.collider.transform);
             }
         } 
+        */
     }
+    /*
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -68,6 +77,11 @@ public class ResourceObject : MonoBehaviour
     private void TakeResource(ResourceObject r)
     {
         _prevSlot = _newSlot;
+        if (GameManager.currentRes)
+        {
+            GameManager.currentRes._isSelected = false;
+            GameManager.currentRes._img.color = new Color(1, 1, 1, 1);
+        }
         GameManager.currentRes=r;
         GameManager.currentRes._img.color = new Color(1, 1, 1, .5f);
     }
@@ -77,7 +91,7 @@ public class ResourceObject : MonoBehaviour
         if (tr.TryGetComponent<RSlot>( out RSlot Sl))
         {
             _newSlot = Sl;
-            if (_newSlot != _prevSlot && _newSlot.type == RSlot.Type.resource)
+            if (_newSlot != _prevSlot && _newSlot.type == RSlot.Type.resource && _isSelected)
             {
                 Vector3 mouseP = GetMousePos();
                 GameManager.currentRes.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentRes.transform.position.z);
@@ -89,6 +103,7 @@ public class ResourceObject : MonoBehaviour
                 }
                 else
                     _prevSlot.RemoveResource();
+                GameManager.currentRes._isSelected = false;
             }
             else
             {
@@ -105,7 +120,11 @@ public class ResourceObject : MonoBehaviour
             }
         }
     }
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        TakeResource(this);
+    }
+    */
     public Resource GetResource()
     {
         return _resource;
@@ -129,4 +148,5 @@ public class ResourceObject : MonoBehaviour
         }
     }
 
+    
 }

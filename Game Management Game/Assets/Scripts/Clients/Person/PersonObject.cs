@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PersonObject : MonoBehaviour
@@ -18,39 +19,44 @@ public class PersonObject : MonoBehaviour
     public Sprite ExperienceExpert;
     public Sprite VisualDesigner;
     public Sprite Tester;
+
+    /*
     [Header("Audio clips")]
     public AudioClip takeAudio;
     public AudioClip placeAudio;
+    AudioSource _audioSource;
 
     RSlot _prevSlot;
     RSlot _newSlot;
+    */
+
     Person _person;
     Image _img;
-    AudioSource _audioSource;
+    
+    bool _isSelected = false;
     private void Awake()
     {
+        /*
         _prevSlot = GetComponent<RSlot>();
         _newSlot = GetComponent<RSlot>();
+        */
         _img = GetComponent<Image>();
     }
     private void Update()
     {
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             var mousepos = GetMousePos();
             RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
-            if (hit.collider.tag == "Person")
-            {   Debug.Log("Got it");
-                TakePerson(hit.collider.transform.GetComponent<PersonObject>());
-            }
-            else if (hit.collider.tag == "Slot")
+            if (hit.collider && hit.collider.tag == "Slot")
             {
                 PlacePerson(hit.collider.transform);
-                Debug.Log("set it");
             }
         }
+        */
     }
-
+    /*
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -58,8 +64,15 @@ public class PersonObject : MonoBehaviour
     void TakePerson(PersonObject p)
     {
         _prevSlot = _newSlot;
-       GameManager.currentPer = p;
-       GameManager.currentPer._img.color = new Color(1, 1, 1, .5f);
+        if (GameManager.currentPer)
+        {
+            GameManager.currentPer._isSelected = false;
+            GameManager.currentPer._img.color = new Color(1, 1, 1, 1);
+        }
+        
+        GameManager.currentPer = p;
+        GameManager.currentPer._img.color = new Color(1, 1, 1, .5f);
+        GameManager.currentPer._isSelected = true;
     }
     void PlacePerson(Transform tr)
     {
@@ -67,7 +80,7 @@ public class PersonObject : MonoBehaviour
         if (tr.TryGetComponent<RSlot>(out RSlot Sl))
         {
             _newSlot = Sl;
-            if (_newSlot != _prevSlot && _newSlot.type==RSlot.Type.person)
+            if (_newSlot != _prevSlot && _newSlot.type==RSlot.Type.person && _isSelected)
             {
                 Vector3 mouseP = GetMousePos();
                 GameManager.currentPer.transform.position = new Vector3(tr.position.x, tr.position.y, GameManager.currentPer.transform.position.z);
@@ -79,6 +92,7 @@ public class PersonObject : MonoBehaviour
                 }
                 else
                     _prevSlot.RemovePerson();
+                GameManager.currentPer._isSelected = false;
             }
             else
             {
@@ -94,6 +108,12 @@ public class PersonObject : MonoBehaviour
             }
         }
     }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        TakePerson(this);
+    }
+
+    */
     public void SetPerson(Person p)
     {
         _img = GetComponent<Image>();
@@ -146,4 +166,5 @@ public class PersonObject : MonoBehaviour
         return _person;
     }
 
+   
 }
