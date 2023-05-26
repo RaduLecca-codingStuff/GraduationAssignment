@@ -60,6 +60,7 @@ public class HexagonPiece : MonoBehaviour
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
         _audioSource=gameObject.AddComponent<AudioSource>();
+        _audioSource.volume = .5f;
     }
     private void Start()
     {
@@ -67,11 +68,15 @@ public class HexagonPiece : MonoBehaviour
         CreateNewCluster();
         _audioSource.PlayOneShot(placeAudio);
     }
+    void OnEnable()
+    {
+        _audioSource.volume = GameManager.sfxVolume;
+    }
     void Update()
     {
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
-        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement())
+        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement() )
         {
             if(hit.collider != null )
             {
@@ -159,7 +164,7 @@ public class HexagonPiece : MonoBehaviour
     private void TakeHexagon(HexagonPiece p)
     {
         GameManager.selectedPiece = p;
-        GameManager.descriptionMenu.SetInformation(p);
+        GameManager.InfoPiece = p;
         
         _drag = true;
         _neighbours.Clear();

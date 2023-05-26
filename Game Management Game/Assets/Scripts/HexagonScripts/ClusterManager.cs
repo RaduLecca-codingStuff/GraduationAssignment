@@ -436,6 +436,7 @@ public class ClusterManager : MonoBehaviour
     public void RefreshRemainingTime()
     {
         float time=0;
+        float maxTime=0;
         if (this == GameManager.mainClusterM)
         {
             foreach (Transform obj in transform)
@@ -443,6 +444,8 @@ public class ClusterManager : MonoBehaviour
                 if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
                 {
                     time += piece.timeNeeded;
+                    if(piece.timeNeeded > maxTime)
+                        maxTime = piece.timeNeeded;
                 }
             }
             _timeRequired = time;
@@ -456,7 +459,7 @@ public class ClusterManager : MonoBehaviour
                     //heres where the calculations for how much each hexagon adds. This changes with person and resource
                     if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
                     {
-                        if (piece.timeNeeded > 1)
+                        if (piece.timeNeeded == maxTime || piece.timeNeeded == maxTime-1 ||piece.timeNeeded == maxTime-2)
                             piece.StartCoroutine(piece.WarningCoroutine());
                     }
                 }

@@ -12,10 +12,6 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
     public Sprite v1;
     public Sprite v2;
     public Sprite v3;
-    
-    
-
-    
     Resource _resource;
     
     */

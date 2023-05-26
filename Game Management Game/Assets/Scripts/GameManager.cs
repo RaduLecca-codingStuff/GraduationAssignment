@@ -16,11 +16,26 @@ public class GameManager : MonoBehaviour
     public static float experience = 0;
     public static int difficulty = 1;
 
+    public static bool sawTutorial=false;
+
     public static ClusterManager mainClusterM = new ClusterManager();
 
     public static HexagonPiece selectedPiece = new HexagonPiece();
 
-    //public static HexagonPiece InfoPiece = new HexagonPiece();
+    public static HexagonPiece InfoPiece = new HexagonPiece();
+
+
+    // Menu navigation 
+    static Canvas _mainMenu;
+    static Canvas _tutorialMenu;
+    static Canvas _settingsMenu;
+    static Canvas _gameMenu;
+
+    //Settings navigation
+    public static float sfxVolume;
+    public static float bkgVolume;
+
+
 
     public static ResourceObject currentRes;
     public static PersonObject currentPer;
@@ -36,6 +51,7 @@ public class GameManager : MonoBehaviour
     public static float currentTimeLeft;
 
 
+
     static int _prevrnd = 10;
 
     // Start is called before the first frame update
@@ -45,11 +61,19 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        if (!isMobile)
+        Canvas[] canvases = GameObject.FindObjectsOfType<Canvas>(true);
+        foreach (Canvas c in canvases)
         {
-            mobileJoystick.GetComponent<Image>().enabled = false;
-            mobileJoystick.SetActive(false);
+            if (c.name == "MainMenu")
+                _mainMenu = c;
+            if (c.name == "GameMenu")
+                _gameMenu = c;
+            if (c.name == "TutorialMenu")
+                _tutorialMenu = c;
+            if (c.name == "SettingsMenu")
+                _settingsMenu = c;
         }
+        
         
     }
     // Update is called once per frame
@@ -72,11 +96,62 @@ public class GameManager : MonoBehaviour
 
         
     }
+
+    public static void StartGame()
+    {
+        if (!sawTutorial)
+        {
+            _mainMenu.gameObject.SetActive(false);
+            _tutorialMenu.gameObject.SetActive(true);
+            _settingsMenu.gameObject.SetActive(false);
+            _gameMenu.gameObject.SetActive(false);
+            sawTutorial = true;
+            return;
+        }
+        else
+        {
+            _mainMenu.gameObject.SetActive(false);
+            _tutorialMenu.gameObject.SetActive(false);
+            _settingsMenu.gameObject.SetActive(false);
+            _gameMenu.gameObject.SetActive(true);
+            if (!isMobile)
+            {
+                mobileJoystick.GetComponent<Image>().enabled = false;
+                mobileJoystick.SetActive(false);
+            }
+            return;
+        }
+    }
+
+    public static void OpenSettings()
+    {
+        _mainMenu.gameObject.SetActive(false);
+        _tutorialMenu.gameObject.SetActive(false);
+        _settingsMenu.gameObject.SetActive(true);
+        _gameMenu.gameObject.SetActive(false);
+    }
+
+    public static void OpenTutorial()
+    {
+        _mainMenu.gameObject.SetActive(false);
+        _tutorialMenu.gameObject.SetActive(true);
+        _settingsMenu.gameObject.SetActive(false);
+        _gameMenu.gameObject.SetActive(false);
+        sawTutorial = true;
+    }
+    public static void BacktoMenu()
+    {
+        TryAgain();
+        _mainMenu.gameObject.SetActive(true);
+        _tutorialMenu.gameObject.SetActive(false);
+        _settingsMenu.gameObject.SetActive(false);
+        _gameMenu.gameObject.SetActive(false);
+    }
+
     public Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
-
     public static void GetNewClient()
     {
         int rnd = Random.Range(0, 9);
@@ -281,17 +356,23 @@ public class GameManager : MonoBehaviour
         currentPer = null;
         currentRes = null;
     }
-    public void Borrow()
+    public void Borrow(GameObject prompt)
     {
+        prompt.SetActive(true);
         currentClient.LetBorrow();
+        if (currentClient.GetChances() > 0)
+        {
+            prompt.transform.Find("Message").GetComponent<Text>().text = "The company has offered you more resources. Their expectations for the project also increased.";
+        }
+        else
+        {
+            prompt.transform.Find("Message").GetComponent<Text>().text = "The company can't offer you more resources. It's best to work with what you have.";
+        }
     }
-
-
     public static bool IsPointerOverUIElement()
     {
         return IsPointerOverUIElement(GetEventSystemRaycastResults());
     }
-
     public static void CheckIfClusterExists()
     {
         ClusterManager[] Clusters = GameObject.FindObjectsOfType<ClusterManager>();
@@ -314,7 +395,6 @@ public class GameManager : MonoBehaviour
             GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime();
         }
     }
-
     //Returns 'true' if we touched or hovering on Unity UI element.
     private static bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
     {
@@ -326,8 +406,6 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
-
-
     //Gets all event system raycast results of current mouse or touch position.
     static List<RaycastResult> GetEventSystemRaycastResults()
     {
