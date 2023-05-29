@@ -40,7 +40,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
     bool isOverUI;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _pieceRef = new HexagonPiece();
         _tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
@@ -63,6 +63,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
         }
         _text = GetComponentInChildren<TMP_Text>();
     }
+
     void OnEnable()
     {
         _audioSource.volume = GameManager.sfxVolume;

@@ -60,7 +60,7 @@ public class HexagonPiece : MonoBehaviour
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
         _audioSource=gameObject.AddComponent<AudioSource>();
-        _audioSource.volume = .5f;
+        _audioSource.volume = GameManager.sfxVolume;
     }
     private void Start()
     {

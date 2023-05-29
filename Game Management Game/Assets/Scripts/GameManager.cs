@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     static Canvas _gameMenu;
 
     //Settings navigation
-    public static float sfxVolume;
-    public static float bkgVolume;
+    public static float sfxVolume = .5f;
+    public static float bkgVolume = .5f;
 
 
 
@@ -50,13 +50,26 @@ public class GameManager : MonoBehaviour
 
     public static float currentTimeLeft;
 
-
+    public static AudioSource buttonAudio;
+    public static AudioSource bkgAudio;
 
     static int _prevrnd = 10;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        AudioSource[] allaudios=GameObject.FindObjectsOfType<AudioSource>();
+        foreach(AudioSource audio in allaudios)
+        {
+            if (audio.gameObject.name == "ButtonAudio")
+            {
+                buttonAudio = audio;
+            }
+            if (audio.gameObject.name == "BKGAudio")
+            {
+                bkgAudio = audio;
+            }
+        }
         GetNewClient();
     }
     void Start()
@@ -99,21 +112,23 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame()
     {
+        buttonAudio.Play();
         if (!sawTutorial)
         {
-            _mainMenu.gameObject.SetActive(false);
             _tutorialMenu.gameObject.SetActive(true);
             _settingsMenu.gameObject.SetActive(false);
             _gameMenu.gameObject.SetActive(false);
+            _mainMenu.gameObject.SetActive(false);
             sawTutorial = true;
             return;
         }
         else
         {
-            _mainMenu.gameObject.SetActive(false);
+            
             _tutorialMenu.gameObject.SetActive(false);
             _settingsMenu.gameObject.SetActive(false);
             _gameMenu.gameObject.SetActive(true);
+            _mainMenu.gameObject.SetActive(false);
             if (!isMobile)
             {
                 mobileJoystick.GetComponent<Image>().enabled = false;
@@ -125,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public static void OpenSettings()
     {
+        buttonAudio.Play();
         _mainMenu.gameObject.SetActive(false);
         _tutorialMenu.gameObject.SetActive(false);
         _settingsMenu.gameObject.SetActive(true);
@@ -133,6 +149,7 @@ public class GameManager : MonoBehaviour
 
     public static void OpenTutorial()
     {
+        buttonAudio.Play();
         _mainMenu.gameObject.SetActive(false);
         _tutorialMenu.gameObject.SetActive(true);
         _settingsMenu.gameObject.SetActive(false);
@@ -141,6 +158,7 @@ public class GameManager : MonoBehaviour
     }
     public static void BacktoMenu()
     {
+        buttonAudio.Play();
         TryAgain();
         _mainMenu.gameObject.SetActive(true);
         _tutorialMenu.gameObject.SetActive(false);
@@ -368,6 +386,10 @@ public class GameManager : MonoBehaviour
         {
             prompt.transform.Find("Message").GetComponent<Text>().text = "The company can't offer you more resources. It's best to work with what you have.";
         }
+    }
+    public static void JustPlayPressAudio()
+    {
+        buttonAudio.Play();
     }
     public static bool IsPointerOverUIElement()
     {

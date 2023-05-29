@@ -12,6 +12,8 @@ TagManager:
   - Cluster
   - RPiece
   - UIHexagonParent
+  - UIHexagon
+  - AudioSource
   layers:
   - Default
   - TransparentFX

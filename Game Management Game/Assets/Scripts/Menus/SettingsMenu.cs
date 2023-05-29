@@ -11,8 +11,8 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _sfx = transform.Find("SFXVolumeSlider").GetComponent<Slider>();
-        _bkg = transform.Find("BKGVolumeSlider").GetComponent<Slider>();
+        _sfx = transform.Find("Volume").Find("SFXVolumeSlider").GetComponent<Slider>();
+        _bkg = transform.Find("Volume").Find("BKGVolumeSlider").GetComponent<Slider>();
     }
 
     // Update is called once per frame

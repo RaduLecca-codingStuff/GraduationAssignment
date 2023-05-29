@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - AudioAdjustmentScript
     - BorrowButton
     - CameraMovementScript
     - ClientDescription
@@ -24,6 +25,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -111,67 +113,69 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1800}
     - Class: 114
-      Script: {instanceID: 1858}
+      Script: {instanceID: 1854}
     - Class: 114
-      Script: {instanceID: 2246}
+      Script: {instanceID: 1860}
     - Class: 114
-      Script: {instanceID: 2254}
+      Script: {instanceID: 2248}
     - Class: 114
-      Script: {instanceID: 2508}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2668}
+      Script: {instanceID: 2510}
     - Class: 114
-      Script: {instanceID: 2830}
+      Script: {instanceID: 2670}
     - Class: 114
       Script: {instanceID: 2832}
     - Class: 114
-      Script: {instanceID: 2874}
+      Script: {instanceID: 2834}
     - Class: 114
-      Script: {instanceID: 2884}
+      Script: {instanceID: 2876}
     - Class: 114
-      Script: {instanceID: 3058}
+      Script: {instanceID: 2886}
     - Class: 114
-      Script: {instanceID: 3306}
+      Script: {instanceID: 3060}
     - Class: 114
-      Script: {instanceID: 3316}
+      Script: {instanceID: 3308}
     - Class: 114
-      Script: {instanceID: 3418}
+      Script: {instanceID: 3318}
     - Class: 114
-      Script: {instanceID: 3478}
+      Script: {instanceID: 3420}
     - Class: 114
-      Script: {instanceID: 3524}
+      Script: {instanceID: 3480}
     - Class: 114
-      Script: {instanceID: 3650}
+      Script: {instanceID: 3526}
     - Class: 114
-      Script: {instanceID: 3812}
+      Script: {instanceID: 3652}
     - Class: 114
-      Script: {instanceID: 4044}
+      Script: {instanceID: 3814}
     - Class: 114
-      Script: {instanceID: 4284}
+      Script: {instanceID: 4046}
     - Class: 114
-      Script: {instanceID: 4430}
+      Script: {instanceID: 4286}
     - Class: 114
-      Script: {instanceID: 4448}
+      Script: {instanceID: 4432}
     - Class: 114
-      Script: {instanceID: 4552}
+      Script: {instanceID: 4450}
     - Class: 114
-      Script: {instanceID: 4648}
+      Script: {instanceID: 4554}
     - Class: 114
-      Script: {instanceID: 4748}
+      Script: {instanceID: 4650}
     - Class: 114
-      Script: {instanceID: 4784}
+      Script: {instanceID: 4750}
     - Class: 114
-      Script: {instanceID: 4820}
+      Script: {instanceID: 4786}
     - Class: 114
-      Script: {instanceID: 5084}
+      Script: {instanceID: 4822}
     - Class: 114
-      Script: {instanceID: 5164}
+      Script: {instanceID: 5086}
     - Class: 114
-      Script: {instanceID: 5390}
+      Script: {instanceID: 5166}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5392}
     - Class: 114
-      Script: {instanceID: 5660}
+      Script: {instanceID: 5488}
+    - Class: 114
+      Script: {instanceID: 5662}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -313,6 +317,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeMeter
+  - hash:
+      serializedVersion: 2
+      Hash: bebcaf2940ef27321bbf04b992d9a9cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AudioAdjustmentScript
   - hash:
       serializedVersion: 2
       Hash: 300fd99066f8c288e85f5e81ce65fe34
@@ -880,4 +890,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/ldryo/Desktop/New folder/Game Management Game.exe
+  playerPath: C:/Users/ldryo/Desktop/Deliverables Graduation/Devsign_Build_LeccaRaduDimitrie_398701/Devsign.exe

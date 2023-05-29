@@ -31,7 +31,7 @@ public class ClusterManager : MonoBehaviour
             GameManager.sustainability = _avgSustainability; 
             GameManager.experience = _avgExperience;
             GameManager.currentTimeLeft= GameManager.currentClient.GetRemainingTime()-_timeRequired;
-            Debug.Log(GameManager.currentClient.GetRemainingTime());
+            //Debug.Log(GameManager.currentClient.GetRemainingTime());
         }
         
         if (this.transform.childCount == 0)
@@ -56,7 +56,6 @@ public class ClusterManager : MonoBehaviour
     //This is where calculations for each method's bonus is given in a 
     public void RefreshValues()
     {
-        Debug.Log("Function is reached");
         float exp = 0;
         float pur = 0;
         float sust = 0;
