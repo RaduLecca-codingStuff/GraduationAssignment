@@ -75,7 +75,7 @@ public class OpenMenu : MonoBehaviour
             StartCoroutine(OpenMenuCoroutine());
         }
     }
-    void ButtonClick()
+    public void ButtonClick()
     {
         if(!_isCoroutineRunning)
         {

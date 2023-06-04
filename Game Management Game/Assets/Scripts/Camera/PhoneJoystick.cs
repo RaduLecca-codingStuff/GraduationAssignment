@@ -10,6 +10,7 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
     Image _bkgImg;
     Image _joystick;
     Vector3 _inputVector;
+    bool hasBeenUsed = false;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
         Vector2 pos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_bkgImg.rectTransform, eventData.position, eventData.pressEventCamera, out pos))
         {
+            hasBeenUsed = true;
             pos.x = (pos.x / _bkgImg.rectTransform.sizeDelta.x);
             pos.y = (pos.y / _bkgImg.rectTransform.sizeDelta.y);
             _inputVector = new Vector3(pos.x, pos.y, 0);
@@ -46,5 +48,14 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
             cameraMovement.MoveCamera(_joystick.rectTransform.anchoredPosition.x, _joystick.rectTransform.anchoredPosition.y);
         }
        
+    }
+
+    public bool CheckIfUsed()
+    {
+        return hasBeenUsed;
+    }
+    public void ResetUse()
+    {
+        hasBeenUsed = false;
     }
 }

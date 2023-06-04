@@ -9,6 +9,7 @@ public class CameraMovementScript : MonoBehaviour
     public int maxHeight;
     public float speed;
     bool _isMoving=false;
+    bool _wasUsed = false;
     Vector2 _direction;
     Vector2 _initPos;
     float _cameraWidth;
@@ -31,13 +32,23 @@ public class CameraMovementScript : MonoBehaviour
         }
         if (_isMoving)
         {
+            
             Vector3 tempVect = (Vector3)_direction.normalized * speed * Time.deltaTime;
             if (isInRange(transform.position.x + tempVect.x, -(maxWidth-(int)_cameraWidth) / 2, (maxWidth-(int)_cameraWidth) / 2)
                 && isInRange(transform.position.y + tempVect.y, -(maxHeight- (int)_cameraHeight) / 2, (maxHeight- (int)_cameraHeight) / 2))
             {
                 transform.position += tempVect;
+                _wasUsed = true;
             }
         }
+    }
+    public bool CheckIfUsed()
+    {
+        return _wasUsed;
+    }
+    public void ResetUse()
+    {
+        _wasUsed=false;
     }
     public void MoveCamera(float h, float v)
     {

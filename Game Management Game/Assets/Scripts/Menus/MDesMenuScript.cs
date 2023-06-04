@@ -12,25 +12,30 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     public Sprite Develop;
     public Sprite Deliver;
     public Sprite Upkeep;
+    Sprite _Base;
 
     [Header("Description pieces")]
     public Image HexagonType;
     public Text Name;
     public Text Description;
     public GameObject StrengthPointsParent;
-
+    Touch theTouch;
     public GameObject AtributePrefab;
 
     void Start()
     {
         GameManager.descriptionMenu = this;
+        _Base = HexagonType.sprite;
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         SetInformation();
     }
     public void SetInformation()
     {
+        if (GameManager.InfoPiece)
+            GameManager.WasCheckedForInfo = true;
         foreach (Transform child in StrengthPointsParent.transform)
         {
             Destroy(child.gameObject);
@@ -126,7 +131,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Insert description here";
                         break;
                     case "Concept":
-                        Description.text = "Insert description here";
+                        Description.text = "Have a concept set and recorded somewhere";
                         break;
                     case "Playtest":
                         Description.text = "Test out the prototype for the game";
@@ -227,7 +232,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Update the product based on feedback.";
                         break;
                     case "Maintenance":
-                        Description.text = "Insert description here";
+                        Description.text = "Keep the base systems of the project updated to keep functionality.";
                         break;
                     case "Feature Roadmap":
                         Description.text = "Create a roadmap of what features would be made when.";
@@ -290,5 +295,16 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             p.transform.SetParent(StrengthPointsParent.transform, false);
         }
 
+    }
+
+    public void Clear()
+    {
+        foreach (Transform child in StrengthPointsParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        HexagonType.sprite = _Base;
+        Description.text = "";
+        Name.text = "";
     }
 }

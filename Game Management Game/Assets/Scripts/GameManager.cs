@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool isMobile = false;
+    public static bool isMobile = true;
     public static GameObject mobileJoystick;
     static int nrOfLives = 3;
     public static bool _Win = false;
@@ -55,9 +55,18 @@ public class GameManager : MonoBehaviour
 
     static int _prevrnd = 10;
 
+    //Tutorial values
+    public static bool WasPlaced = false;
+    public static bool WasCheckedForInfo = false;
+    public static bool WasMenuOpened = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
+        if (isMobile)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
         AudioSource[] allaudios=GameObject.FindObjectsOfType<AudioSource>();
         foreach(AudioSource audio in allaudios)
         {

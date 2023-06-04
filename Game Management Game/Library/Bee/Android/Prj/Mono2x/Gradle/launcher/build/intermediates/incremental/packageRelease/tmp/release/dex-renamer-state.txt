@@ -1,0 +1,4 @@
+#Sun Jun 04 15:27:38 CEST 2023
+base.0=C\:\\Users\\ldryo\\Documents\\GitHub\\GraduationAssignment\\Game Management Game\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\launcher\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

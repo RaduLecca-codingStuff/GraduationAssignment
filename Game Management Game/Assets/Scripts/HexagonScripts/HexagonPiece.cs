@@ -181,6 +181,7 @@ public class HexagonPiece : MonoBehaviour
         GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         _audioSource.PlayOneShot(placeAudio);
         _drag = false;
+        GameManager.WasPlaced = true;
     }
 
 
@@ -211,6 +212,7 @@ public class HexagonPiece : MonoBehaviour
             _drag = false;
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
             RMenu.SetActive(true);
+            GameManager.WasMenuOpened = true;
             PositionMenu();
         }
     }

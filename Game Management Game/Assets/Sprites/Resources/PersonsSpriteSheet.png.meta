@@ -39,7 +39,7 @@ TextureImporter:
       213: 8535876455967368549
     second: PersonsSpriteSheet_11
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -98,6 +99,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -137,6 +139,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -412,6 +426,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      PersonsSpriteSheet_11: 8535876455967368549
+      PersonsSpriteSheet_9: -5302837532900381459
+      PersonsSpriteSheet_8: -5478776372929070746
+      PersonsSpriteSheet_4: 2743723261028844423
+      PersonsSpriteSheet_6: 6820598255343152620
+      PersonsSpriteSheet_7: -4653015987207294763
+      PersonsSpriteSheet_1: -6290456092014345626
+      PersonsSpriteSheet_10: 3777854436665639715
+      PersonsSpriteSheet_2: -8483997107505688442
+      PersonsSpriteSheet_0: 2292612938393944595
+      PersonsSpriteSheet_5: 1530169445981853523
+      PersonsSpriteSheet_3: -7214905656938019352
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
