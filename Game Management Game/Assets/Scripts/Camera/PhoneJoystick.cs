@@ -11,6 +11,8 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
     Image _joystick;
     Vector3 _inputVector;
     bool hasBeenUsed = false;
+    Vector2 _joystickPosition;
+    bool _hold = false;
 
     void Awake()
     {
@@ -22,12 +24,22 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
     {
         _bkgImg = GetComponent<Image>();
         _joystick = transform.GetChild(0).GetComponent<Image>();
+        if (!GameManager.isMobile)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+    private void Update()
+    {
+        if (_hold)
+        cameraMovement.MoveTheCamera(new Vector3(_joystickPosition.x, _joystickPosition.y));
     }
     public void OnPointerUp(PointerEventData data)
     {
         _inputVector = Vector3.zero;
         _joystick.rectTransform.anchoredPosition = Vector3.zero;
         cameraMovement.StopMovement();
+       _hold = false;
     }
     public void OnPointerDown(PointerEventData data)
     {
@@ -36,18 +48,18 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
 
     public void OnDrag(PointerEventData eventData)
     {
+        _hold = true;
         Vector2 pos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_bkgImg.rectTransform, eventData.position, eventData.pressEventCamera, out pos))
         {
             hasBeenUsed = true;
-            pos.x = (pos.x / _bkgImg.rectTransform.sizeDelta.x);
-            pos.y = (pos.y / _bkgImg.rectTransform.sizeDelta.y);
-            _inputVector = new Vector3(pos.x, pos.y, 0);
+            _joystickPosition.x = (pos.x / _bkgImg.rectTransform.sizeDelta.x);
+            _joystickPosition.y = (pos.y / _bkgImg.rectTransform.sizeDelta.y);
+
+            _inputVector = new Vector3(_joystickPosition.x, _joystickPosition.y, 0);
             _inputVector = (_inputVector.magnitude > 1.0f) ? _inputVector.normalized : _inputVector;
             _joystick.rectTransform.anchoredPosition = new Vector3(_inputVector.x * (_bkgImg.rectTransform.sizeDelta.x / 2.5f), _inputVector.y * (_bkgImg.rectTransform.sizeDelta.y / 2.5f));
-            cameraMovement.MoveCamera(_joystick.rectTransform.anchoredPosition.x, _joystick.rectTransform.anchoredPosition.y);
         }
-       
     }
 
     public bool CheckIfUsed()

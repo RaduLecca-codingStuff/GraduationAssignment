@@ -364,6 +364,7 @@
 -r:"Library/Bee/artifacts/500b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/colorblind/ColorBlindFilter.cs"
 "Assets/Scripts/AudioAdjustmentScript.cs"
 "Assets/Scripts/Camera/CameraMovementScript.cs"
 "Assets/Scripts/Camera/PhoneJoystick.cs"
@@ -386,9 +387,8 @@
 "Assets/Scripts/Menus/Meters/TimeMeter.cs"
 "Assets/Scripts/Menus/Meters/ValueMeters.cs"
 "Assets/Scripts/Menus/ResGenerator.cs"
-"Assets/Scripts/Menus/SettingsMenu.cs"
 "Assets/Scripts/Menus/SubmittingWinMenu.cs"
-"Assets/Scripts/Menus/TutorialScript.cs"
+"Assets/Scripts/Menus/Tutorial/TutorialScript.cs"
 -langversion:9.0
 
 /deterministic

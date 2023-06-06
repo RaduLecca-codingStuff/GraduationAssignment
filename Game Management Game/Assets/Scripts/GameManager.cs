@@ -5,9 +5,13 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
 
+
 public class GameManager : MonoBehaviour
 {
-    public static bool isMobile = true;
+    //Changes the game
+    public static bool isMobile = false;
+
+
     public static GameObject mobileJoystick;
     static int nrOfLives = 3;
     public static bool _Win = false;
@@ -149,6 +153,19 @@ public class GameManager : MonoBehaviour
 
     public static void OpenSettings()
     {
+        Text gBText = _settingsMenu.transform.Find("Start").GetComponentInChildren<Text>();
+        if(_mainMenu.gameObject.activeSelf)
+        {
+            gBText.text = "Start";
+        }
+        else if (_gameMenu.gameObject.activeSelf)
+        {
+            gBText.text = "Back To Game";
+        }
+        if(!isMobile)
+        {
+            _settingsMenu.transform.Find("Visuals").Find("Luminosity").gameObject.SetActive(false);
+        }
         buttonAudio.Play();
         _mainMenu.gameObject.SetActive(false);
         _tutorialMenu.gameObject.SetActive(false);
@@ -398,6 +415,7 @@ public class GameManager : MonoBehaviour
     }
     public static void JustPlayPressAudio()
     {
+        buttonAudio.volume = sfxVolume;
         buttonAudio.Play();
     }
     public static bool IsPointerOverUIElement()
@@ -445,5 +463,66 @@ public class GameManager : MonoBehaviour
         List<RaycastResult> raysastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;
+    }
+
+
+    ///Tutorial functions
+    
+    public static void SetSFXVolume(Slider sl)
+    {
+        sfxVolume = sl.value;
+    }
+    public static void SetBKGVolume(Slider bk)
+    {
+        bkgVolume = bk.value;
+    }
+
+    public static void Zoom(Slider zo)
+    {
+        Camera.main.orthographicSize = zo.value;
+    }
+
+    public static void Brightness(Slider br)
+    {
+        Screen.brightness = br.value;
+    }
+    public static void SetFilter(Dropdown d)
+    {
+        int index=d.value;
+        switch (index)
+        {
+            case 0:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Normal;
+                break;
+            case 1:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Protanopia;
+                break;
+            case 2:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Protanomaly;
+                break;
+            case 3:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Deuteranopia;
+                break;
+            case 4:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Deuteranomaly;
+                break;
+            case 5:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Tritanopia;
+                break;
+            case 6:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Tritanomaly;
+                break;
+            case 7:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Achromatopsia;
+                break;
+            case 8:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Achromatomaly;
+                break;
+            default:
+                Camera.main.GetComponent<ColorBlindFilter>().mode = ColorBlindMode.Normal;
+                break;
+
+        }
+        
     }
 }

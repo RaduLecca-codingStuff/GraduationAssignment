@@ -8,11 +8,15 @@ using UnityEngine.UIElements;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.Rendering;
+using UnityEditorInternal;
 
 public class HexagonPiece : MonoBehaviour
 {
     //this is to avoid errors resulting from the hexagon deletion triggering OnTriggerExit 
     bool _IsToBeDestroyed;
+
+    //this is to stop the coroutine from working after it cycled once
+    bool _coroutineRegulator=false;
 
     bool _drag=false;
     [SerializeField]
@@ -25,8 +29,10 @@ public class HexagonPiece : MonoBehaviour
     //Person and resource
     Person _person;
     Resource _resource;
-    
+
     AudioSource _audioSource;
+
+    SpriteRenderer _animationSprite;
 
     Tilemap _tiles;
     SpriteRenderer _renderer;
@@ -61,9 +67,12 @@ public class HexagonPiece : MonoBehaviour
         this.SetHexColor();
         _audioSource=gameObject.AddComponent<AudioSource>();
         _audioSource.volume = GameManager.sfxVolume;
+        _animationSprite = transform.Find("Animation").GetComponent<SpriteRenderer>();
+        _animationSprite.gameObject.SetActive(false);
     }
     private void Start()
     {
+        GameManager.WasPlaced = true;
         this.SetHexColor();
         CreateNewCluster();
         _audioSource.PlayOneShot(placeAudio);
@@ -74,6 +83,7 @@ public class HexagonPiece : MonoBehaviour
     }
     void Update()
     {
+
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
         if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement() )
@@ -181,7 +191,7 @@ public class HexagonPiece : MonoBehaviour
         GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         _audioSource.PlayOneShot(placeAudio);
         _drag = false;
-        GameManager.WasPlaced = true;
+        
     }
 
 
@@ -190,31 +200,42 @@ public class HexagonPiece : MonoBehaviour
     //////////////////////////////
     private void OnMouseDrag()
     {
-        StartCoroutine(OpenMenuCouroutine());
+        if (!_coroutineRegulator)
+            StartCoroutine(OpenMenuCouroutine());
     }
     private void OnMouseUp() 
-    { 
-        StopAllCoroutines();
-    }
-    IEnumerator OpenMenuCouroutine() 
     {
-        
+        Debug.Log(_coroutineRegulator.ToString());
+        _animationSprite.gameObject.SetActive(false);
+        StopAllCoroutines();
+        _coroutineRegulator = false;
+    }
+    IEnumerator OpenMenuCouroutine()
+    {
+        _coroutineRegulator = true;
+        yield return new WaitForSeconds(0.4f);
+        _animationSprite.gameObject.SetActive(true);
         if (RMenu.activeSelf)
         {
+            _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu",false);
             yield return new WaitForSeconds(1.4f);
+            _animationSprite.gameObject.SetActive(false);
             _drag = false;
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
             RMenu.SetActive(false);
         }
         else
         {
+             _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu", true);
             yield return new WaitForSeconds(1.4f);
+            _animationSprite.gameObject.SetActive(false);
             _drag = false;
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
             RMenu.SetActive(true);
             GameManager.WasMenuOpened = true;
             PositionMenu();
         }
+        
     }
     Vector3 GetMousePos()
     {

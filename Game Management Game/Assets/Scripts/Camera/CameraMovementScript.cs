@@ -28,18 +28,11 @@ public class CameraMovementScript : MonoBehaviour
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
-            MoveCamera(h, v);
+            SetDirection(h, v);
         }
         if (_isMoving)
         {
-            
-            Vector3 tempVect = (Vector3)_direction.normalized * speed * Time.deltaTime;
-            if (isInRange(transform.position.x + tempVect.x, -(maxWidth-(int)_cameraWidth) / 2, (maxWidth-(int)_cameraWidth) / 2)
-                && isInRange(transform.position.y + tempVect.y, -(maxHeight- (int)_cameraHeight) / 2, (maxHeight- (int)_cameraHeight) / 2))
-            {
-                transform.position += tempVect;
-                _wasUsed = true;
-            }
+            MoveTheCamera(_direction);
         }
     }
     public bool CheckIfUsed()
@@ -50,7 +43,7 @@ public class CameraMovementScript : MonoBehaviour
     {
         _wasUsed=false;
     }
-    public void MoveCamera(float h, float v)
+    public void SetDirection(float h, float v)
     {
         _isMoving = true;
         _direction=new Vector2(h, v);
@@ -66,8 +59,22 @@ public class CameraMovementScript : MonoBehaviour
         Gizmos.DrawWireCube(_initPos, new Vector3(maxWidth, maxHeight, 1));
         Gizmos.DrawWireCube(_initPos, new Vector3(_cameraWidth, _cameraHeight, 1));
     }
-    bool isInRange(float numberToCheck, int bottom, int top)
+     bool isInRange(float numberToCheck, int bottom, int top)
     {
         return (numberToCheck >= bottom && numberToCheck <= top);
+    }
+
+    public bool CheckOutsideFunction()
+    {
+        Vector3 tempVect = (Vector3)_direction.normalized * speed * Time.deltaTime;
+        return (isInRange(transform.position.x + tempVect.x, -(maxWidth - (int)_cameraWidth) / 2, (maxWidth - (int)_cameraWidth) / 2)
+            && isInRange(transform.position.y + tempVect.y, -(maxHeight - (int)_cameraHeight) / 2, (maxHeight - (int)_cameraHeight) / 2));      
+    }
+    public void MoveTheCamera(Vector3 t)
+    {
+        Vector3 tempVect = (Vector3)t.normalized * speed * Time.deltaTime;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x + tempVect.x, -(maxWidth - (int)_cameraWidth) / 2, (maxWidth - (int)_cameraWidth) / 2)
+                , Mathf.Clamp(transform.position.y + tempVect.y, -(maxHeight - (int)_cameraHeight) / 2, (maxHeight - (int)_cameraHeight) / 2), transform.position.z);
+        _wasUsed = true;
     }
 }
