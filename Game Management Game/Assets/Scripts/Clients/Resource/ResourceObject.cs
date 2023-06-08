@@ -10,21 +10,8 @@ public class ResourceObject : MonoBehaviour
     public Sprite v1;
     public Sprite v2;
     public Sprite v3;
-
-    /*
-    [Header("Audio clips")]
-    public AudioClip takeAudio;
-    public AudioClip placeAudio;
-    bool _isSelected = false;
-    RSlot _prevSlot;
-    RSlot _newSlot;
-    AudioSource _audioSource;
-    */
-
     Resource _resource;
     Image _img;
-    
-
     
     public ResourceObject(Resource r)
     {

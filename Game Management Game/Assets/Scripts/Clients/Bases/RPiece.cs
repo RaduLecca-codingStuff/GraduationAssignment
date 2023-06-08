@@ -5,16 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class RPiece : MonoBehaviour, IPointerClickHandler
-
 {
-    /*
-    [Header("Possible Resource Sprites")]
-    public Sprite v1;
-    public Sprite v2;
-    public Sprite v3;
-    Resource _resource;
-    
-    */
     enum Type
     {
         person,
@@ -46,10 +37,14 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
             Debug.LogError("Please add either a PersonObject or a ResourceObject component for this to work. Otherwise, this won't work");
         }
     }
+    void OnEnable()
+    {
+        _audioSource.volume = GameManager.sfxVolume;
+    }
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameManager.currentPiece._selected)
+        if (Input.GetMouseButtonDown(0) && GameManager.currentPiece)
         {
             var mousepos = GetMousePos();
             RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
@@ -72,13 +67,17 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
     {
         if(slotP.TryGetComponent<RSlot>(out RSlot slot))
         {
+            
             if (slot.type.ToString() == this.type.ToString() && slot!=_currentSlot && slot.isEmpty)
             {
+                if(_currentSlot)
                 _currentSlot.isEmpty = true;
-                this.transform.SetParent(slotP.transform);
-                this.transform.position = slot.transform.position;
+                GameManager.currentPiece.transform.SetParent(slotP.transform);
+                GameManager.currentPiece.transform.position = slot.transform.position;
                 _currentSlot = slot;
-                if(slot.type.ToString()=="person")
+                _currentSlot.isEmpty = false;
+                
+                if (slot.type.ToString()=="person")
                     slot.AddPerson(GameManager.currentPiece.gameObject.GetComponent<PersonObject>());
                 else if (slot.type.ToString() == "resource")
                     slot.AddResource(GameManager.currentPiece.gameObject.GetComponent<ResourceObject>());

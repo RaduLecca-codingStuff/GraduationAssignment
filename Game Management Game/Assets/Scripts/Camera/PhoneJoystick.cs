@@ -16,7 +16,7 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
 
     void Awake()
     {
-        GameManager.mobileJoystick = this.gameObject;
+        //GameManager.mobileJoystick = this.gameObject;
     }
 
     // Start is called before the first frame update

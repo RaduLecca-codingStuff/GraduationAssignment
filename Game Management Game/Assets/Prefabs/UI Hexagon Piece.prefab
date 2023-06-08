@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 440854504317559303}
   m_RootOrder: 0
@@ -164,6 +165,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 440854504226786524}
   m_Father: {fileID: 0}
@@ -202,7 +204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5dafffa6dc0663143b78079a743e90ce, type: 3}
+  m_Sprite: {fileID: 1555527290, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -227,10 +229,10 @@ MonoBehaviour:
   HexagonPrefab: {fileID: 901478777837554710, guid: fb7d0a091b1c23243aa08c8ee6391af1,
     type: 3}
   Type: 0
-  spr1: {fileID: 21300000, guid: 5dafffa6dc0663143b78079a743e90ce, type: 3}
-  spr2: {fileID: 21300000, guid: b25c0a3fd2e662c4b88d162433ac438d, type: 3}
-  spr3: {fileID: 21300000, guid: de4caf280f3fc6a4fa4394fc52a56753, type: 3}
-  spr4: {fileID: 21300000, guid: f50fbd7677c36454e8295b1ec41dfb6b, type: 3}
+  spr1: {fileID: 147220507, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
+  spr2: {fileID: -993465495, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
+  spr3: {fileID: -1862997329, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
+  spr4: {fileID: 1274063304, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
 --- !u!82 &-6432871534728601022
 AudioSource:
   m_ObjectHideFlags: 0

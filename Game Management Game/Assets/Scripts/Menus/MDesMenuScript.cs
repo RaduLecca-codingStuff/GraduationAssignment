@@ -19,8 +19,9 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     public Text Name;
     public Text Description;
     public GameObject StrengthPointsParent;
-    Touch theTouch;
     public GameObject AtributePrefab;
+    
+
 
     void Start()
     {

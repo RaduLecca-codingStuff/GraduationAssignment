@@ -8,6 +8,7 @@ public class ClientDescription : MonoBehaviour
     public Text Name;
     public Text Description;
     public Text fundsAvailable;
+    public Text ResChances;
     // Start is called before the first frame update
 
     private void OnEnable()
@@ -15,6 +16,10 @@ public class ClientDescription : MonoBehaviour
         Name.text=GameManager.currentClient.clientName;
         Description.text = GameManager.currentClient.description;
         fundsAvailable.text= "Funds Available : "+ GameManager.currentClient.AvInvestment.ToString();
+        ResChances.text = GameManager.currentClient.GetChances().ToString();
     }
-
+    private void Update()
+    {
+        ResChances.text = GameManager.currentClient.GetChances().ToString();
+    }
 }

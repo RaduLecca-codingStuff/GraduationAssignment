@@ -31,7 +31,6 @@ public class ClusterManager : MonoBehaviour
             GameManager.sustainability = _avgSustainability; 
             GameManager.experience = _avgExperience;
             GameManager.currentTimeLeft= GameManager.currentClient.GetRemainingTime()-_timeRequired;
-            //Debug.Log(GameManager.currentClient.GetRemainingTime());
         }
         
         if (this.transform.childCount == 0)
@@ -380,10 +379,9 @@ public class ClusterManager : MonoBehaviour
                         break;
 
                     case "ExperienceExpert":
-                        if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype" || piece.Name() == "Wireframes")
-                        {
+                        
                             exp += 3;
-                        }
+                        
                         break;
                     case "VisualDesigner":
                         if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept" || piece.Name() == "Paper Prototype")

@@ -14,7 +14,7 @@ public class RSlot : MonoBehaviour
     public Type type;
     PersonObject _person;
     ResourceObject _resource;
-    public bool isEmpty=false;
+    public bool isEmpty=true;
     [Header("Visual Indicator")]
     public Image Indicator;
     // Start is called before the first frame update

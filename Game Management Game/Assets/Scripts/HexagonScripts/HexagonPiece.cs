@@ -205,7 +205,6 @@ public class HexagonPiece : MonoBehaviour
     }
     private void OnMouseUp() 
     {
-        Debug.Log(_coroutineRegulator.ToString());
         _animationSprite.gameObject.SetActive(false);
         StopAllCoroutines();
         _coroutineRegulator = false;
