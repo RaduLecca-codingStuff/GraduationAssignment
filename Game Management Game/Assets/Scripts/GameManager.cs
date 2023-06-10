@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
+//using static UnityEngine.UIElements.UxmlAttributeDescription;
+//using System;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.SearchService;
+using UnityEditor;
 
 
 public class GameManager : MonoBehaviour
 {
     //Changes the game
     public static bool isMobile = false;
-
+    public static bool isInMenu = true;
 
     public static GameObject mobileJoystick;
     static int nrOfLives = 3;
@@ -125,6 +130,7 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame()
     {
+        isInMenu = false;
         buttonAudio.Play();
         if (!sawTutorial)
         {
@@ -153,6 +159,7 @@ public class GameManager : MonoBehaviour
 
     public static void OpenSettings()
     {
+        isInMenu = true;
         Text gBText = _settingsMenu.transform.Find("Start").GetComponentInChildren<Text>();
         if(_mainMenu.gameObject.activeSelf)
         {
@@ -184,6 +191,7 @@ public class GameManager : MonoBehaviour
     }
     public static void BacktoMenu()
     {
+        isInMenu = true;
         buttonAudio.Play();
         TryAgain();
         _mainMenu.gameObject.SetActive(true);
@@ -220,8 +228,12 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
-                    currentClient = new Client("Helix Technologies", "A large technology company focused on developing cutting-edge virtual reality and augmented reality gaming experiences." +
-                    " They've been operating for 5 years and have agreed with you to find a way to create a way to make a new VR game they've been planning to make for several years.", 60, 50, 60, persons,5,80);
+                    currentClient = new Client("Helix Technologies", "What kind of serious game would Helix Technologies , a technology company focused on developing " +
+                        "cutting-edge virtual reality and augmented reality gaming experiences, would ask you to build ? Helix Technologies could ask another company " +
+                        "to build a game that focuses on teaching the user about the latest virtual reality and augmented reality technologies. The game needs to have " +
+                        "a strong sense of purpose in every feature there is in it as to teach the user things from the fundamentals of VR and AR, to how to use the latest " +
+                        "\technology available in the field.Because of this, Try to also take note of the experience of the user with the learning material. The company has, " +
+                        "luckily offered you a pretty long timeframe to complete this project.Good luck!", 60, 20, 40, persons,5,80);
                     currentClient.SetInvestment(2, 6, 6);
                     break;
                 case 1:
@@ -231,8 +243,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.UXdesigner));
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.EndUser));
-                    currentClient = new Client("Trove Games", "A video game company specializing in multiplayer online role-playing games. " +
-                    " This company has gotten in contact with you in order to make their third MMO game, which they just hired a new team's worth of people for it and planned to have it be a side game compared to the other two titles they already have.", 40, 30, 50, persons, 4, 80);
+                    currentClient = new Client("Trove Games", "What kind of videogame would Trove games-A video game company specializing in multiplayer online role-playing games," +
+                        " Would ask you to work on with them? Their third planned MMO game, of course! After receiving some feedback from other current projects, they want to make a" +
+                        " game which has a much better experience than usual. Don't ignore the other aspects, though. After all, an MMO needs to be easily maintained and sustained by" +
+                        " the company. They got quite a bit of resources and quite a bit of time to offer before they release it, Lucky for you!", 20, 40, 60, persons, 4, 60);
                     currentClient.SetInvestment(8, 6, 5);
                     break;
                 case 2:
@@ -247,9 +261,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.UXdesigner));
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.Tester));
-                    currentClient = new Client("MoonScape", "A leading mobile gaming company offering a variety of exciting and innovative titles." +
-                    " They've been succesfully working for 6 years and now they decided to partner up with you to re-work a dropped-off project." +
-                    " However, they don't have a plan to how they're going to re-vamp the project, so they wish to start from scratch.", 60, 30, 70, persons, 4, 80);
+                    currentClient = new Client("MoonScape", "What kind of service would MoonScape ,a leading mobile gaming company offering a variety of exciting and " +
+                        "innovative titles, would ask of you to build? A remote app to better train their future employees how to work on their custom, in-house engine," +
+                        " of course. For this project, they wish for this app to be sustainable, easily adjustable so that they can easily update it alongside their engine." +
+                        " The educational purpose of the app shouldn't be ignored either. You have a bit of extra time above the usual ammount for the project,but spend it wisely!", 50, 70, 20, persons, 4, 60);
                     currentClient.SetInvestment(1, 4, 7);
                     break;
                 case 3:
@@ -259,8 +274,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
-                    currentClient = new Client("HyperTek", "A technology company that specializes in developing cyber security solutions for businesses." +
-                    " You've agreed to work with them to develop a security system for small businesses that's affordable to broaden the available services provided by the company.", 60, 40, 40, persons, 3, 80);
+                    currentClient = new Client("HyperTek", "What kind of product would HyperTek , a technology company that specializes in developing cyber security" +
+                        " solutions for businesses, would want to build through a collaboration with you? Well, you've agreed to work with them to develop a security " +
+                        "system for small businesses that's affordable to broaden the available services provided by the company. Their requirements for it are that it " +
+                        "can be updated to detect newer viruses to sustain it and to have an easy to use interface for an easy user experience. Average time for this project. Good luck!", 20, 70, 40, persons, 3, 50);
                     currentClient.SetInvestment(6,6, 6);
                     break;
                 case 4:
@@ -269,8 +286,11 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.ExperienceExpert));
                     persons.Add(new Person(Person.Occupation.UXdesigner));
                     persons.Add(new Person(Person.Occupation.Tester));
-                    currentClient = new Client("DigiPlay", "An independent video game developer and publisher that develops original titles for multiple platforms." +
-                    " As a small company, they want to try to make a much more fleshed out game, but they have a limited ammount of resources and persons that they have together. ", 30, 50, 60, persons, 2, 80);
+                    currentClient = new Client("DigiPlay", "What would Digiplay, an independent video game developer and publisher that develops original titles for " +
+                        "multiple platforms, Would need to develop alongside you? They had an idea for a project they wanted to be done, but need your help to make it. " +
+                        "It needs to offer a strong experience to leave a lasting impression, as this game could be the game that puts them in the spotlight. Be careful " +
+                        "to not forget other aspects of the game, however. As a relatively new company, they don't have that much time to spare to get the project off the " +
+                        "ground. But can you use that time to the fullest?", 10, 10, 70, persons, 2, 40);
                     currentClient.SetInvestment(8, 4, 5);
                     break;
                 case 5:
@@ -280,8 +300,11 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
-                    currentClient = new Client("Stratos Systems", "A technology company specializing in the development of innovative cloud-based software solutions." +
-                    " Through your collaboration with them, you now have to make a secure software meant to save the data from a client's social media page.", 70, 80, 50, persons, 3, 80);
+                    currentClient = new Client("Stratos Systems", "What kind of software would Stratos Systems, a technology company specializing in the development of " +
+                        "innovative cloud-based software solutions, ask you to develop for them? They agreed to colaborate with you on a program meant to securely save " +
+                        "the data from a client's social media page on a cloud server and to make the app compatible with the antivirus provided by the Stratos Systems. " +
+                        "This is the purpose of the project, but it's necessary to also keep an eye on how to make the software easier to sustain through updates. " +
+                        "Average time for this project. Good luck!", 70, 40, 20, persons, 3, 50);
                     currentClient.SetInvestment(4,6, 3);
                     break;
                 case 6:
@@ -291,9 +314,11 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
-                    currentClient = new Client("Automata Systems", "A robotics and artificial intelligence company that produces autonomous machines to help with everyday tasks." +
-                    " As they chose to create a robotic device that detects different colours more efficiently, but they can't afford many resources on the project, since they currently use most on them on other projects." +
-                    " They do, however, told you that almost all employees consent to work on the project.", 50, 70, 50, persons, 2, 80);
+                    currentClient = new Client("Automata Systems", "What kind of robot would Automata Systems , a robotics and artificial intelligence company that produces " +
+                        "autonomous machines to help with everyday tasks, ask you to make for them? They asked you to develop a small and compact color sensor that can detect " +
+                        "both bright and dark colors from a camera and can do different actions based on the color when it finds it. The small robot needs to have all its aspects" +
+                        " have a purpose due to how small it is, and a lot of it at that. You have a decent ammount of time available, but you're short on resources. " +
+                        "Can you make it work?", 80, 10, 10, persons, 2, 60);
                     currentClient.SetInvestment(5, 6, 4);
                     break;
                 case 7:
@@ -304,8 +329,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.UXdesigner));
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.Tester));
-                    currentClient = new Client("Forge Entertainment", "An entertainment company that produces and distributes top-tier video games and virtual reality experiences." +
-                    " As a business with currently limited resources, they asked you to help with the development of their new game that is to release on the market in the hope it will increase their success on the market", 20, 30, 65, persons, 2, 80);
+                    currentClient = new Client("Forge Entertainment", "What kind of game would Forge Entertainment, an entertainment company that produces and distributes top-tier " +
+                        "video games and virtual reality experiences, would ask your company to develop for them?As a business with currently limited resources, they asked you to help " +
+                        "with the development of their new game that is to release on the market soon with the purpose to increase their success on the market. They don't want to go " +
+                        "cheap on the player's gameplay experience, however. You established a pretty reasonable timeframe with them for the project. Best of luck on developing!", 60, 20, 40, persons, 2, 60);
                     currentClient.SetInvestment(2, 7, 5);
                     break;
                 case 8:
@@ -316,8 +343,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.Tester));
-                    currentClient = new Client("NoduX", "A tech company focused on creating innovative, user-friendly web and mobile applications." +
-                    " As a relatively recent and relatively succesful company, they desire to create a new application targeted towards people with disabilities.", 70, 40, 40, persons, 4, 80);
+                    currentClient = new Client("NoduX", "What kind of product would NoduX, a tech company focused on creating innovative, user-friendly web and mobile applications, " +
+                        "would they ask you to develop with them as part of a partnership? Well,they desire to create a new application targeted towards non-verbal indivduals to help " +
+                        "them communicate with other people either in person or online in real time. It's important for the user experience with the product is to be noticeably good and " +
+                        "to make the purpose and use of the product to be not only apparent, but also palpable in its effects. Average time for this project. Good luck!", 60, 10, 60, persons, 4, 50);
                     currentClient.SetInvestment(3, 3, 8);
                     break;
                 case 9:
@@ -328,8 +357,11 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.Tester));
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
-                    currentClient = new Client("Outliers Technologies", "A technology company that specializes in creating innovative, user-friendly hardware and software solutions." +
-                    " As they are a small company in a strained financial situation, they came to you with the idea to make a new product that will help them reach a new part of their target audience.", 80, 40, 80, persons, 2, 80);
+                    currentClient = new Client("Outliers Technologies", "What kind of project would Outliers Technologies , a technology company that specializes in creating innovative, " +
+                        "user-friendly hardware and software solutions, would like to develop with your help? They decided that developing an app which allows its users to easily prepare " +
+                        "and create their own portfolios for job applications. The company has stated that this app will have to be more sustainable to match with changing trends in the work " +
+                        "environments of the user. Unfortunately, there's not that much time or resources that can be accorded due to planned changes. You still persisted with the project and " +
+                        "now you're about to start development. Are you still up to the task?", 10, 70, 10, persons, 2, 40);
                     currentClient.SetInvestment(2, 1, 5);  
                     break;
                 default:
@@ -525,4 +557,13 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    public static float[] ExtraPointReveal()
+    {
+        float[] diff = new float[3];
+        diff[0] = sustainability - currentClient.reqSustainability;
+        diff[1] = experience - currentClient.reqExperience;
+        diff[2] = purpose - currentClient.reqPurpose;
+        return diff;
+    } 
 }

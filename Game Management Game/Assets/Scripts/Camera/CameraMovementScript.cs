@@ -24,7 +24,7 @@ public class CameraMovementScript : MonoBehaviour
     }
     private void Update()
     {
-        if (!GameManager.isMobile)
+        if (!GameManager.isMobile && !GameManager.isInMenu)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");

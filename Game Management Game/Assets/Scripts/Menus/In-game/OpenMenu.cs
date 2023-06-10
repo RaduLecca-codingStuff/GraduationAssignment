@@ -8,7 +8,7 @@ public class OpenMenu : MonoBehaviour
 {
     [Header("Sprites")]
     public Button _button;
-    public RawImage _menu;
+    public Image _menu;
     public int distance;
     public enum MenuType
     {
