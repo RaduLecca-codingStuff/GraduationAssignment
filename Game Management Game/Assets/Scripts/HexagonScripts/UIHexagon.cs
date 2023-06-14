@@ -173,7 +173,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                                 piece.SetUpHexagon(HexagonPiece.type.discover, 1, 0, 0, 5f, _text.text);
                                 break;
                             case "Design Space Analysis":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 2, 1, 3f, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 3, 1, 3f, _text.text);
                                 break;
                             case "Player Investigation":
                                 piece.SetUpHexagon(HexagonPiece.type.discover, 2, 1, 0, 4f, _text.text);

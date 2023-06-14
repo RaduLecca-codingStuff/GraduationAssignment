@@ -283,8 +283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: {fileID: 6064473804684806850}
   RMenu: {fileID: 1903447561211895630}
-  Purpose: 1
-  Sustainability: 2
+  Purpose: 0
+  Sustainability: 1
   Experience: 0
   spr1: {fileID: 147220507, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   spr2: {fileID: -993465495, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
@@ -293,7 +293,7 @@ MonoBehaviour:
   takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
   placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
   Type: 2
-  timeNeeded: 4
+  timeNeeded: 5
 --- !u!58 &901478777837554705
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Playtest
+  m_text: Closing
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

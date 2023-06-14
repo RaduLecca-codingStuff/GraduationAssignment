@@ -71,13 +71,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Analyse data obtained through research.";
                         break;
                     case "Initiation":
-                        Description.text = "Insert description here";
+                        Description.text = "Thoroughly prepare new workers on the project for what they'll work on.";
                         break;
                     case "Awareness":
-                        Description.text = "Insert description here";
+                        Description.text = "Take more effort to make yourself aware of the intricacies of the project.";
                         break;
                     case "Design Space Analysis":
-                        Description.text = "Insert description here";
+                        Description.text = "Use Questions, Options, and Criteria (QOC) to reflect on your design choices and identify issues.";
                         break;
                     case "Player Investigation":
                         Description.text = "Investigate what players would want.";
@@ -126,13 +126,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Create a prototype which has the purpose of proving that the concept is viable.";
                         break;
                     case "Execution":
-                        Description.text = "Insert description here";
+                        Description.text = "Review how features of your product are implemented.";
                         break;
                     case "Fabrication":
-                        Description.text = "Insert description here";
+                        Description.text = "Use material that is meant to present the finished product. This isn't substitute for the real thing.";
                         break;
                     case "Concept":
-                        Description.text = "Have a concept set and recorded somewhere";
+                        Description.text = "Have a concept set and recorded somewhere.";
                         break;
                     case "Playtest":
                         Description.text = "Test out the prototype for the game";
@@ -147,10 +147,10 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Create several ideas for the project and write them down somewhere";
                         break;
                     case "Design":
-                        Description.text = "Insert description here";
+                        Description.text = "Review your product's design process.";
                         break;
                     case "Define":
-                        Description.text = "Insert description here";
+                        Description.text = "Take time to define specific elements of the process.";
                         break;
                     case "Design Documentation":
                         Description.text = "Document design ideas and requirements.";
@@ -193,13 +193,13 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                         Description.text = "Add feedback to the project.";
                         break;
                     case "Closing":
-                        Description.text = "Insert description here";
+                        Description.text = "Place emphasis on the finishing touches of the prototype before the end of the project.";
                         break;
                     case "Business Model":
                         Description.text = "Prepare a business model canvas to visualize and assess your business idea or concept.";
                         break;
                     case "Production":
-                        Description.text = "Begin production of the product in full";
+                        Description.text = "Begin production of the product in full.";
                         break;
                     case "User Stories":
                         Description.text = "Use stories the game does to inform the design decision.";

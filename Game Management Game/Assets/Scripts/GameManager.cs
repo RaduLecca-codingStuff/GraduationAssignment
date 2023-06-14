@@ -1,18 +1,16 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.SearchService;
-using UnityEditor;
+
 
 
 public class GameManager : MonoBehaviour
 {
     //Changes the game
-    public static bool isMobile = false;
+    public static bool isMobile = true;
     public static bool isInMenu = true;
 
     public static GameObject mobileJoystick;
