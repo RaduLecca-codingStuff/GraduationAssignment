@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
-//using static UnityEngine.UIElements.UxmlAttributeDescription;
-//using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEditor;

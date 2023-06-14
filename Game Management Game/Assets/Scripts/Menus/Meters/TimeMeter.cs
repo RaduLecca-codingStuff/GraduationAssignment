@@ -7,6 +7,8 @@ public class TimeMeter : MonoBehaviour
 {
     RawImage _bar;
     float _baseLength;
+    [SerializeField]
+    Gradient _gradient;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class TimeMeter : MonoBehaviour
     void Update()
     {
         _bar.transform.localScale = new Vector3((GameManager.currentTimeLeft * _baseLength) / 100, _bar.transform.localScale.y, 1);
-        _bar.color = new Color(.61f, _baseLength, .074f);
-        //Debug.Log(GameManager.currentTimeLeft);
+        _bar.color = _gradient.Evaluate(_bar.transform.localScale.x);
+        
     }
 }

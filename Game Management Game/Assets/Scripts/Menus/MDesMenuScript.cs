@@ -88,8 +88,8 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
                     case "Game Storm":
                         Description.text = "Brainstorm gameplay ideas.";
                         break;
-                    case "Subject Matter Expert Investigation":
-                        Description.text = "Investigate if the subject matter of the project is appropriate for the target audience.";
+                    case "SME Investigation":
+                        Description.text = "Subject Matter Expert Investigation. Investigate if the subject matter of the project is appropriate for the target audience.";
                         break;
                     case "Game Concept":
                         Description.text = "Create a clearly defined concept for the product.";

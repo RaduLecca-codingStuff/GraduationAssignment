@@ -118,7 +118,7 @@ public class TutorialScript : MonoBehaviour
                 description.text = "Hold on the method for a bit to show the method's person and resource menu. There, you can place methods and resources in their respective slots.";
                 break;
             case 5:
-                description.text = "Methods and resources can be found in the pieces menu. Persons work only on certain methods, so make sure to pair them properly.";
+                description.text = "Methods and resources can be found in the pieces menu. Persons enhance your methods only if it matches the method's type, but very specific ones that fit the person's occupation give even more buffs.";
                 break;
             case 6:
                 nextButton.GetComponentInChildren<Text>().text = "Begin";

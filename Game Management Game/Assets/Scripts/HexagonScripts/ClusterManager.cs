@@ -334,6 +334,11 @@ public class ClusterManager : MonoBehaviour
                         }
                         break;
                     case "UXdesigner":
+                        if (piece.Type == HexagonPiece.type.develop)
+                        {
+                            pur += 2;
+                            exp += 2;
+                        }
                         if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype")
                         {
                             exp += 3;
@@ -352,6 +357,11 @@ public class ClusterManager : MonoBehaviour
                         }
                         break;
                     case "SME":
+                        if (piece.Type == HexagonPiece.type.develop)
+                        {
+                            sust += 2;
+                            exp += 2;
+                        }
                         if (piece.Name() == "Solution" || piece.Name() == "Concept" || piece.Name() == "Execution" || piece.Name() == "Proof of Concept")
                         {
                             sust += 2;
@@ -378,12 +388,15 @@ public class ClusterManager : MonoBehaviour
                         }
                         break;
 
-                    case "ExperienceExpert":
-                        
+                    case "ExperienceExpert": 
                             exp += 3;
-                        
                         break;
                     case "VisualDesigner":
+                        if (piece.Type == HexagonPiece.type.develop)
+                        {
+                            pur += 2;
+                            exp += 2;
+                        }
                         if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept" || piece.Name() == "Paper Prototype")
                         {
                             pur += 3;
