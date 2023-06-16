@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     public static bool WasPlaced = false;
     public static bool WasCheckedForInfo = false;
     public static bool WasMenuOpened = false;
+    public static bool WasJoystickUsed = false;
 
     // Start is called before the first frame update
     private void Awake()
@@ -139,20 +140,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
             _tutorialMenu.gameObject.SetActive(false);
             _settingsMenu.gameObject.SetActive(false);
             _gameMenu.gameObject.SetActive(true);
             _mainMenu.gameObject.SetActive(false);
-            if (!isMobile)
-            {
-                mobileJoystick.GetComponent<Image>().enabled = false;
-                mobileJoystick.SetActive(false);
-            }
             return;
         }
     }
-
     public static void OpenSettings()
     {
         isInMenu = true;
@@ -175,10 +169,13 @@ public class GameManager : MonoBehaviour
         _settingsMenu.gameObject.SetActive(true);
         _gameMenu.gameObject.SetActive(false);
     }
-
     public static void OpenTutorial()
     {
         buttonAudio.Play();
+        WasJoystickUsed = false;
+        WasPlaced = false;
+        WasCheckedForInfo = false;
+        WasMenuOpened = false;
         _mainMenu.gameObject.SetActive(false);
         _tutorialMenu.gameObject.SetActive(true);
         _settingsMenu.gameObject.SetActive(false);
@@ -195,7 +192,6 @@ public class GameManager : MonoBehaviour
         _settingsMenu.gameObject.SetActive(false);
         _gameMenu.gameObject.SetActive(false);
     }
-
     public Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -225,10 +221,10 @@ public class GameManager : MonoBehaviour
                     persons.Add(new Person(Person.Occupation.PSO));
                     persons.Add(new Person(Person.Occupation.SME));
                     currentClient = new Client("Helix Technologies", "What kind of serious game would Helix Technologies , a technology company focused on developing " +
-                        "cutting-edge virtual reality and augmented reality gaming experiences, would ask you to build ? Helix Technologies could ask another company " +
+                        "cutting-edge virtual reality and augmented reality gaming experiences, would ask you to build ? Helix Technologies asked you " +
                         "to build a game that focuses on teaching the user about the latest virtual reality and augmented reality technologies. The game needs to have " +
                         "a strong sense of purpose in every feature there is in it as to teach the user things from the fundamentals of VR and AR, to how to use the latest " +
-                        "\technology available in the field.Because of this, Try to also take note of the experience of the user with the learning material. The company has, " +
+                        "technology available in the field.Try to also take note of the experience of the user with the learning material. The company has, " +
                         "luckily offered you a pretty long timeframe to complete this project.Good luck!", 60, 20, 40, persons,5,80);
                     currentClient.SetInvestment(2, 6, 6);
                     break;
@@ -492,10 +488,7 @@ public class GameManager : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;
     }
-
-
     ///Tutorial functions
-    
     public static void SetSFXVolume(Slider sl)
     {
         sfxVolume = sl.value;
@@ -551,7 +544,7 @@ public class GameManager : MonoBehaviour
                 break;
 
         }
-        
+
     }
 
     public static float[] ExtraPointReveal()

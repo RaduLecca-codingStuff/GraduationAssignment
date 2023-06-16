@@ -9,9 +9,6 @@ public class TutorialScript : MonoBehaviour
     int stepsTaken = 0;
     public GameObject menu1;
     public GameObject menu2;
-    GameObject stage4;
-    GameObject stage5;
-    GameObject GameUI;
 
     [SerializeField]
     Button nextButton;
@@ -19,7 +16,6 @@ public class TutorialScript : MonoBehaviour
     Text description;
 
     CameraMovementScript _mainCameraMovement;
-    PhoneJoystick _joystick;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -27,14 +23,6 @@ public class TutorialScript : MonoBehaviour
         UpdateStep();
         _mainCameraMovement=Camera.main.GetComponent<CameraMovementScript>();
         _mainCameraMovement.ResetUse();
-        if (GameManager.mobileJoystick)
-        {
-            if (GameManager.mobileJoystick.TryGetComponent<PhoneJoystick>(out PhoneJoystick p))
-            {
-                _joystick = p;
-                _joystick.ResetUse();
-            }
-        }
         menu1.SetActive(false);
         menu2.SetActive(false);
         GameManager.WasCheckedForInfo = false;
@@ -48,7 +36,7 @@ public class TutorialScript : MonoBehaviour
         switch (stepsTaken)
         {
             case 1:
-                if (GameManager.isMobile && _joystick.CheckIfUsed())
+                if (GameManager.isMobile && GameManager.WasJoystickUsed)
                 {
                     nextButton.interactable = true;
                 }
@@ -75,7 +63,10 @@ public class TutorialScript : MonoBehaviour
                     nextButton.interactable = true;
                 break;
             case 5:
-                
+                nextButton.interactable = true;
+                break;
+            case 6:
+                nextButton.interactable = true;
                 break;
             default:
                 break;
@@ -128,7 +119,7 @@ public class TutorialScript : MonoBehaviour
             case 7:
                 ResetMenu1();
                 nextButton.GetComponentInChildren<Text>().text = "Next";
-                menu2.GetComponent<MDesMenuScript>().Clear();
+                menu2.transform.Find("Image").GetComponentInChildren<MDesMenuScript>().Clear();
                 GameManager.StartGame();
                 break;
 

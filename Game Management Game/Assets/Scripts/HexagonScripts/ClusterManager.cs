@@ -99,207 +99,21 @@ public class ClusterManager : MonoBehaviour
                                     s += 2;
                                     p += 2;
                                 }
-                                switch (piece.Name())
-                                {
-                                    case "KPI":
-                                        
-                                        break;
-                                    case "Emphatise":
-                                        
-                                        break;
-                                    case "Risk Assesment":
-                                        
-                                        break;
-                                    case "Insight":
-
-                                        break;
-                                    case "Requirements":
-                             
-                                        break;
-                                    case "Research":
-                                        
-                                        break;
-                                    case "Analyse":
-                                     
-                                        break;
-                                    case "Initiation":
-                                        
-                                        break;
-                                    case "Awareness":
-                                        
-                                        break;
-                                    case "Design Space Analysis":
-                                        
-                                        break;
-                                    case "Player Investigation":
-                                        
-                                        break;
-                                    case "Journey Investigation":
-                                        
-                                        break;
-                                    case "Game Storm":
-                                        
-                                        break;
-                                    case "Subject Matter Expert Investigation":
-                                       
-                                        break;
-                                    case "Game Concept":
-      
-                                        break;
-                                    case "Identify Game Loop":
-                                        
-                                        break;
-                                    case "Feature Roadmap":
-                                        
-                                        break;
-                                    default: break;
-                                }
                                 break;
                             case HexagonPiece.type.develop:
                                 if (neighbour.Type == HexagonPiece.type.deliver)
                                 {
-                                    e += 2;
-                                    s += 2;
-                                    p += 2;
-                                }
-                                switch (piece.Name())
-                                {
-                                    case "Action":
-
-                                        break;
-                                    case "Minimum Viable Product":
-
-                                        break;
-                                    case "Minimum Usable Product":
-
-                                        break;
-                                    case "Solution":
-
-                                        break;
-                                    case "Prototyping":
-
-                                        break;
-                                    case "Proof of Concept":
-
-                                        break;
-                                    case "Execution":
-
-                                        break;
-                                    case "Fabrication":
-
-                                        break;
-                                    case "Concept":
-
-                                        break;
-                                    case "Playtest":
-
-                                        break;
-                                    case "Iterate":
-
-                                        break;
-                                    case "Elaboration":
-
-                                        break;
-                                    case "Ideation":
-
-                                        break;
-                                    case "Design":
-
-                                        break;
-                                    case "Define":
-
-                                        break;
-                                    case "Design Documentation":
-
-                                        break;
-                                    case "Wireframes":
-
-                                        break;
-                                    case "Paper Prototype":
-
-                                        break;
-                                    case "Click-thru":
-
-                                        break;
-                                    case "Feature Roadmap":
-
-                                        break;
-                                    case "Design Elaborations":
-
-                                        break;
-                                    default: break;
+                                    e += .5f;
+                                    s += .5f;
+                                    p += .5f;
                                 }
                                 break;
                             case HexagonPiece.type.deliver:
                                 if (neighbour.Type == HexagonPiece.type.upkeep)
                                 {
-                                    e += 2;
-                                    s += 2;
-                                    p += 2;
-                                }
-                                switch (piece.Name())
-                                {
-                                    case "Playtest":
-                                        
-                                        break;
-                                    case "Validate":
-                                        
-                                        break;
-                                    case "Launch":
-                                        
-                                        break;
-                                    case "Design Tuning":
-                                        
-                                        break;
-                                    case "Implementation":
-                                        
-                                        break;
-                                    case "Closing":
-                                        
-                                        break;
-                                    case "Business Model":
-                                        
-                                        break;
-                                    case "Production":
-                                        
-                                        break;
-                                    case "User Stories":
-                                        
-                                        break;
-                                    case "Minimum Usable Product":
-                                        
-                                        break;
-                                    case "Minimum Viable Product":
-                                       
-                                        break;
-                                    case "Feature Roadmap":
-                                        
-                                        break;
-                                    default: break;
-                                }
-                                break;
-                            case HexagonPiece.type.upkeep:
-                                switch (piece.Name())
-                                {
-                                    case "Monetise":
-                                        
-                                        break;
-                                    case "Upscale":
-                                        
-                                        break;
-                                    case "Support":
-                                        
-                                        break;
-                                    case "Updates":
-                                        
-                                        break;
-                                    case "Maintenance":
-                                        
-                                        break;
-                                    case "Feature Roadmap":
-                                        
-                                        break;
-                                    default: break;
+                                    e += .5f;
+                                    s += .5f;
+                                    p += .5f;
                                 }
                                 break;
                             default:

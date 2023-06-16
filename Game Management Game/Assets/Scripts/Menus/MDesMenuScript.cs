@@ -20,9 +20,6 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     public Text Description;
     public GameObject StrengthPointsParent;
     public GameObject AtributePrefab;
-    
-
-
     void Start()
     {
         GameManager.descriptionMenu = this;
@@ -41,6 +38,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
         {
             Destroy(child.gameObject);
         }
+        if(GameManager.InfoPiece)
         GameManager.InfoPiece.DeselectHexagon();
         Name.text = GameManager.InfoPiece.Name();
         switch (GameManager.InfoPiece.Type)

@@ -258,7 +258,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1862997329, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
+  m_Sprite: {fileID: 1274063304, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -283,17 +283,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: {fileID: 6064473804684806850}
   RMenu: {fileID: 1903447561211895630}
-  Purpose: 0
+  Purpose: 1
   Sustainability: 1
-  Experience: 0
+  Experience: 1
   spr1: {fileID: 147220507, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   spr2: {fileID: -993465495, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   spr3: {fileID: -1862997329, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   spr4: {fileID: 1274063304, guid: 4f37e9de87ce69346b57a82eea717bc0, type: 3}
   takeAudio: {fileID: 8300000, guid: 598345e95e9b1b344bd982272fb7b8fe, type: 3}
   placeAudio: {fileID: 8300000, guid: d0c4c1bf9287ed74abda624383e2b1da, type: 3}
-  Type: 2
-  timeNeeded: 5
+  Type: 3
+  timeNeeded: 2
 --- !u!58 &901478777837554705
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -919,7 +919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 869188311478756391}
   - component: {fileID: 887509028885085052}
-  - component: {fileID: 7174490006018223911}
+  - component: {fileID: 4675102782210271576}
   m_Layer: 6
   m_Name: Animation
   m_TagString: Untagged
@@ -994,7 +994,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &7174490006018223911
+--- !u!95 &4675102782210271576
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1004,7 +1004,7 @@ Animator:
   m_GameObject: {fileID: 8110711658513537815}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd328f87a7488ff40a7b6e8c84def5b9, type: 2}
+  m_Controller: {fileID: 9100000, guid: fa21e3943bd6d6c4bbdbc3945624b2af, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Closing
+  m_text: Support
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

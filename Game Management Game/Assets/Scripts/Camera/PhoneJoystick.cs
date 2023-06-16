@@ -10,15 +10,8 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
     Image _bkgImg;
     Image _joystick;
     Vector3 _inputVector;
-    bool hasBeenUsed = false;
     Vector2 _joystickPosition;
     bool _hold = false;
-
-    void Awake()
-    {
-        //GameManager.mobileJoystick = this.gameObject;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +45,7 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
         Vector2 pos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_bkgImg.rectTransform, eventData.position, eventData.pressEventCamera, out pos))
         {
-            hasBeenUsed = true;
+            GameManager.WasJoystickUsed = true;
             _joystickPosition.x = (pos.x / _bkgImg.rectTransform.sizeDelta.x);
             _joystickPosition.y = (pos.y / _bkgImg.rectTransform.sizeDelta.y);
 
@@ -62,12 +55,4 @@ public class PhoneJoystick : MonoBehaviour,IPointerDownHandler, IPointerUpHandle
         }
     }
 
-    public bool CheckIfUsed()
-    {
-        return hasBeenUsed;
-    }
-    public void ResetUse()
-    {
-        hasBeenUsed = false;
-    }
 }

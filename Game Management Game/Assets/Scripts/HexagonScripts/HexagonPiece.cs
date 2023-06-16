@@ -25,15 +25,11 @@ public class HexagonPiece : MonoBehaviour
     GameObject RMenu;
     List<HexagonPiece> _neighbours= new List<HexagonPiece>();
     CameraMovementScript _movementScript;
-
     //Person and resource
     Person _person;
     Resource _resource;
-
     AudioSource _audioSource;
-
     SpriteRenderer _animationSprite;
-
     Tilemap _tiles;
     SpriteRenderer _renderer;
     Vector3Int _prevTile;
@@ -391,6 +387,7 @@ public class HexagonPiece : MonoBehaviour
     public void DeselectHexagon()
     {
         _drag = false;
+        if(GameManager.selectedPiece)
         GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
     }
 }
