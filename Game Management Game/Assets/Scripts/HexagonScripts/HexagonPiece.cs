@@ -271,7 +271,7 @@ public class HexagonPiece : MonoBehaviour
         {
             _neighbours.Clear();
             this.GetClusterManager().RemoveHexagon(this);
-            if (!piece._IsToBeDestroyed && !_coroutineRegulator)
+            if (!piece._IsToBeDestroyed)
                 this.CreateNewCluster();
         }
     }
@@ -290,6 +290,7 @@ public class HexagonPiece : MonoBehaviour
     }
     void CreateNewCluster()
     {
+        Debug.Log("new cluster");
         if (!_IsToBeDestroyed)
         {
             if (!transform.parent)
@@ -305,7 +306,6 @@ public class HexagonPiece : MonoBehaviour
                 if (GameManager.selectedPiece.transform.parent)
                 {
                     GameManager.selectedPiece.transform.parent = null;
-                    if(!_coroutineRegulator)
                     CreateNewCluster();
                 }
                     

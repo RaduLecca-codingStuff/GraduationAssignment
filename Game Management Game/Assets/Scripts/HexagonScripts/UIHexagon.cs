@@ -98,6 +98,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                 PlaceHexagon();
                 else
                 {
+                    Debug.Log("Not on UI");
                     _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
                     _selected = false;
                 }
@@ -141,6 +142,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                 switch (Type)
                 {
                     case type.discover:
+
                         switch (_text.text)
                         {
                             case "KPI":
@@ -331,6 +333,7 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         }
                         break;
                 }
+
                 GameManager.InfoPiece = piece;
             }
             else

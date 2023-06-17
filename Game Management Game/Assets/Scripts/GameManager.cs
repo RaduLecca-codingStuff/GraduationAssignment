@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
                 bkgAudio = audio;
             }
         }
-        
         GetNewClient();
     }
     void Start()
@@ -227,7 +226,7 @@ public class GameManager : MonoBehaviour
                         "a strong sense of purpose in every feature there is in it as to teach the user things from the fundamentals of VR and AR, to how to use the latest " +
                         "technology available in the field.Try to also take note of the experience of the user with the learning material. The company has, " +
                         "luckily offered you a pretty long timeframe to complete this project.Good luck!", 60, 20, 40, persons,5,80);
-                    currentClient.SetInvestment(1, 3, 3);
+                    currentClient.SetInvestment(2, 6, 6);
                     break;
                 case 1:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -240,7 +239,7 @@ public class GameManager : MonoBehaviour
                         " Would ask you to work on with them? Their third planned MMO game, of course! After receiving some feedback from other current projects, they want to make a" +
                         " game which has a much better experience than usual. Don't ignore the other aspects, though. After all, an MMO needs to be easily maintained and sustained by" +
                         " the company. They got quite a bit of resources and quite a bit of time to offer before they release it, Lucky for you!", 20, 40, 60, persons, 4, 60);
-                    currentClient.SetInvestment(2, 4, 2);
+                    currentClient.SetInvestment(8, 6, 5);
                     break;
                 case 2:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -258,7 +257,7 @@ public class GameManager : MonoBehaviour
                         "innovative titles, would ask of you to build? A remote app to better train their future employees how to work on their custom, in-house engine," +
                         " of course. For this project, they wish for this app to be sustainable, easily adjustable so that they can easily update it alongside their engine." +
                         " The educational purpose of the app shouldn't be ignored either. You have a bit of extra time above the usual ammount for the project,but spend it wisely!", 50, 70, 20, persons, 4, 60);
-                    currentClient.SetInvestment(1, 2, 4);
+                    currentClient.SetInvestment(1, 4, 7);
                     break;
                 case 3:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -271,7 +270,7 @@ public class GameManager : MonoBehaviour
                         " solutions for businesses, would want to build through a collaboration with you? Well, you've agreed to work with them to develop a security " +
                         "system for small businesses that's affordable to broaden the available services provided by the company. Their requirements for it are that it " +
                         "can be updated to detect newer viruses to sustain it and to have an easy to use interface for an easy user experience. Average time for this project. Good luck!", 20, 70, 40, persons, 3, 50);
-                    currentClient.SetInvestment(3,3, 3);
+                    currentClient.SetInvestment(6,6, 6);
                     break;
                 case 4:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -284,7 +283,7 @@ public class GameManager : MonoBehaviour
                         "It needs to offer a strong experience to leave a lasting impression, as this game could be the game that puts them in the spotlight. Be careful " +
                         "to not forget other aspects of the game, however. As a relatively new company, they don't have that much time to spare to get the project off the " +
                         "ground. But can you use that time to the fullest?", 10, 10, 70, persons, 2, 40);
-                    currentClient.SetInvestment(5, 2, 3);
+                    currentClient.SetInvestment(8, 4, 5);
                     break;
                 case 5:
                     persons.Add(new Person(Person.Occupation.Stakeholder));
@@ -298,7 +297,7 @@ public class GameManager : MonoBehaviour
                         "the data from a client's social media page on a cloud server and to make the app compatible with the antivirus provided by the Stratos Systems. " +
                         "This is the purpose of the project, but it's necessary to also keep an eye on how to make the software easier to sustain through updates. " +
                         "Average time for this project. Good luck!", 70, 40, 20, persons, 3, 50);
-                    currentClient.SetInvestment(3,5, 2);
+                    currentClient.SetInvestment(4,6, 3);
                     break;
                 case 6:
                     persons.Add(new Person(Person.Occupation.Stakeholder));
@@ -312,7 +311,7 @@ public class GameManager : MonoBehaviour
                         "both bright and dark colors from a camera and can do different actions based on the color when it finds it. The small robot needs to have all its aspects" +
                         " have a purpose due to how small it is, and a lot of it at that. You have a decent ammount of time available, but you're short on resources. " +
                         "Can you make it work?", 80, 10, 10, persons, 2, 60);
-                    currentClient.SetInvestment(4, 5, 3);
+                    currentClient.SetInvestment(5, 6, 4);
                     break;
                 case 7:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -326,7 +325,7 @@ public class GameManager : MonoBehaviour
                         "video games and virtual reality experiences, would ask your company to develop for them?As a business with currently limited resources, they asked you to help " +
                         "with the development of their new game that is to release on the market soon with the purpose to increase their success on the market. They don't want to go " +
                         "cheap on the player's gameplay experience, however. You established a pretty reasonable timeframe with them for the project. Best of luck on developing!", 60, 20, 40, persons, 2, 60);
-                    currentClient.SetInvestment(1, 4, 3);
+                    currentClient.SetInvestment(2, 7, 5);
                     break;
                 case 8:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -340,7 +339,7 @@ public class GameManager : MonoBehaviour
                         "would they ask you to develop with them as part of a partnership? Well,they desire to create a new application targeted towards non-verbal indivduals to help " +
                         "them communicate with other people either in person or online in real time. It's important for the user experience with the product is to be noticeably good and " +
                         "to make the purpose and use of the product to be not only apparent, but also palpable in its effects. Average time for this project. Good luck!", 60, 10, 60, persons, 4, 50);
-                    currentClient.SetInvestment(1, 1, 3);
+                    currentClient.SetInvestment(3, 3, 8);
                     break;
                 case 9:
                     persons.Add(new Person(Person.Occupation.Programmer));
@@ -355,7 +354,7 @@ public class GameManager : MonoBehaviour
                         "and create their own portfolios for job applications. The company has stated that this app will have to be more sustainable to match with changing trends in the work " +
                         "environments of the user. Unfortunately, there's not that much time or resources that can be accorded due to planned changes. You still persisted with the project and " +
                         "now you're about to start development. Are you still up to the task?", 10, 70, 10, persons, 2, 40);
-                    currentClient.SetInvestment(1, 1, 4);  
+                    currentClient.SetInvestment(2, 1, 5);  
                     break;
                 default:
                     break;

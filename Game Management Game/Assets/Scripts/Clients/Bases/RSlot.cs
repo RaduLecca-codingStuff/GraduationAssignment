@@ -19,18 +19,16 @@ public class RSlot : MonoBehaviour
     public Image Indicator;
     BoxCollider2D _boxCollider;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Indicator.gameObject.SetActive(false);
-        _parentHexagon =transform.parent.GetComponentInParent<HexagonPiece>();
+        _parentHexagon =transform.parent.parent.parent.GetComponent<HexagonPiece>();
         _boxCollider = GetComponent<BoxCollider2D>();
-        
     }
-    
+
     public void AddResource(ResourceObject r)
     {
         _resource = r;
-        _parentHexagon.SetResource(_resource.GetResource());
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(true);
     }
@@ -38,23 +36,22 @@ public class RSlot : MonoBehaviour
     public void RemoveResource()
     {
         _resource=null;
-        _parentHexagon.SetResource(_resource.GetResource());
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(false);
+        Debug.Log("Removed");
     }
     public void AddPerson(PersonObject p)
     {
         _person = p;
-        _parentHexagon.SetPerson(_person.GetPerson());
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(true);
     }
     public void RemovePerson()
     {
         _person=null;
-        _parentHexagon.SetPerson(_person.GetPerson());
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(false);
+        Debug.Log("Removed");
     }
     public void TrySendResources()
     {
