@@ -17,11 +17,13 @@ public class RSlot : MonoBehaviour
     public bool isEmpty=true;
     [Header("Visual Indicator")]
     public Image Indicator;
+    BoxCollider2D _boxCollider;
     // Start is called before the first frame update
     void Start()
     {
         Indicator.gameObject.SetActive(false);
         _parentHexagon =transform.parent.parent.parent.GetComponent<HexagonPiece>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public void AddResource(ResourceObject r)
@@ -36,6 +38,7 @@ public class RSlot : MonoBehaviour
         _resource=null;
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(false);
+        Debug.Log("Removed");
     }
     public void AddPerson(PersonObject p)
     {
@@ -48,6 +51,7 @@ public class RSlot : MonoBehaviour
         _person=null;
         _parentHexagon.GetClusterManager().RefreshValues();
         Indicator.gameObject.SetActive(false);
+        Debug.Log("Removed");
     }
     public void TrySendResources()
     {
@@ -71,4 +75,5 @@ public class RSlot : MonoBehaviour
             }
         }
     }
+
 }

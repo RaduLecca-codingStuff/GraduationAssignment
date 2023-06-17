@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     //Changes the game
-    public static bool isMobile = true;
+    public static bool isMobile = false;
     public static bool isInMenu = true;
 
     public static GameObject mobileJoystick;

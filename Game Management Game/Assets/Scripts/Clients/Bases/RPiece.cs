@@ -19,18 +19,18 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
     [Header("Audio clips")]
     public AudioClip takeAudio;
     public AudioClip placeAudio;
-    
+
     void Start()
     {
         _img = GetComponent<Image>();
         _audioSource = GetComponent<AudioSource>();
-        if(TryGetComponent<PersonObject>(out PersonObject p))
-        { 
-            type=Type.person;
-        }
-        else if(TryGetComponent<ResourceObject>(out ResourceObject r))
+        if (TryGetComponent<PersonObject>(out PersonObject p))
         {
-            type=Type.resource;
+            type = Type.person;
+        }
+        else if (TryGetComponent<ResourceObject>(out ResourceObject r))
+        {
+            type = Type.resource;
         }
         else
         {
@@ -39,15 +39,16 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
     }
     void OnEnable()
     {
+        if(_audioSource)
         _audioSource.volume = GameManager.sfxVolume;
     }
-    
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && GameManager.currentPiece)
         {
             var mousepos = GetMousePos();
-            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
+            RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 8);
 
             if (hit.collider != null)
             {
@@ -55,33 +56,33 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
                 {
                     this.SetNewSlot(hit.collider.gameObject);
                 }
-            } 
+            }
         }
     }
     Vector3 GetMousePos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
-    
+
     void SetNewSlot(GameObject slotP)
     {
-        if(slotP.TryGetComponent<RSlot>(out RSlot slot))
+        if (slotP.TryGetComponent<RSlot>(out RSlot slot))
         {
-            
-            if (slot.type.ToString() == this.type.ToString() && slot!=_currentSlot && slot.isEmpty)
+
+            if (slot.type.ToString() == this.type.ToString() && slot != _currentSlot && slot.isEmpty)
             {
-                if(_currentSlot)
-                _currentSlot.isEmpty = true;
+                if (_currentSlot)
+                    _currentSlot.isEmpty = true;
                 GameManager.currentPiece.transform.SetParent(slotP.transform);
                 GameManager.currentPiece.transform.position = slot.transform.position;
                 _currentSlot = slot;
                 _currentSlot.isEmpty = false;
-                
-                if (slot.type.ToString()=="person")
+
+                if (slot.type.ToString() == "person")
                     slot.AddPerson(GameManager.currentPiece.gameObject.GetComponent<PersonObject>());
                 else if (slot.type.ToString() == "resource")
                     slot.AddResource(GameManager.currentPiece.gameObject.GetComponent<ResourceObject>());
-                
+
             }
         }
         GameManager.currentPiece._img.color = new Color(1, 1, 1, 1);
