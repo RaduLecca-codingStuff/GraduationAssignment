@@ -16,14 +16,14 @@ public class HexagonPiece : MonoBehaviour
     bool _IsToBeDestroyed;
 
     //this is to stop the coroutine from working after it cycled once
-    bool _coroutineRegulator = false;
+    bool _coroutineRegulator=false;
 
-    bool _drag = false;
+    bool _drag=false;
     [SerializeField]
     TMP_Text _Name;
     [SerializeField]
     GameObject RMenu;
-    List<HexagonPiece> _neighbours = new List<HexagonPiece>();
+    List<HexagonPiece> _neighbours= new List<HexagonPiece>();
     CameraMovementScript _movementScript;
     //Person and resource
     Person _person;
@@ -58,10 +58,10 @@ public class HexagonPiece : MonoBehaviour
 
     private void Awake()
     {
-        _tiles = GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
+        _tiles=GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
-        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource=gameObject.AddComponent<AudioSource>();
         _audioSource.volume = GameManager.sfxVolume;
         _animationSprite = transform.Find("Animation").GetComponent<SpriteRenderer>();
         _animationSprite.gameObject.SetActive(false);
@@ -81,17 +81,17 @@ public class HexagonPiece : MonoBehaviour
     {
 
         var mousepos = GetMousePos();
-        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 6);
-        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement())
+        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
+        if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement() )
         {
-            if (hit.collider != null)
+            if(hit.collider != null )
             {
-                if (!GameManager.selectedPiece._drag)
+                if (!GameManager.selectedPiece._drag )
                 {
                     TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
                 }
             }
-            else if (_drag)
+            else if (   _drag)
             {
                 PlaceHexagon();
                 return;
@@ -100,8 +100,8 @@ public class HexagonPiece : MonoBehaviour
         else if (Input.GetMouseButtonDown(0) && GameManager.IsPointerOverUIElement())
         {
             GameManager.selectedPiece._drag = false;
-            if (GameManager.selectedPiece)
-                GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+            if(GameManager.selectedPiece)
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         }
         //changes the color of the hexagon that will be where the hexagon is placed
         if (GameManager.selectedPiece._drag)
@@ -110,9 +110,9 @@ public class HexagonPiece : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 worldPoint = ray.GetPoint(-ray.origin.z / ray.direction.z);
             Vector3Int cellPoint = _tiles.WorldToCell(worldPoint);
-
+            
             //color change
-            if (cellPoint != _prevTile)
+            if (cellPoint != _prevTile )
             {
                 _tiles.SetTileFlags(_prevTile, TileFlags.None);
                 color = new UnityEngine.Color(1, 1, 1);
@@ -134,7 +134,7 @@ public class HexagonPiece : MonoBehaviour
     }
 
     //Setting hexagons when initiated by other scripts
-    public void SetUpHexagon(type T, int e, int s, int p, float time, string name)
+    public void SetUpHexagon(type T,int e, int s, int p, float time, string name)
     {
         Type = T;
         Purpose = p;
@@ -175,11 +175,11 @@ public class HexagonPiece : MonoBehaviour
         _neighbours.Clear();
         _audioSource.clip = takeAudio;
         _audioSource.Play();
-        GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, .5f);
+        GameManager.selectedPiece._renderer.color=new UnityEngine.Color(1,1,1,.5f) ;
     }
     private void PlaceHexagon()
     {
-        if (GameManager.selectedPiece._drag)
+        if(GameManager.selectedPiece._drag)
         {
             Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
             Vector3 mouseP = _tiles.CellToWorld(cellPoint);
@@ -202,7 +202,7 @@ public class HexagonPiece : MonoBehaviour
         if (!_coroutineRegulator)
             StartCoroutine(OpenMenuCouroutine());
     }
-    private void OnMouseUp()
+    private void OnMouseUp() 
     {
         _animationSprite.gameObject.SetActive(false);
         StopAllCoroutines();
@@ -215,18 +215,18 @@ public class HexagonPiece : MonoBehaviour
         _animationSprite.gameObject.SetActive(true);
         if (RMenu.activeSelf)
         {
-            _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu", false);
+            _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu",false);
             yield return new WaitForSeconds(1.4f);
             _animationSprite.gameObject.SetActive(false);
-            if (GameManager.selectedPiece)
-                GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+            if(GameManager.selectedPiece)
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
             RMenu.SetActive(false);
             DeselectHexagon();
             StopAllCoroutines();
         }
         else
         {
-            _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu", true);
+             _animationSprite.GetComponent<Animator>().SetBool("IsOpeningMenu", true);
             yield return new WaitForSeconds(1.4f);
             _animationSprite.gameObject.SetActive(false);
             if (GameManager.selectedPiece)
@@ -237,7 +237,7 @@ public class HexagonPiece : MonoBehaviour
             DeselectHexagon();
             StopAllCoroutines();
         }
-
+        
     }
     Vector3 GetMousePos()
     {
@@ -247,7 +247,7 @@ public class HexagonPiece : MonoBehaviour
     //Triggers for neighbour and cluster management
     private void OnTriggerStay2D(Collider2D collision)
     {
-
+        
         if (collision.gameObject.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
         {
             if (!_neighbours.Contains(piece))
@@ -255,15 +255,15 @@ public class HexagonPiece : MonoBehaviour
                 _neighbours.Add(piece);
                 transform.parent = piece.transform.parent;
             }
-            if (piece.transform.parent && piece.transform.parent != this.transform.parent)
+            if (piece.transform.parent &&  piece.transform.parent != this.transform.parent)
             {
-                if (piece.transform.parent.TryGetComponent<ClusterManager>(out ClusterManager clst))
+                if(piece.transform.parent.TryGetComponent<ClusterManager>(out ClusterManager clst))
                 {
                     clst.MergeClusters(this.GetClusterManager());
-                }
+                }    
             }
         }
-
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -305,19 +305,19 @@ public class HexagonPiece : MonoBehaviour
                 if (GameManager.selectedPiece.transform.parent)
                 {
                     GameManager.selectedPiece.transform.parent = null;
-                    if (!_coroutineRegulator)
-                        CreateNewCluster();
+                    if(!_coroutineRegulator)
+                    CreateNewCluster();
                 }
-
+                    
             }
-        }
+        } 
     }
     public ClusterManager GetOutlierCluster()
     {
-        HexagonPiece highest = new HexagonPiece();
-        foreach (HexagonPiece piece in _neighbours)
+        HexagonPiece highest=new HexagonPiece();
+        foreach( HexagonPiece piece in _neighbours )
         {
-            if (piece.GetClusterManager().NrOfHexagons() > highest.GetClusterManager().NrOfHexagons())
+            if(piece.GetClusterManager().NrOfHexagons()>highest.GetClusterManager().NrOfHexagons())
                 highest = piece;
         }
         return highest.GetClusterManager();
@@ -328,8 +328,8 @@ public class HexagonPiece : MonoBehaviour
     {
         _person = p;
     }
-    public void SetResource(Resource r)
-    {
+    public void SetResource(Resource r) 
+    { 
         _resource = r;
     }
     void PositionMenu()
@@ -346,7 +346,7 @@ public class HexagonPiece : MonoBehaviour
         {
             RMenu.transform.localPosition += new Vector3(0, 1510, 0);
         }
-        if (isInRange(transform.position.x, -1 * (_movementScript.maxWidth / 2 - 1), _movementScript.maxWidth / 2 - 1) && isInRange(transform.position.y, -1 * (_movementScript.maxHeight / 2 - 1), _movementScript.maxHeight / 2 - 1))
+        if(isInRange(transform.position.x, -1 * (_movementScript.maxWidth / 2 - 1), _movementScript.maxWidth / 2 - 1) && isInRange(transform.position.y, -1 * (_movementScript.maxHeight / 2 - 1), _movementScript.maxHeight / 2 - 1))
         {
             RMenu.transform.localPosition = new Vector3(0, 0, 0);
         }
@@ -359,7 +359,7 @@ public class HexagonPiece : MonoBehaviour
             _renderer.color += new UnityEngine.Color(0, 0.1f, 0.1f);
             yield return new WaitForSeconds(0.1f);
         }
-
+        
     }
     public string GetPersonOccupation()
     {
@@ -405,6 +405,6 @@ public class HexagonPiece : MonoBehaviour
             GameManager.selectedPiece._drag = false;
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
         }
-
+            
     }
 }

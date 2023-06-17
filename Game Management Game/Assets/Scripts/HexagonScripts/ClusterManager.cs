@@ -55,16 +55,12 @@ public class ClusterManager : MonoBehaviour
     //This is where calculations for each method's bonus is given in a 
     public void RefreshValues()
     {
-        _avgExperience = 0;
-        _avgPurpose = 0;
-        _avgSustainability = 0;
-        float exp = 0;
-        float pur = 0;
-        float sust = 0;
+        float exp = 1;
+        float pur = 1;
+        float sust = 1;
         GameManager.CheckIfClusterExists();
         foreach (Transform obj in transform)
         {
-            //heres where the calculations for how much each hexagon adds. This changes with person and resource
             //heres where the calculations for how much each hexagon adds. This changes with person and resource
             if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
             {
@@ -85,7 +81,7 @@ public class ClusterManager : MonoBehaviour
                             e += 1;
                             s += 1;
                             p += 1;
-
+                            
                         }
                         //add here how different types of neighbours 
                         switch (piece.Type)
@@ -134,7 +130,7 @@ public class ClusterManager : MonoBehaviour
                 switch (piece.GetPersonOccupation())
                 {
                     case "Stakeholder":
-                        if (piece.Type == HexagonPiece.type.discover)
+                        if (piece.Type == HexagonPiece.type.discover )
                         {
                             exp += 1;
                             sust += 1;
@@ -147,13 +143,13 @@ public class ClusterManager : MonoBehaviour
                         }
                         break;
                     case "Sponsor":
-                        if (piece.Type == HexagonPiece.type.upkeep)
+                        if (piece.Type == HexagonPiece.type.upkeep )
                         {
                             exp += 1;
                             sust += 1;
                             pur += 1;
                         }
-                        if (piece.Name() == "Game Concept")
+                        if( piece.Name() == "Game Concept")
                         {
                             sust += 2;
                         }
@@ -282,12 +278,13 @@ public class ClusterManager : MonoBehaviour
                         break;
                 }
             }
-            _avgExperience += exp;
-            _avgPurpose += pur;
-            _avgSustainability += sust;
         }
 
+        _avgExperience = exp;
+        _avgPurpose = pur;
+        _avgSustainability = sust;
         RefreshRemainingTime();
+
     }
     public void RefreshRemainingTime()
     {
