@@ -87,7 +87,8 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
         }
         GameManager.currentPiece._img.color = new Color(1, 1, 1, 1);
         GameManager.currentPiece._selected = false;
-        GameManager.currentPiece._audioSource.PlayOneShot(placeAudio);
+        GameManager.currentPiece._audioSource.clip = placeAudio;
+        GameManager.currentPiece._audioSource.Play();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -95,6 +96,7 @@ public class RPiece : MonoBehaviour, IPointerClickHandler
         GameManager.currentPiece = this;
         GameManager.currentPiece._selected = true;
         GameManager.currentPiece._img.color = new Color(1, 1, 1, .5f);
-        GameManager.currentPiece._audioSource.PlayOneShot(takeAudio);
+        GameManager.currentPiece._audioSource.clip = takeAudio;
+        GameManager.currentPiece._audioSource.Play();
     }
 }

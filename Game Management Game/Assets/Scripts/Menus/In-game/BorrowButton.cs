@@ -10,6 +10,7 @@ public class BorrowButton : MonoBehaviour
     public void GiveMoreResources()
     {
         int[] values = GameManager.currentClient.ReturnPossibleValue();
+        Debug.Log(values);
         if (Prefab.TryGetComponent<ResourceObject>(out ResourceObject r))
         {
             if (GameManager.currentClient.GetChances() > 0)
@@ -30,11 +31,9 @@ public class BorrowButton : MonoBehaviour
             {
                 NCMenu.SetActive(true);
             }
-            
         }
         else
         {
-
             Debug.LogError("Prefab must contain a ResourceObject component");
         }
             

@@ -55,9 +55,9 @@ public class ClusterManager : MonoBehaviour
     //This is where calculations for each method's bonus is given in a 
     public void RefreshValues()
     {
-        float exp = 0;
-        float pur = 0;
-        float sust = 0;
+        float exp = 1;
+        float pur = 1;
+        float sust = 1;
         GameManager.CheckIfClusterExists();
         foreach (Transform obj in transform)
         {
@@ -81,12 +81,13 @@ public class ClusterManager : MonoBehaviour
                             e += 1;
                             s += 1;
                             p += 1;
+                            
                         }
                         //add here how different types of neighbours 
                         switch (piece.Type)
                         {
                             case HexagonPiece.type.discover:
-                                if (neighbour.Type == HexagonPiece.type.upkeep)
+                                if (neighbour.Type == HexagonPiece.type.upkeep || neighbour.Type == HexagonPiece.type.deliver)
                                 {
                                     e -= 5;
                                     s -= 5;
@@ -95,9 +96,9 @@ public class ClusterManager : MonoBehaviour
                                 }
                                 else if (neighbour.Type == HexagonPiece.type.develop)
                                 {
-                                    e += 2;
-                                    s += 2;
-                                    p += 2;
+                                    e += .5f;
+                                    s += .5f;
+                                    p += .5f;
                                 }
                                 break;
                             case HexagonPiece.type.develop:
@@ -129,38 +130,57 @@ public class ClusterManager : MonoBehaviour
                 switch (piece.GetPersonOccupation())
                 {
                     case "Stakeholder":
-                        if (piece.Type == HexagonPiece.type.discover || piece.Name() == "Design Elaborations")
+                        if (piece.Type == HexagonPiece.type.discover )
+                        {
+                            exp += 1;
+                            sust += 1;
+                            pur += 1;
+                        }
+                        if (piece.Name() == "Design Elaborations")
                         {
                             sust += 2;
-                            pur += 3;
+                            pur += 2;
                         }
                         break;
                     case "Sponsor":
-                        if (piece.Type == HexagonPiece.type.upkeep || piece.Name() == "Game Concept")
+                        if (piece.Type == HexagonPiece.type.upkeep )
                         {
-                            sust += 3;
+                            exp += 1;
+                            sust += 1;
+                            pur += 1;
+                        }
+                        if( piece.Name() == "Game Concept")
+                        {
+                            sust += 2;
                         }
                         break;
                     case "EndUser":
+                        exp += 1;
+                        sust += 1;
+                        pur += 1;
                         if (piece.Name() == "Playtest" || piece.Name() == "Paper Prototype" || piece.Name() == "User Stories")
                         {
-                            exp += 3;
+                            exp += 2;
                         }
                         break;
                     case "UXdesigner":
                         if (piece.Type == HexagonPiece.type.develop)
                         {
-                            pur += 2;
-                            exp += 2;
+                            pur += 1;
+                            exp += 1;
+                            sust += 1;
                         }
                         if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype")
                         {
+                            sust += 1;
                             exp += 3;
+                            pur += 1;
                         }
                         break;
                     case "ProjectManager":
                         sust += 3;
                         exp += 1;
+                        pur += 1;
 
                         break;
                     case "PSO":
@@ -168,18 +188,21 @@ public class ClusterManager : MonoBehaviour
                         {
                             sust += 3;
                             exp += 3;
+                            pur += 1;
                         }
                         break;
                     case "SME":
                         if (piece.Type == HexagonPiece.type.develop)
                         {
-                            sust += 2;
-                            exp += 2;
+                            sust += 1;
+                            exp += 1;
+                            pur += 1;
                         }
                         if (piece.Name() == "Solution" || piece.Name() == "Concept" || piece.Name() == "Execution" || piece.Name() == "Proof of Concept")
                         {
                             sust += 2;
                             exp += 2;
+                            pur += 1;
                         }
                         else if (piece.Name() == "Subject Matter Expert Investigation")
                         {
@@ -191,12 +214,15 @@ public class ClusterManager : MonoBehaviour
                     case "ProductOwner":
                         if (piece.Type == HexagonPiece.type.discover)
                         {
+                            exp += 1;
+                            sust += 1;
                             pur += 3;
                         }
                         break;
                     case "Programmer":
                         if (piece.Type == HexagonPiece.type.develop)
                         {
+                            exp += 1;
                             sust += 2;
                             pur += 3;
                         }
@@ -204,12 +230,15 @@ public class ClusterManager : MonoBehaviour
 
                     case "ExperienceExpert":
                         exp += 3;
+                        pur += 1;
+                        sust += 1;
                         break;
                     case "VisualDesigner":
                         if (piece.Type == HexagonPiece.type.develop)
                         {
                             pur += 2;
                             exp += 2;
+                            sust += 1;
                         }
                         if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept" || piece.Name() == "Paper Prototype")
                         {
@@ -235,12 +264,12 @@ public class ClusterManager : MonoBehaviour
                         sust *= 1.2f;
                         break;
                     case 2:
-                        pur *= 1.4f;
+                        exp *= 1.4f;
                         pur *= 1.4f;
                         sust *= 1.4f;
                         break;
                     case 3:
-                        sust *= 1.6f;
+                        exp *= 1.6f;
                         pur *= 1.6f;
                         sust *= 1.6f;
                         break;

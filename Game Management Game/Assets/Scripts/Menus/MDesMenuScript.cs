@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
 {
+    AudioSource m_AudioSource;
     [Header("Sprites")]
     public Sprite Discover;
     public Sprite Develop;
@@ -24,14 +25,17 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     {
         GameManager.descriptionMenu = this;
         _Base = HexagonType.sprite;
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         SetInformation();
     }
     public void SetInformation()
     {
+        m_AudioSource.volume = GameManager.sfxVolume;
         if (GameManager.InfoPiece)
             GameManager.WasCheckedForInfo = true;
         foreach (Transform child in StrengthPointsParent.transform)
@@ -293,7 +297,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             p.transform.localScale = new Vector3(1, 1, 1);
             p.transform.SetParent(StrengthPointsParent.transform, false);
         }
-
+        m_AudioSource.Play();
     }
 
     public void Clear()
