@@ -106,7 +106,7 @@ public class TutorialScript : MonoBehaviour
                 menu2.SetActive(true);
                 break;
             case 4:
-                description.text = "Hold on the method for a bit to show the method's person and resource menu. There, you can place methods and resources in their respective slots.";
+                description.text = "Hold on the method for a bit to show the method's person and resource menu. There, you can place methods and resources in their respective slots. To close it, hold on the same method again.";
                 break;
             case 5:
                 description.text = "Methods and resources can be found in the pieces menu. Persons enhance your methods only if it matches the method's type, but very specific ones that fit the person's occupation give even more buffs.";

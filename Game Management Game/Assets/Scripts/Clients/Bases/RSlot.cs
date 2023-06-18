@@ -22,36 +22,48 @@ public class RSlot : MonoBehaviour
     void Start()
     {
         Indicator.gameObject.SetActive(false);
-        _parentHexagon =transform.parent.parent.parent.GetComponent<HexagonPiece>();
+        _parentHexagon =transform.parent.parent.GetComponentInParent<HexagonPiece>();
         _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public void AddResource(ResourceObject r)
     {
         _resource = r;
-        _parentHexagon.GetClusterManager().RefreshValues();
+        _parentHexagon.SetResource(_resource.GetResource());
+       
+            GameManager.mainClusterM.RefreshValues();
+        
         Indicator.gameObject.SetActive(true);
     }
 
     public void RemoveResource()
     {
         _resource=null;
-        _parentHexagon.GetClusterManager().RefreshValues();
+        _parentHexagon.SetResource(_resource.GetResource());
+        
+            GameManager.mainClusterM.RefreshValues();
+        
         Indicator.gameObject.SetActive(false);
-        Debug.Log("Removed");
+        
     }
     public void AddPerson(PersonObject p)
     {
         _person = p;
-        _parentHexagon.GetClusterManager().RefreshValues();
+        _parentHexagon.SetPerson(_person.GetPerson());
+        
+            GameManager.mainClusterM.RefreshValues();
+        
         Indicator.gameObject.SetActive(true);
     }
     public void RemovePerson()
     {
         _person=null;
-        _parentHexagon.GetClusterManager().RefreshValues();
+        _parentHexagon.SetPerson(_person.GetPerson());
+
+            GameManager.mainClusterM.RefreshValues();
+        
         Indicator.gameObject.SetActive(false);
-        Debug.Log("Removed");
+        
     }
     public void TrySendResources()
     {

@@ -126,6 +126,10 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_AudioSource_PlayOneShotHelper();
 		Register_UnityEngine_AudioSource_PlayOneShotHelper();
 
+		//System.Void UnityEngine.AudioSource::set_clip(UnityEngine.AudioClip)
+		void Register_UnityEngine_AudioSource_set_clip();
+		Register_UnityEngine_AudioSource_set_clip();
+
 		//System.Void UnityEngine.AudioSource::set_volume(System.Single)
 		void Register_UnityEngine_AudioSource_set_volume();
 		Register_UnityEngine_AudioSource_set_volume();
@@ -313,6 +317,10 @@ void RegisterAllStrippedInternalCalls()
 		//System.Void UnityEngine.Canvas::set_sortingOrder(System.Int32)
 		void Register_UnityEngine_Canvas_set_sortingOrder();
 		Register_UnityEngine_Canvas_set_sortingOrder();
+
+		//System.Void UnityEngine.Canvas::set_worldCamera(UnityEngine.Camera)
+		void Register_UnityEngine_Canvas_set_worldCamera();
+		Register_UnityEngine_Canvas_set_worldCamera();
 
 		//UnityEngine.AdditionalCanvasShaderChannels UnityEngine.Canvas::get_additionalShaderChannels()
 		void Register_UnityEngine_Canvas_get_additionalShaderChannels();

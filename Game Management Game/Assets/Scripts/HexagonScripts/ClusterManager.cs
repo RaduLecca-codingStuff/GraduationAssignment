@@ -32,7 +32,11 @@ public class ClusterManager : MonoBehaviour
             GameManager.experience = _avgExperience;
             GameManager.currentTimeLeft = GameManager.currentClient.GetRemainingTime() - _timeRequired;
         }
-
+        if (prevChildCount != transform.childCount)
+        {
+            RefreshValues();
+            prevChildCount = transform.childCount;
+        }
         if (this.transform.childCount == 0)
         {
             if (this == GameManager.mainClusterM)
@@ -45,215 +49,200 @@ public class ClusterManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (prevChildCount != transform.childCount)
-        {
-            RefreshValues();
-            prevChildCount = transform.childCount;
-        }
     }
 
     //This is where calculations for each method's bonus is given in a 
     public void RefreshValues()
     {
+        _avgExperience = 0;
+        _avgPurpose =0;
+        _avgSustainability = 0;
         float exp = 0;
         float pur = 0;
         float sust = 0;
         GameManager.CheckIfClusterExists();
-        foreach (Transform obj in transform)
+        foreach (HexagonPiece hexagon in transform.gameObject.GetComponentsInChildren<HexagonPiece>())
         {
-            //heres where the calculations for how much each hexagon adds. This changes with person and resource
-            if (obj.TryGetComponent<HexagonPiece>(out HexagonPiece piece))
+            exp = hexagon.Experience;
+            sust = hexagon.Sustainability;
+            pur = hexagon.Purpose;
+            foreach(HexagonPiece neighbour in hexagon.GetHexagonNeighbours())
             {
-                exp += piece.Experience;
-                pur += piece.Purpose;
-                sust += piece.Sustainability;
-
-                //What bonuses are gained from each individual neighbour
-                if (piece.GetHexagonNeighbours().Count > 0)
+                if(hexagon.Type == neighbour.Type)
                 {
-                    float e = 0;
-                    float s = 0;
-                    float p = 0;
-                    foreach (HexagonPiece neighbour in piece.GetHexagonNeighbours())
-                    {
-                        if (neighbour.Type == piece.Type)
-                        {
-                            e += 1;
-                            s += 1;
-                            p += 1;
-                        }
-                        //add here how different types of neighbours 
-                        switch (piece.Type)
-                        {
-                            case HexagonPiece.type.discover:
-                                if (neighbour.Type == HexagonPiece.type.upkeep)
-                                {
-                                    e -= 5;
-                                    s -= 5;
-                                    p -= 5;
-                                    neighbour.StartCoroutine(neighbour.WarningCoroutine());
-                                }
-                                else if (neighbour.Type == HexagonPiece.type.develop)
-                                {
-                                    e += 2;
-                                    s += 2;
-                                    p += 2;
-                                }
-                                break;
-                            case HexagonPiece.type.develop:
-                                if (neighbour.Type == HexagonPiece.type.deliver)
-                                {
-                                    e += .5f;
-                                    s += .5f;
-                                    p += .5f;
-                                }
-                                break;
-                            case HexagonPiece.type.deliver:
-                                if (neighbour.Type == HexagonPiece.type.upkeep)
-                                {
-                                    e += .5f;
-                                    s += .5f;
-                                    p += .5f;
-                                }
-                                break;
-                            default:
-
-                                break;
-                        }
-                    }
-                    exp += e;
-                    sust += s;
-                    pur += p;
+                    exp += .1f;
+                    sust += .1f;
+                    pur += .1f;
                 }
-                //What person is assigned to method
-                switch (piece.GetPersonOccupation())
+                if((hexagon.Type==HexagonPiece.type.discover && neighbour.Type == HexagonPiece.type.develop) ||
+                    (hexagon.Type == HexagonPiece.type.develop && neighbour.Type == HexagonPiece.type.deliver)||
+                    (hexagon.Type == HexagonPiece.type.deliver && neighbour.Type == HexagonPiece.type.upkeep))
                 {
-                    case "Stakeholder":
-                        if (piece.Type == HexagonPiece.type.discover || piece.Name() == "Design Elaborations")
-                        {
-                            sust += 2;
-                            pur += 3;
-                        }
-                        break;
-                    case "Sponsor":
-                        if (piece.Type == HexagonPiece.type.upkeep || piece.Name() == "Game Concept")
-                        {
-                            sust += 3;
-                        }
-                        break;
-                    case "EndUser":
-                        if (piece.Name() == "Playtest" || piece.Name() == "Paper Prototype" || piece.Name() == "User Stories")
-                        {
-                            exp += 3;
-                        }
-                        break;
-                    case "UXdesigner":
-                        if (piece.Type == HexagonPiece.type.develop)
-                        {
-                            pur += 2;
-                            exp += 2;
-                        }
-                        if (piece.Name() == "Fine-Tuning" || piece.Name() == "Execution" || piece.Name() == "Updates" || piece.Name() == "Paper Prototype")
-                        {
-                            exp += 3;
-                        }
-                        break;
-                    case "ProjectManager":
-                        sust += 3;
-                        exp += 1;
-
-                        break;
-                    case "PSO":
-                        if (piece.Type == HexagonPiece.type.upkeep)
-                        {
-                            sust += 3;
-                            exp += 3;
-                        }
-                        break;
-                    case "SME":
-                        if (piece.Type == HexagonPiece.type.develop)
-                        {
-                            sust += 2;
-                            exp += 2;
-                        }
-                        if (piece.Name() == "Solution" || piece.Name() == "Concept" || piece.Name() == "Execution" || piece.Name() == "Proof of Concept")
-                        {
-                            sust += 2;
-                            exp += 2;
-                        }
-                        else if (piece.Name() == "Subject Matter Expert Investigation")
-                        {
-                            sust += 4;
-                            pur += 4;
-                            exp += 4;
-                        }
-                        break;
-                    case "ProductOwner":
-                        if (piece.Type == HexagonPiece.type.discover)
-                        {
-                            pur += 3;
-                        }
-                        break;
-                    case "Programmer":
-                        if (piece.Type == HexagonPiece.type.develop)
-                        {
-                            sust += 2;
-                            pur += 3;
-                        }
-                        break;
-
-                    case "ExperienceExpert":
-                        exp += 3;
-                        break;
-                    case "VisualDesigner":
-                        if (piece.Type == HexagonPiece.type.develop)
-                        {
-                            pur += 2;
-                            exp += 2;
-                        }
-                        if (piece.Name() == "Design" || piece.Name() == "Prototype" || piece.Name() == "Proof of Concept" || piece.Name() == "Paper Prototype")
-                        {
-                            pur += 3;
-                            exp += 2;
-                        }
-                        break;
-                    case "Tester":
-                        sust += 1;
-                        pur += 1;
-                        exp += 1;
-                        break;
-                    default:
-
-                        break;
+                    exp += .5f;
+                    sust += .5f;
+                    pur += .5f;
                 }
-                //what resource adds to project
-                switch (piece.GetResourceValue())
+
+                if ((hexagon.Type == HexagonPiece.type.discover && neighbour.Type == HexagonPiece.type.deliver)||
+                    (hexagon.Type == HexagonPiece.type.discover && neighbour.Type == HexagonPiece.type.upkeep))
                 {
-                    case 1:
-                        exp *= 1.2f;
-                        pur *= 1.2f;
-                        sust *= 1.2f;
-                        break;
-                    case 2:
-                        pur *= 1.4f;
-                        pur *= 1.4f;
-                        sust *= 1.4f;
-                        break;
-                    case 3:
-                        sust *= 1.6f;
-                        pur *= 1.6f;
-                        sust *= 1.6f;
-                        break;
-                    default:
-
-                        break;
+                    exp -= 5;
+                    sust -= 5;
+                    pur -= 5;
+                    neighbour.StartCoroutine(neighbour.WarningCoroutine());
                 }
+
             }
-        }
+            //add bonuses here
+            switch (hexagon.GetPersonOccupation())
+            {
+                case "Stakeholder":
+                    if (hexagon.Type == HexagonPiece.type.discover)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    if (hexagon.Name() == "Design Elaborations")
+                    {
+                        sust += 2;
+                        pur += 2;
+                    }
+                    break;
+                case "Sponsor":
+                    if (hexagon.Type == HexagonPiece.type.upkeep)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    if (hexagon.Name() == "Game Concept")
+                    {
+                        sust += 2;
+                    }
+                    break;
+                case "EndUser":
+                    sust += 2;
+                    pur += 2;
+                    exp += 2;
+                    if (hexagon.Name() == "Playtest" || hexagon.Name() == "Paper Prototype" || hexagon.Name() == "User Stories")
+                    {
+                        exp += 2;
+                    }
+                    break;
+                case "UXdesigner":
+                    if (hexagon.Type == HexagonPiece.type.develop)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    if (hexagon.Name() == "Fine-Tuning" || hexagon.Name() == "Execution" || hexagon.Name() == "Updates" || hexagon.Name() == "Paper Prototype")
+                    {
+                        exp += 2;
+                    }
+                    break;
+                case "ProjectManager":
+                    sust += 2;
+                    pur += 2;
+                    exp += 2;
 
-        _avgExperience = exp;
-        _avgPurpose = pur;
-        _avgSustainability = sust;
+                    break;
+                case "PSO":
+                    if (hexagon.Type == HexagonPiece.type.upkeep)
+                    {
+                        sust += 2;
+                        exp += 2;
+                    }
+                    break;
+                case "SME":
+                    if (hexagon.Type == HexagonPiece.type.develop)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    if (hexagon.Name() == "Solution" || hexagon.Name() == "Concept" || hexagon.Name() == "Execution" || hexagon.Name() == "Proof of Concept")
+                    {
+                        sust += 2;
+                        exp += 2;
+                    }
+                    else if (hexagon.Name() == "Subject Matter Expert Investigation")
+                    {
+                        sust += 3;
+                        pur += 3;
+                        exp += 3;
+                    }
+                    break;
+                case "ProductOwner":
+                    if (hexagon.Type == HexagonPiece.type.discover)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    break;
+                case "Programmer":
+                    if (hexagon.Type == HexagonPiece.type.develop)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    break;
+
+                case "ExperienceExpert":
+                    sust += 2;
+                    pur += 2;
+                    exp += 2;
+                    break;
+                case "VisualDesigner":
+                    if (hexagon.Type == HexagonPiece.type.develop)
+                    {
+                        sust += 2;
+                        pur += 2;
+                        exp += 2;
+                    }
+                    if (hexagon.Name() == "Design" || hexagon.Name() == "Prototype" || hexagon.Name() == "Proof of Concept" || hexagon.Name() == "Paper Prototype")
+                    {
+                        pur += 2;
+                        exp += 2;
+                    }
+                    break;
+                case "Tester":
+                    sust += 2;
+                    pur += 2;
+                    exp += 2;
+                    break;
+            }
+            //resources buff
+            switch (hexagon.GetResourceValue())
+            {
+                default: break;
+                case 1:
+                    exp *= 1.3f;
+                    sust *= 1.3f;
+                    pur *= 1.3f;
+                    break;
+                case 2:
+                    exp *= 1.6f;
+                    sust *= 1.6f;
+                    pur *= 1.6f;
+                    break;
+                case 3:
+                    exp *= 1.9f;
+                    sust *= 1.9f;
+                    pur *= 1.9f;
+                    break;
+
+            }
+
+
+            _avgExperience += exp;
+            _avgPurpose += pur; 
+            _avgSustainability += sust;
+
+        }
         RefreshRemainingTime();
 
     }
@@ -273,7 +262,6 @@ public class ClusterManager : MonoBehaviour
                 }
             }
             _timeRequired = time;
-
 
             if (GameManager.currentTimeLeft <= 0)
             {
@@ -317,7 +305,7 @@ public class ClusterManager : MonoBehaviour
             foreach (Transform obj in transform)
             {
                 obj.SetParent(newparent);
-                newparent.GetComponent<ClusterManager>().RefreshValues();
+                RefreshValues();
             }
         }
     }

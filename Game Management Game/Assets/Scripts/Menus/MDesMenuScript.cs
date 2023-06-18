@@ -13,6 +13,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     public Sprite Deliver;
     public Sprite Upkeep;
     Sprite _Base;
+    AudioSource _AudioSource;
 
     [Header("Description pieces")]
     public Image HexagonType;
@@ -24,6 +25,8 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     {
         GameManager.descriptionMenu = this;
         _Base = HexagonType.sprite;
+        _AudioSource = GetComponent<AudioSource>();
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -32,6 +35,8 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
     }
     public void SetInformation()
     {
+        _AudioSource.volume = GameManager.sfxVolume;
+        _AudioSource.Play();
         if (GameManager.InfoPiece)
             GameManager.WasCheckedForInfo = true;
         foreach (Transform child in StrengthPointsParent.transform)
@@ -248,7 +253,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             Image ie = e.GetComponent<Image>();
             Text te = e.GetComponentInChildren<Text>();
             te.text = "Experience";
-            if (GameManager.InfoPiece.Experience > 1)
+            if (GameManager.InfoPiece.Experience > 2)
             {
                 ie.color = Color.green;
             }
@@ -265,7 +270,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             Image ies = s.GetComponent<Image>();
             Text ts = s.GetComponentInChildren<Text>();
             ts.text = "Sustainability";
-            if (GameManager.InfoPiece.Sustainability > 1)
+            if (GameManager.InfoPiece.Sustainability > 2)
             {
                 ies.color = Color.green;
             }
@@ -282,7 +287,7 @@ public class MDesMenuScript : MonoBehaviour,IPointerClickHandler
             Image ip = p.GetComponent<Image>();
             Text tp = p.GetComponentInChildren<Text>();
             tp.text = "Purpose";
-            if (GameManager.InfoPiece.Purpose > 1)
+            if (GameManager.InfoPiece.Purpose > 2)
             {
                 ip.color = Color.green;
             }

@@ -61,7 +61,7 @@ public class HexagonPiece : MonoBehaviour
         _tiles=GameObject.FindGameObjectWithTag("Grid").GetComponentInChildren<Tilemap>();
         _movementScript = Camera.main.gameObject.GetComponent<CameraMovementScript>();
         this.SetHexColor();
-        _audioSource=gameObject.AddComponent<AudioSource>();
+        _audioSource=gameObject.GetComponent<AudioSource>();
         _audioSource.volume = GameManager.sfxVolume;
         _animationSprite = transform.Find("Animation").GetComponent<SpriteRenderer>();
         _animationSprite.gameObject.SetActive(false);
@@ -72,14 +72,14 @@ public class HexagonPiece : MonoBehaviour
         this.SetHexColor();
         CreateNewCluster();
         _audioSource.PlayOneShot(placeAudio);
+        RMenu.GetComponent<Canvas>().worldCamera = Camera.main;
     }
     void OnEnable()
-    {
+    {   
         _audioSource.volume = GameManager.sfxVolume;
     }
     void Update()
     {
-
         var mousepos = GetMousePos();
         RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f,1<<6);
         if (Input.GetMouseButtonDown(0) && !RMenu.activeSelf && !GameManager.IsPointerOverUIElement() )
@@ -90,6 +90,7 @@ public class HexagonPiece : MonoBehaviour
                 {
                     TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
                 }
+                
             }
             else if (   _drag)
             {
@@ -99,9 +100,20 @@ public class HexagonPiece : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && GameManager.IsPointerOverUIElement())
         {
-            GameManager.selectedPiece._drag = false;
+            _drag = false;
             if(GameManager.selectedPiece)
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+        }
+        RaycastHit2D hitUI = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
+        if (hitUI.collider != null && RMenu.activeSelf)
+        {
+            if (hitUI.collider.tag=="Slot")
+            {
+                _drag = false;
+                if (GameManager.selectedPiece)
+                    GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+            }
+            
         }
         //changes the color of the hexagon that will be where the hexagon is placed
         if (GameManager.selectedPiece._drag)
@@ -129,8 +141,6 @@ public class HexagonPiece : MonoBehaviour
             _tiles.SetTileFlags(_prevTile, TileFlags.None);
             _tiles.SetColor(_prevTile, color);
         }
-
-
     }
 
     //Setting hexagons when initiated by other scripts
@@ -169,13 +179,20 @@ public class HexagonPiece : MonoBehaviour
     ////////////////////////////////////
     private void TakeHexagon(HexagonPiece p)
     {
-        GameManager.selectedPiece = p;
-        GameManager.InfoPiece = p;
-        _drag = true;
-        _neighbours.Clear();
-        _audioSource.clip = takeAudio;
-        _audioSource.Play();
-        GameManager.selectedPiece._renderer.color=new UnityEngine.Color(1,1,1,.5f) ;
+        var mousepos = GetMousePos();
+        RaycastHit2D hitUI = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 5);
+        if (hitUI.collider == null )
+        {
+            GameManager.selectedPiece = p;
+            GameManager.InfoPiece = p;
+            _drag = true;
+            _neighbours.Clear();
+            _audioSource.volume = GameManager.sfxVolume;
+            _audioSource.clip = takeAudio;
+            _audioSource.Play();
+            GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, .5f);
+        }
+        
     }
     private void PlaceHexagon()
     {
@@ -185,15 +202,14 @@ public class HexagonPiece : MonoBehaviour
             Vector3 mouseP = _tiles.CellToWorld(cellPoint);
             GameManager.selectedPiece.transform.position = new Vector3(mouseP.x, mouseP.y, GameManager.selectedPiece.transform.position.z);
             GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            //GameManager.selectedPiece.CreateNewCluster();
+            GameManager.selectedPiece.CreateNewCluster();
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
+            _audioSource.volume = GameManager.sfxVolume;
             _audioSource.clip = placeAudio;
             _audioSource.Play();
         }
         GameManager.selectedPiece._drag = false;
     }
-
-
     //////////////////////////////
     //  * Opening the menu *    //
     //////////////////////////////
@@ -243,7 +259,6 @@ public class HexagonPiece : MonoBehaviour
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
-
     //Triggers for neighbour and cluster management
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -275,7 +290,6 @@ public class HexagonPiece : MonoBehaviour
                 this.CreateNewCluster();
         }
     }
-
     //////////////////////////////////////////////
     //  * Cluster identification functions *    //
     //////////////////////////////////////////////
@@ -290,7 +304,6 @@ public class HexagonPiece : MonoBehaviour
     }
     void CreateNewCluster()
     {
-        Debug.Log("new cluster");
         if (!_IsToBeDestroyed)
         {
             if (!transform.parent)
@@ -336,19 +349,19 @@ public class HexagonPiece : MonoBehaviour
     {
         if (transform.position.x >= _movementScript.maxWidth / 2 - 1)
         {
-            RMenu.transform.localPosition = new Vector3(-1510, transform.localPosition.y, 0);
+            RMenu.transform.localPosition = new Vector3(-3, transform.localPosition.y, 0);
         }
         if (transform.position.x <= -1 * (_movementScript.maxWidth / 2 - 1))
         {
-            RMenu.transform.localPosition += new Vector3(1510, 0, 0);
+            RMenu.transform.localPosition += new Vector3(3, 0, 0);
         }
         if (transform.position.y <= -1 * (_movementScript.maxHeight / 2 - 1))
         {
-            RMenu.transform.localPosition += new Vector3(0, 1510, 0);
+            RMenu.transform.localPosition += new Vector3(0, 3, 0);
         }
         if(isInRange(transform.position.x, -1 * (_movementScript.maxWidth / 2 - 1), _movementScript.maxWidth / 2 - 1) && isInRange(transform.position.y, -1 * (_movementScript.maxHeight / 2 - 1), _movementScript.maxHeight / 2 - 1))
         {
-            RMenu.transform.localPosition = new Vector3(0, 0, 0);
+            RMenu.transform.localPosition = new Vector3(0, -2, 0);
         }
     }
     public IEnumerator WarningCoroutine()

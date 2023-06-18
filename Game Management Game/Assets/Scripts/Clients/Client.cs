@@ -35,9 +35,7 @@ public class Client
         if (Time > 100)
             Time = 100;
         //might require the change this later
-        _whatToOffer[0] = exp * 2 / 3;
-        _whatToOffer[1] = sust * 2 / 3;
-        _whatToOffer[2] = pur * 2 / 3;
+
         _chancesToExtra = chances;
     }
     public void SetInvestment( int i1, int i2, int i3)
@@ -45,6 +43,9 @@ public class Client
         TryAddInBulk(i1, 1);
         TryAddInBulk(i2, 2);
         TryAddInBulk(i3, 3);
+        _whatToOffer[0] = i1 / 3;
+        _whatToOffer[1] = i2 / 3;
+        _whatToOffer[2] = i3 / 3;
     }
     public void SetPeople(List<Person> list)
     {

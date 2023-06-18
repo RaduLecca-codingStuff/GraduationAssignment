@@ -1582,6 +1582,8 @@ struct BinaryReader_t9A6D85F0FE9AE4EBB5E8D66997DFD1D84939E158;
 struct BinaryWriter_tFB94D67EDFA3F6A34744A163BDABE287FDF2ED1E;
 // System.Reflection.Binder
 struct Binder_t91BFCE95A7057FADF4D8A1A342AFE52872246235;
+// UnityEngine.BoxCollider2D
+struct BoxCollider2D_tF860C7737FFB062CEC06577E0CD8364EEC1D4EDA;
 // UnityEngine.UI.Button
 struct Button_t6786514A57F7AFDEE5431112FEA0CAB24F5AE098;
 // UnityEngine.UIElements.Button
@@ -39792,16 +39794,18 @@ struct MDesMenuScript_t895DA4304D473A8CA85AE64E2E23E5F74C60697E  : public MonoBe
 	Sprite_tAFF74BC83CD68037494CB0B4F28CBDF8971CAB99* ___Upkeep_7;
 	// UnityEngine.Sprite MDesMenuScript::_Base
 	Sprite_tAFF74BC83CD68037494CB0B4F28CBDF8971CAB99* ____Base_8;
+	// UnityEngine.AudioSource MDesMenuScript::_AudioSource
+	AudioSource_t871AC2272F896738252F04EE949AEF5B241D3299* ____AudioSource_9;
 	// UnityEngine.UI.Image MDesMenuScript::HexagonType
-	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___HexagonType_9;
+	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___HexagonType_10;
 	// UnityEngine.UI.Text MDesMenuScript::Name
-	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___Name_10;
+	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___Name_11;
 	// UnityEngine.UI.Text MDesMenuScript::Description
-	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___Description_11;
+	Text_tD60B2346DAA6666BF0D822FF607F0B220C2B9E62* ___Description_12;
 	// UnityEngine.GameObject MDesMenuScript::StrengthPointsParent
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___StrengthPointsParent_12;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___StrengthPointsParent_13;
 	// UnityEngine.GameObject MDesMenuScript::AtributePrefab
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___AtributePrefab_13;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___AtributePrefab_14;
 };
 
 // UnityEngine.UIElements.MinMaxSlider
@@ -39915,8 +39919,10 @@ struct PersonObject_t1D7025EC7A3243F733D4893707A3D8FB66066673  : public MonoBeha
 	Person_tAFF31B11E3FEDD2FCCF504957F0B11D349C67938* ____person_16;
 	// UnityEngine.UI.Image PersonObject::_img
 	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ____img_17;
+	// TMPro.TMP_Text PersonObject::_text
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ____text_18;
 	// System.Boolean PersonObject::_isSelected
-	bool ____isSelected_18;
+	bool ____isSelected_19;
 };
 
 // PhoneJoystick
@@ -39982,6 +39988,8 @@ struct RSlot_t7CB40F5A66C2101DE350FD9AE4AF21109CF0BDAE  : public MonoBehaviour_t
 	bool ___isEmpty_8;
 	// UnityEngine.UI.Image RSlot::Indicator
 	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___Indicator_9;
+	// UnityEngine.BoxCollider2D RSlot::_boxCollider
+	BoxCollider2D_tF860C7737FFB062CEC06577E0CD8364EEC1D4EDA* ____boxCollider_10;
 };
 
 // UnityEngine.UIElements.RadioButtonGroup

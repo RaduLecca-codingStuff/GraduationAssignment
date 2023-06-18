@@ -98,7 +98,6 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                 PlaceHexagon();
                 else
                 {
-                    Debug.Log("Not on UI");
                     _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
                     _selected = false;
                 }
@@ -146,55 +145,55 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         switch (_text.text)
                         {
                             case "KPI":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 1, 1, 8, _text.text);
-                                break;
-                            case "Emphatise":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 1, 1, 8, _text.text);
-                                break;
-                            case "Risk Assesment":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 1, 0, 8, _text.text);
-                                break;
-                            case "Insight":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 0, 1, 8, _text.text);
-                                break;
-                            case "Requirements":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 1, 0, 9, _text.text);
-                                break;
-                            case "Research":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 1, 1, 10, _text.text);
-                                break;
-                            case "Analyse":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 1, 1, 9, _text.text);
-                                break;
-                            case "Initiation":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 0, 1, 8, _text.text);
-                                break;
-                            case "Awareness":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 0, 0, 8, _text.text);
-                                break;
-                            case "Design Space Analysis":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 3, 1, 5, _text.text);
-                                break;
-                            case "Player Investigation":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 1, 0, 6, _text.text);
-                                break;
-                            case "Journey Investigation":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 0, 1, 8, _text.text);
-                                break;
-                            case "Game Storm":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 1, 2, 6, _text.text);
-                                break;
-                            case "SME Investigation":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 2, 1, 5, _text.text);
-                                break;
-                            case "Game Concept":
                                 piece.SetUpHexagon(HexagonPiece.type.discover, 2, 2, 2, 5, _text.text);
                                 break;
-                            case "Identify Game Loop":
+                            case "Emphatise":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 2, 2, 5, _text.text);
+                                break;
+                            case "Risk Assesment":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 2, 0, 5, _text.text);
+                                break;
+                            case "Insight":
                                 piece.SetUpHexagon(HexagonPiece.type.discover, 2, 0, 2, 5, _text.text);
                                 break;
+                            case "Requirements":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 2, 0, 6, _text.text);
+                                break;
+                            case "Research":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 2, 2, 7, _text.text);
+                                break;
+                            case "Analyse":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 2, 2, 6, _text.text);
+                                break;
+                            case "Initiation":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 0, 2, 5, _text.text);
+                                break;
+                            case "Awareness":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 0, 0, 5, _text.text);
+                                break;
+                            case "Design Space Analysis":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 4, 2, 2, _text.text);
+                                break;
+                            case "Player Investigation":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 4, 2, 0, 3, _text.text);
+                                break;
+                            case "Journey Investigation":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 0, 2, 5, _text.text);
+                                break;
+                            case "Game Storm":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 2, 4, 3, _text.text);
+                                break;
+                            case "SME Investigation":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 0, 4, 2, 2, _text.text);
+                                break;
+                            case "Game Concept":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 4, 4, 4, 2, _text.text);
+                                break;
+                            case "Identify Game Loop":
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 4, 0, 4, 2, _text.text);
+                                break;
                             case "Feature Roadmap":
-                                piece.SetUpHexagon(HexagonPiece.type.discover, 1, 2, 1, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.discover, 2, 4, 2, 2, _text.text);
                                 break;
                             default: break;
                         }
@@ -203,67 +202,67 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         switch (_text.text)
                         {
                             case "Action":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 0, 0, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 0, 0, 5, _text.text);
                                 break;
                             case "Minimum Viable Product":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 5, _text.text);
                                 break;
                             case "Minimum Usable Product":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 1, 10, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 7, _text.text);
                                 break;
                             case "Solution":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 1, 1, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 2, 2, 3, _text.text);
                                 break;
                             case "Prototyping":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 1, 1, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 2, 2, 3, _text.text);
                                 break;
                             case "Proof of Concept":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 0, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 0, 2, 5, _text.text);
                                 break;
                             case "Execution":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 1, 9, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 6, _text.text);
                                 break;
                             case "Fabrication":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 1, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 2, 2, 5, _text.text);
                                 break;
                             case "Concept":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 0, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 0, 2, 5, _text.text);
                                 break;
                             case "Playtest":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 1, 0, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 4, 2, 0, 3, _text.text);
                                 break;
                             case "Iterate":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 1, 1, 9, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 2, 2, 6, _text.text);
                                 break;
                             case "Elaboration":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 0, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 0, 5, _text.text);
                                 break;
                             case "Ideation":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 0, 0, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 0, 0, 5, _text.text);
                                 break;
                             case "Design":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 1, 9, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 6, _text.text);
                                 break;
                             case "Define":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 1, 0, 10, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 0, 7, _text.text);
                                 break;
                             case "Design Documentation":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 4, 4, 2, _text.text);
                                 break;
                             case "Wireframes":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 1, 2, 4, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 2, 4, 1, _text.text);
                                 break;
                             case "Paper Prototype":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 4, 4, 2, _text.text);
                                 break;
                             case "Click-thru":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 2, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 4, 4, 2, _text.text);
                                 break;
                             case "Feature Roadmap":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 1, 2, 1, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 2, 4, 2, 2, _text.text);
                                 break;
                             case "Design Elaborations":
-                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 2, 0, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.develop, 0, 4, 0, 2, _text.text);
                                 break;
                         }
                         break;
@@ -271,40 +270,40 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         switch (_text.text)
                         {
                             case "Playtest":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 1, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 4, 2, 3, _text.text);
                                 break;
                             case "Validate":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 0, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 4, 0, 3, _text.text);
                                 break;
                             case "Launch":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 0, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 0, 2, 5, _text.text);
                                 break;
                             case "Design Tuning":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 2, 0, 0, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 4, 0, 0, 3, _text.text);
                                 break;
                             case "Implementation":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 1, 0, 2, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 2, 0, 4, 3, _text.text);
                                 break;
                             case "Closing":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 1, 0, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 0, 5, _text.text);
                                 break;
                             case "Business Model":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 1, 1, 0, 10, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 2, 2, 0, 7, _text.text);
                                 break;
                             case "Production":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 1, 0, 9, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 0, 6, _text.text);
                                 break;
                             case "User Stories":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 2, 1, 0, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 4, 2, 0, 3, _text.text);
                                 break;
                             case "Minimum Usable Product":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 1, 1, 8, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 2, 5, _text.text);
                                 break;
                             case "Minimum Viable Product":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 1, 1, 9, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 0, 2, 2, 6, _text.text);
                                 break;
                             case "Feature Roadmap":
-                                piece.SetUpHexagon(HexagonPiece.type.deliver, 1, 2, 1, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.deliver, 2, 4, 2, 2, _text.text);
                                 break;
 
                         }
@@ -313,22 +312,22 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
                         switch (_text.text)
                         {
                             case "Monetise":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 0, 2, 0, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 0, 4, 0, 2, _text.text);
                                 break;
                             case "Upscale":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 2, 0, 1, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 4, 0, 2, 2, _text.text);
                                 break;
                             case "Support":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 1, 1, 1, 4, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 2, 2, 2, 1, _text.text);
                                 break;
                             case "Updates":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 2, 2, 2, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 4, 4, 4, 2, _text.text);
                                 break;
                             case "Maintenance":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 2, 1, 0, 6, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 4, 2, 0, 3, _text.text);
                                 break;
                             case "Feature Roadmap":
-                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 1, 2, 1, 5, _text.text);
+                                piece.SetUpHexagon(HexagonPiece.type.upkeep, 2, 4, 2, 2, _text.text);
                                 break;
                         }
                         break;
