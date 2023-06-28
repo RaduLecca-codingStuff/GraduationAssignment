@@ -111,7 +111,9 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
     }
     void PlaceHexagon()
     {
-        if (GameManager.currentTimeLeft > 0)
+        var mousepos = GetMousePos();
+        RaycastHit2D hit = Physics2D.Raycast(mousepos, Vector2.up, .1f, 1 << 6);
+        if (GameManager.currentTimeLeft > 0 && hit.collider==null)
         {
             Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
             Vector3 mouseP = _tiles.CellToWorld(cellPoint);
@@ -126,6 +128,12 @@ public class UIHexagon : MonoBehaviour, IPointerClickHandler
             {
                 Debug.LogError("Prefab does not contain a HexagonPiece component");
             }
+        }
+        else
+        {
+            _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 1);
+            _renderer.gameObject.SetActive(true);
+            _selected = false;
         }
     }
     public void OnPointerClick(PointerEventData eventData)

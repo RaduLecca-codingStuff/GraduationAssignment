@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     public static HexagonPiece InfoPiece = new HexagonPiece();
 
-
     // Menu navigation 
     static Canvas _mainMenu;
     static Canvas _tutorialMenu;

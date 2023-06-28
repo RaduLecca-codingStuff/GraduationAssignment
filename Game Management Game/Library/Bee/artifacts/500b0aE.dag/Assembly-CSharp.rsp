@@ -382,12 +382,12 @@
 "Assets/Scripts/Menus/In-game/BorrowButton.cs"
 "Assets/Scripts/Menus/In-game/ClientDescription.cs"
 "Assets/Scripts/Menus/In-game/EndMenu.cs"
+"Assets/Scripts/Menus/In-game/MDesMenuScript.cs"
 "Assets/Scripts/Menus/In-game/OpenMenu.cs"
-"Assets/Scripts/Menus/MDesMenuScript.cs"
+"Assets/Scripts/Menus/In-game/SubmittingWinMenu.cs"
 "Assets/Scripts/Menus/Meters/TimeMeter.cs"
 "Assets/Scripts/Menus/Meters/ValueMeters.cs"
 "Assets/Scripts/Menus/ResGenerator.cs"
-"Assets/Scripts/Menus/SubmittingWinMenu.cs"
 "Assets/Scripts/Menus/Tutorial/TutorialScript.cs"
 -langversion:9.0
 

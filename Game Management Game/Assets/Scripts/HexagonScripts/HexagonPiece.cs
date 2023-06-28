@@ -90,9 +90,8 @@ public class HexagonPiece : MonoBehaviour
                 {
                     TakeHexagon(hit.collider.transform.GetComponent<HexagonPiece>());
                 }
-                
             }
-            else if (   _drag)
+            else if (_drag)
             {
                 PlaceHexagon();
                 return;
@@ -187,16 +186,16 @@ public class HexagonPiece : MonoBehaviour
             GameManager.InfoPiece = p;
             _drag = true;
             _neighbours.Clear();
-            _audioSource.volume = GameManager.sfxVolume;
-            _audioSource.clip = takeAudio;
-            _audioSource.Play();
+            GameManager.selectedPiece._audioSource.volume = GameManager.sfxVolume;
+            GameManager.selectedPiece._audioSource.clip = takeAudio;
+            GameManager.selectedPiece._audioSource.Play();
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, .5f);
         }
-        
     }
     private void PlaceHexagon()
     {
-        if(GameManager.selectedPiece._drag)
+
+        if (GameManager.selectedPiece._drag)
         {
             Vector3Int cellPoint = _tiles.WorldToCell(GetMousePos());
             Vector3 mouseP = _tiles.CellToWorld(cellPoint);
@@ -204,10 +203,11 @@ public class HexagonPiece : MonoBehaviour
             GameManager.selectedPiece.transform.GetComponent<SpriteRenderer>().sortingOrder = 1;
             GameManager.selectedPiece.CreateNewCluster();
             GameManager.selectedPiece._renderer.color = new UnityEngine.Color(1, 1, 1, 1);
-            _audioSource.volume = GameManager.sfxVolume;
-            _audioSource.clip = placeAudio;
-            _audioSource.Play();
+            GameManager.selectedPiece._audioSource.volume = GameManager.sfxVolume;
+            GameManager.selectedPiece._audioSource.clip = placeAudio;
+            GameManager.selectedPiece._audioSource.Play();
         }
+
         GameManager.selectedPiece._drag = false;
     }
     //////////////////////////////
@@ -367,6 +367,7 @@ public class HexagonPiece : MonoBehaviour
     public IEnumerator WarningCoroutine()
     {
         _renderer.color = UnityEngine.Color.red;
+        yield return new WaitForSeconds(2);
         while (_renderer.color != UnityEngine.Color.white)
         {
             _renderer.color += new UnityEngine.Color(0, 0.1f, 0.1f);
